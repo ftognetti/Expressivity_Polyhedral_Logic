@@ -1,0 +1,181 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+%\usepackage{utopia}%\usepackage{XCharter}%\usepackage{beramono}
+
+%writing packages
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools,latexsym,csquotes}
+\usepackage{mathrsfs,afterpage,MnSymbol,bbm,mdframed}
+
+\usepackage{epigraph,stmaryrd,xcolor,enumerate}
+\usepackage[activate={true,nocompatibility},tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+
+%graphic packages
+\usepackage{tikz,tikz-cd,float,caption,subcaption,graphicx,adjustbox}
+\usepackage{quiver}  
+\usepackage{bussproofs}
+
+\usetikzlibrary{decorations.pathmorphing}
+\usetikzlibrary{calc}
+
+\let\lrcorner\relax
+\newsavebox{\pullback} 
+\sbox\pullback{%
+\begin{tikzpicture}%
+\draw (0,0) -- (1ex,0ex);%
+\draw (1ex,0ex) -- (1ex,1ex);%
+\end{tikzpicture}}
+\DeclareMathOperator{\lrcorner}{\usebox\pullback}
+
+%various packages
+\usepackage[
+backend=biber,
+style=alphabetic,
+sorting=ynt
+]{biblatex}
+
+\addbibresource{bib.bib}
+\usepackage[english]{babel}
+%\usepackage[a-1b]{pdfx}
+\usepackage[pdfa]{hyperref}
+
+%Frontespiece packages
+\usepackage{subfiles}
+\usepackage[a4paper,top=4.5cm,bottom=4cm,inner=3.5cm,outer=3.5cm]{geometry}
+
+%commands
+\newcommand\myemptypage{
+    \null
+    \thispagestyle{empty}
+    \addtocounter{page}{-1}
+    \newpage
+    }
+
+\newenvironment{bprooftree}
+    {\leavevmode\hbox\bgroup}
+    {\DisplayProof\egroup}
+\newcommand\tbf[1]{\textbf{#1}}
+\newcommand\op[1]{#1^{op}}
+\newcommand\co[1]{#1^{co}}
+\newcommand\coop[1]{#1^{coop}}
+\newcommand{\sbigotimes}{
+  \mathop{\mathchoice{\textstyle\bigotimes}{\bigotimes}{\bigotimes}{\bigotimes}}%
+}
+\newcommand{\sbigoplus}{
+  \mathop{\mathchoice{\textstyle\bigoplus}{\bigoplus}{\bigoplus}{\bigoplus}}%
+}
+\newcommand\sh[1]{\mathcal{#1}}
+\newcommand\set[1]{\left\{ #1 \right\}}
+\newcommand\shet[1]{\llbracket #1\rrbracket}
+\newcommand\bor[1]{\overline{#1}}
+\newcommand\mat[1]{\begin{pmatrix}#1\end{pmatrix}}
+\newcommand\gen[1]{\left\langle #1 \right\rangle}
+\newcommand\tolde[1]{\widetilde{#1}} 
+\newcommand\ra[1]{\xsquigrightarrow{#1}}
+\newcommand\la[1]{\xsquigleftarrow{#1}}
+%numbering settings
+\numberwithin{equation}{section} 
+
+%theorems
+\newtheorem{theorem}[equation]{Theorem}
+\newtheorem{proposition}[equation]{Proposition}
+\newtheorem{definition}[equation]{Definition}
+\newtheorem{observation}[equation]{Observation}
+\newtheorem{lemma}[equation]{Lemma}
+\newtheorem{corollary}[equation]{Corollary}
+\newtheorem*{note}{Note}
+\newtheorem*{remark}{Remark}
+\newtheorem{example}[equation]{Example}
+\newtheorem*{mddd}{Dilly-Dally}
+\newenvironment{dd}[1][]%
+   {\begin{mdframed}[linecolor=blue]\begin{mddd}[#1]}
+   {\end{mddd}\end{mdframed}}
+\newtheorem*{exercise}{Exercise}
+
+
+%operators
+\DeclareMathOperator{\Lim}{Lim}
+\DeclareMathOperator{\CoLim}{CoLim}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\ob}{ob}
+\DeclareMathOperator{\mor}{mor}
+\DeclareMathOperator{\Cone}{Cone}
+\DeclareMathOperator{\Sh}{\textbf{Sh}}
+\DeclareMathOperator{\Psh}{\textbf{Psh}}
+\DeclareMathOperator{\coker}{coker}
+\DeclareMathOperator{\im}{im}
+\DeclareMathOperator{\coim}{coim}
+\DeclareMathOperator{\Mod}{Mod}
+\DeclareMathOperator{\eq}{eq}
+\DeclareMathOperator{\coeq}{coeq}
+\DeclareMathOperator{\Bilin}{Bilin}
+\DeclareMathOperator{\End}{End}
+\DeclareMathOperator{\subopen}{\subseteq^o}
+\DeclareMathOperator{\subclosed}{\bor{\subseteq}}
+\DeclareMathOperator{\pre}{pre}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\A}{\mathbb{A}}
+\DeclareMathOperator{\bF}{\mathbb{F}}
+\DeclareMathOperator{\N}{\mathbb{N}}
+\let\P\relax
+\DeclareMathOperator{\P}{\mathbb{P}}
+\DeclareMathOperator{\pp}{\mathfrak{p}}
+\DeclareMathOperator{\Pp}{\mathscr{P}}
+\DeclareMathOperator{\E}{\mathcal{E}}
+\DeclareMathOperator{\F}{\mathcal{F}}
+\DeclareMathOperator{\G}{\mathcal{G}}
+\DeclareMathOperator{\sH}{\mathscr{H}}
+\DeclareMathOperator{\I}{\mathscr{I}}
+\DeclareMathOperator{\Supp}{Supp}
+\DeclareMathOperator{\Ann}{Ann}
+\DeclareMathOperator{\Oo}{\mathcal{O}}
+\DeclareMathOperator{\Spec}{Spec}
+\DeclareMathOperator{\primeideal}{\trianglelefteq_{\mathfrak{p}}}
+\DeclareMathOperator{\homogideal}{\trianglelefteq^{\mathcal{H}}}
+\DeclareMathOperator{\subaff}{\subseteq^{\text{aff}}}
+\let\r\relax
+\DeclareMathOperator{\r}{red}
+\DeclareMathOperator{\Proj}{Proj}
+\DeclareMathOperator{\Frac}{Frac}
+\DeclareMathOperator{\Der}{Der}
+\DeclareMathOperator{\ch}{char}
+\DeclareMathOperator{\ev}{eval}
+\let \b\relax
+\DeclareMathOperator{\b}{\Box}
+\let \d\relax
+\DeclareMathOperator{\d}{\Diamond}
+\DeclareMathOperator{\Sub}{Sub}
+\DeclareMathOperator{\inv}{ inv.}
+\DeclareMathOperator{\ar}{ar}
+
+%categories
+\DeclareMathOperator{\Geom}{\textbf{Geom}}
+\DeclareMathOperator{\Top}{\textbf{Top}}
+\DeclareMathOperator{\Set}{\textbf{Set}}
+\DeclareMathOperator{\Grp}{\textbf{Grp}}
+\DeclareMathOperator{\Ab}{\textbf{Ab}}
+\DeclareMathOperator{\KHaus}{\textbf{KHaus}}
+\DeclareMathOperator{\Aa}{\mathcal{A}}
+\DeclareMathOperator{\Sch}{\textbf{Sch}}
+\DeclareMathOperator{\Ring}{\textbf{CRing}}
+\DeclareMathOperator{\LRing}{\textbf{LocRing}}
+\DeclareMathOperator{\LRL}{\textbf{LRL}}
+\DeclareMathOperator{\Vect}{\textbf{Vect}}
+\DeclareMathOperator{\Rel}{\textbf{Rel}}
+\DeclareMathOperator{\CAT}{\textbf{CAT}}
+\DeclareMathOperator{\CABA}{\textbf{CABA}}
+\DeclareMathOperator{\Syn}{\textbf{Syn}}
+\DeclareMathOperator{\ASyn}{\textbf{ASyn}}
+\DeclareMathOperator{\Cor}{\textbf{Cor}}
+\DeclareMathOperator{\Split}{\textbf{Split}}
+
+\begin{document}
+\tableofcontents
+\include{Sections/1}
+\include{Sections/2}
+\end{document}

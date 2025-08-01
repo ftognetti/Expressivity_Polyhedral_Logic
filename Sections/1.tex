@@ -1,0 +1,168 @@
+\section{On the correct choice of models}
+Polyhedra enjoy many nice visualization properties due to their 'small' nature:
+The picture most people -among those, the author- have in mind when talking about Polyhedra
+is a compact, connected subset of $\R^n$.
+
+While this picture is amazing for reasoning and for applications, it gets in the way of the goal of this paper:
+
+Recall 
+\begin{theorem}[Goldblatt-Thomason]\hfill 
+
+A class of (Kripke) frames is modally definable if and only if:
+\begin{itemize}
+    \item It's closed under bounded morphic images,
+    \item It's closed under (arbitrary) disjoint unions,
+    \item It's closed under - and reflects ultrafilter extensions.
+\end{itemize}
+\end{theorem}
+
+Images do nothing to subtract from our understanding of Polyhedra, but that is the only non-issue:
+
+A class closed under arbitrary disjoint unions must contain a a non-compact non-connected space: 
+Say we tried to generate a class from the polyhedron consisting of a single vertex,
+ we can obtain an infinite discrete set of $\aleph_0$ vertices 
+ by taking the disjoint union of the point with itself $\aleph_0$ times.
+
+ An even bigger problem is the closure under ultrafilter extensions: 
+ Say we have a polyhedron with infinite cardinality $\aleph_0$ -which we must, as was argued just above-,
+its ultrafilter extension must have cardinality $2^{2^{\aleph_0}}$ %citation
+, which is too big to be a subset of $\R^n$ for any finite $n$.
+
+Annoyingly enough, we expect those extension to be well-behaved dimension-wise %citation 
+(the ultrafilter extension an n-dimensional polyhedron should be n-dimensional too as they express the same logic)
+meaning that embedding it in $\R^\kappa$ for an appropriate cardinal $\kappa$ wouldn't do us any favors, 
+as we should always be able to find a finite-dimensional space (thus of smaller cardinality than our set) in which it's embeddable. %citation
+
+So, what do we propose as models?
+
+\subsection{Simplicial complexes}
+Simplicial complexes are the most widely used model of polyhedra: They give all the topological information about them with minimal size.
+
+\begin{definition}[Simplicial Complex]\hfill 
+
+    A \textbf{Simplicial complex} is a pair $(V,\Sigma)$ such that $\Sigma\subseteq\Pp(V)$ is closed under taking subsets.
+
+    We call the elements of $\Sigma$ \textbf{Simplices} and we say that $\tau$ is a \textbf{face} of $\sigma$ -denoted $\tau\prec\sigma$-
+    whenever $\tau \subseteq \sigma$. 
+
+    We will often avoid talking about $V$ and regard $\Sigma$ as the fundamental object, since $V$ can be extracted as its singletons.
+
+    A \textbf{Map} of simplicial complexes $(V,\Sigma)\to(V\sigma')$ is a function $f:V\to V'$ such that the image of every simplex of $\Sigma$ is a simplex of $\Sigma'$.
+\end{definition}
+
+This is a pretty standard combinatorial description, that has its geometric counterpart:
+
+\begin{definition}[Geometric realization]\hfill 
+
+    Consider a simplicial complex $\Sigma$ regarded as a preorder with its face relation. Construct a functor $G:\Sigma\to\Top$ as follows:
+    \begin{itemize}
+        \item $G(\sigma)=\Delta^{|\sigma|}$ (the simplex of order "cardinality of $\sigma$")
+        \item $G(\tau\leq\sigma):\Delta^m\to\Delta^n$ is the embedding of one of its faces.
+    \end{itemize}
+
+    In this, we modify the existing structure a little:
+    We call $\tolde{G}$ the functor $\tolde{G}(X)=I(G(X))$ where $I$ denotes the \textbf{Relative interior}, that is, the interior of the face seen as immersed 
+    in the smallest possible real affine space contaning it.
+    as it's usually the case.
+
+    The \textbf{Geometric realization} of $\Sigma$ is the colimit $|\Sigma|:=\lim\limits_{\to} \tolde{G}$.
+
+    In other words it's the quotient space $\displaystyle{\frac{\coprod_{\sigma\in\Sigma}(G(\sigma))^o}{\sim}}$ where $\sim$ identifies each point
+     with its face embedding.
+\end{definition}
+
+Here's a picture for clarity: 
+%insert picture 
+
+The abstract setting allows us not to bother about embedding the polyhedron in a bigger space.
+
+We encounter an issue here: Those who are familiar with the literature on polyhedral semantics know that we want to consider polyhedrally shaped
+subsets contained in a face, but this abstract view a priori does not give us access to points of a face.
+
+The abstract setting allows us to use an important theorem:
+\begin{theorem}
+    For any $x$ in the geometric realization of a simplicial complex, there exists a unique simplex $\sigma$ such that $x\in \tolde{G}(
+        \sigma)$
+\end{theorem}
+\begin{proof}
+    %\cite{}
+\end{proof}
+Let us define: 
+\begin{definition}[Polyhedra]\hfill 
+
+    Let $\Sigma,\Sigma'$ be two simplicial complexes. We say that $\Sigma\sim_p \Sigma'$ (read: $\Sigma$ and $\Sigma'$ are \textbf{Polyhedrally Equivalent}) 
+    whenever they have the same realization \footnote{Here 'the same' is a bit of a vague concept: Asking for \textbf{equality} is -as usual- too restrictive
+    but \textbf{homeomorphism} is a bit too loose (recall that a square and a triangle are very much homeomorphic. We will discuss what the appropriate notion of 
+    "sameness" is in a later section)}
+     %MORE PRECISE
+
+    A \textbf{Polyhedron} $P$ is an equivalence class of simplicial complexes through $\sim_p$.
+\end{definition}
+
+We have a way to pass from simplicial complexes to topological spaces, now we need a way to go back.
+
+We need a couple of checks:
+
+\begin{proposition}[Equivalence and triangulation]
+    Let $\Sigma$ be a simplicial complex and $x\in |\Sigma|$ any point on its realization.
+    
+    Then there exists a complex $\Sigma'$ such that $\Sigma'\sim_p\Sigma$ and $x$ is the realization of a vertex of $\Sigma'$
+\end{proposition}
+\begin{proof}\hfill 
+
+    Consider the simplicial complex $P$ made of the vertices of $|\Sigma|$ (in $\Top$).
+    This realizes to itself, thus being equivalent to $|\Sigma|$. 
+
+    Now consider the unique face $\sigma=(y_1,...,y_n)$ whose relative interior contains $x$.
+    Add the lines $(xy_i)_{i=1,...,n}$, then the triangles $(xy_iy_j)_{i<j=1,...,n}$, etcetera \\
+    until the n-simplices $(xy_{i_1}\cdots y_{i_{n-1}})_{i_1<...<i_{n-1}=1,...,n}$
+
+    As everything is contained in the same face $\sigma$ we obtain the same realization as $P$, thus the same realization as $\Sigma$.
+\end{proof}
+
+\begin{proposition}[$\sim_p$ induces morphisms]\hfill 
+
+Let $\Sigma$ and $\Sigma'$ be two polyhedrally equivalent simplicial complexes, then there exists a simplicial complex $\Sigma''$ in the same equivalence class
+and a pair of monomorphisms 
+\[\begin{tikzcd}[ampersand replacement=\&]
+	\Sigma \& {\Sigma''} \& {\Sigma'}
+	\arrow[tail, from=1-1, to=1-2]
+	\arrow[tail, from=1-3, to=1-2]
+\end{tikzcd}\]
+\end{proposition}
+\begin{proof}\hfill 
+
+This is non other than the triangulation lemma:
+We simply repeat the process described in the lemma above for all points not in common between the two.
+
+The original faces are maintained thus the two maps are simply inclusions.
+%\cite{}
+\end{proof}
+
+\begin{proposition}[$\sim_p$ extends on morphisms]\hfill 
+
+Let $f:\Sigma\to\Sigma'$ be a morphism of simplicial complexes. Then for all morphsims $P\in [\Sigma]_{\sim_p}\to Q\in [\Sigma']_{\sim_p}$
+there exist $P'\in [\Sigma]_{\sim_p}\to Q'\in [\Sigma']_{\sim_p}$ extending the two morphisms as pictured in the diagram:
+\[\begin{tikzcd}[ampersand replacement=\&]
+	\Sigma \&\& {\Sigma'} \\
+	{P'} \&\& {Q'} \\
+	P \&\& Q
+	\arrow[from=1-1, to=1-3]
+	\arrow[from=1-1, to=2-1]
+	\arrow[from=1-3, to=2-3]
+	\arrow[dashed, from=2-1, to=2-3]
+	\arrow[from=3-1, to=2-1]
+	\arrow[from=3-1, to=3-3]
+	\arrow[from=3-3, to=2-3]
+\end{tikzcd}\]
+\end{proposition}
+\begin{proof}\hfill 
+
+    We apply the previous lemma to construct $P'$ and $Q'$.
+    
+    Every vertex of $P'$ either comes from $\Sigma$ of from $P$, thus the map is well defined on vertices.
+
+    Now, if there exists a simplex in $P'$ that doesn't map onto a simplex of $Q'$ yadda yadda i'm sleepy it should be doable tho.
+    %refine this
+\end{proof}
+
