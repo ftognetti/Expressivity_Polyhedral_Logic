@@ -5,16 +5,123 @@ is a compact, connected subset of $\R^n$.
 
 While this picture is amazing for reasoning and for applications, it gets in the way of the goal of this paper:
 
-Recall 
-\begin{theorem}[Goldblatt-Thomason]\hfill 
+We will introduce Polyhedra, first in the 'concrete' setting, then in the abstract one, explaining what we believe to be the correct 
+generalizations along the way.
+\subsection{Simplicial complexes}
+Simplicial complexes are the most common and useful way to describe polyhedra in the compact/finite case (i.e. the only one used in practice).
 
-A class of (Kripke) frames is modally definable if and only if:
+First a \textbf{Geometric description}
+\begin{definition}[(Geometric) simplicial complex]\hfill 
+
+    Let $V$ be a set of points in $\R^n$. A \textbf{Simplex} is the set of affine combinations 
+    \[\set{\sum_{i}a_iv_i: a_i\in\R, \sum_i a_i=1}\]
+    
+    A \textbf{Simplicial Complex} or \textbf{Polyhedron} is a finite union of simplices.
+\end{definition}
+
+Note that any simplex is completely determined by its set $V$ of vertices, allowing for a more compact (combinatorial) description
+\begin{definition}[(Combinatorial) simplicial complex]\hfill
+
+    A \textbf{Simplicial complex} is a (discrete) set $V\subseteq \R^n$ of \textbf{vertices} together with a set $\Sigma\subseteq \Pp V$ of \textbf{simplices}
+    such that 
+    \begin{enumerate}
+        \item Every face of a simplex is itself a simplex
+        \item Every intersection between two simplices is either empty or a common face of the two.
+    \end{enumerate}
+    We will often omit the set of vertices when talking about combinatorial simplicial complexes.
+    
+    Given a polyhedron $X$ we say that the simplicial complex $\Sigma$ whose vertices and simplices are contained $X$ is a 
+    \textbf{triangulation} or \textbf{combinatorial reduction} of $X$, and conversely that $X$ is a (the) \textbf{geometric realization} of $\Sigma$, denoted $|\Sigma|$.
+\end{definition}
+\begin{lemma}\hfill 
+
+    Every finite simplicial complex is the triangulation of a polyhedron.
+\end{lemma}
+\begin{proof}
+    %\cite{}
+\end{proof}
+
+Note that -contrary to what is usually thought of when we say 'face'- in both descriptions the vertices themselves are simplices, thus faces of the complex.
+
+We need an appropriate notion of 'sameness' and of 'function' between two such objects,
+thus we need to define what are the components of the category we will be working in:
+
+Note that $\Top$ (the category of topological spaces and continuous maps) is too loose for our benefit:
+A triangle and a square are homeomorphic -thus essentially the same objects as far as topology is concerned-
+but they're different objects to us. Differentiable manifolds are a bit too strict as the objects we deal with almost always have singular points;
+
+The common solution in the literature is to consider \textbf{Piecewise-linear} manifolds and homeomorphisms between them.
+
+\begin{definition}[$\PL$]\hfill 
+
+        The category $\PL$ of \textbf{Piecewise-linear manifolds} is the category that has as objects topological manifolds with an atlas
+        whose transition maps are piecewise linear,
+        and as maps continuous maps that are Piecewise-linear when restricted to the charts
+
+        In particular we call the category $\PL_C$ of \textbf{Combinatorial manifolds} the full subcategory of $\PL$ whose objects are geometric simplicial complexes.
+\end{definition}
+
+Lastly before connecting the concepts we need to define what a morphism of simplicial complexes is and how to refine them 
+(as a priori we do not have access to every point) of their faces.
+\begin{definition}[Morphism of (combinatorial) simplicial complexes]
+    A \textbf{morphism of simplicial complexes} $f:(V,\Sigma)\to(V',\Sigma')$ is a function $f:V\to V'$ such that the image of a simplex in $\Sigma$ is a simplex of $\Sigma'$
+\end{definition}
+\begin{theorem}\hfill 
+
+    Let $f:X\to Y$ be a PL-morphism, then there exists a triangulation of $X$ and $Y$ such that $f$ is a morphism of simplicial complexes.    
+\end{theorem}
+\begin{corollary}\hfill 
+
+    For every pair of PL-homeomorphic geometric simplicial complexes $P\simeq P'$ there are two triangulations $\Sigma$ of $P$ and $\Sigma'$ of $P'$ that are isomorphic 
+    as combinatorial simplicial complexes.
+\end{corollary}
+\begin{proof}
+    %\cite{}
+\end{proof}
+
+Lastly, we want a way to speak about triangulations of simplicial complexes from a purely combinatorial point of view: that is, given a combinatorial simplicial complex, 
+what other simplicial complexes realize to the same space?
+
+\begin{definition}[Stellar moves]\hfill 
+
+Given two disjoint simplicial complexes $\Sigma$ and $\Sigma'$ we define:
+
+\noindent Their \textbf{join} $\Sigma\vee\sigma'$ to be 
+\[\set{\sigma\cup\sigma': \sigma\in\Sigma,\sigma'\in\Sigma'}\]
+The \textbf{Star} of a face $\sigma$ to be 
+\[\bigstar_\Sigma(\sigma)\coloneq\set{\tau\in\Sigma:\tau\cup\sigma\in\Sigma}\]
+The \textbf{link} of a face $\sigma$ to be 
+\[\ell_\Sigma(\sigma)\coloneq \set{\tau\in\bigstar_\Sigma(\sigma): \tau\cap\sigma=\emptyset}\]
+Lastly, the \textbf{deletion} of a face $\sigma$ as 
+\[\Sigma\setminus\sigma\coloneq \set{\tau\in\Sigma: \sigma\not{\subseteq}\tau}\]
+and the \textbf{boundary} of a face $\sigma$ as 
+\[\partial\sigma=\set{\tau\in \Sigma: \tau\subsetneq \sigma}\]
+
+\noindent A \textbf{stellar subdivision} of a complex $\Sigma$ at $\sigma$ is a simplicial complex 
+\[(\Sigma\setminus\sigma) \cup (\set{x}\vee\partial \sigma\vee \ell_\Sigma(\sigma))\]
+where $x$ is a new vertex we are introducing.
+
+We call a \textbf{stellar move} of a complex either a stellar subdivision or its inverse, and we say that 
+two complexes are \textbf{stellarly equivalent} $\Sigma\sim_\star\Sigma'$ if one can be obtained from the other via stellar moves.
+\end{definition}
+
+\begin{theorem}[Alexander]\hfill 
+
+Two simplicial complexes are stellarly equivalent if and only if their geometric realizations are $\PL$-homeomorphic.    
+\end{theorem}
+\begin{proof}
+    %\cite{}
+\end{proof}
+
+All of this shows that we have an equivalence of categories between combinatorial manifolds and simplicial complexes modulo stellar equivalence.
+
+\subsection{Abstract Simplicial complexes}
+Recall that, as for Goldblatt-Thomason theorem, that a class of frames is modally definable if and only if 
 \begin{itemize}
     \item It's closed under bounded morphic images,
     \item It's closed under (arbitrary) disjoint unions,
     \item It's closed under - and reflects ultrafilter extensions.
 \end{itemize}
-\end{theorem}
 
 Images do nothing to subtract from our understanding of Polyhedra, but that is the only non-issue:
 
@@ -29,140 +136,145 @@ its ultrafilter extension must have cardinality $2^{2^{\aleph_0}}$ %citation
 , which is too big to be a subset of $\R^n$ for any finite $n$.
 
 Annoyingly enough, we expect those extension to be well-behaved dimension-wise %citation 
-(the ultrafilter extension an n-dimensional polyhedron should be n-dimensional too as they express the same logic)
+(the ultrafilter extension an n-dimensional polyhedron should be n-dimensional too as they express the same logic) %cite this too.
 meaning that embedding it in $\R^\kappa$ for an appropriate cardinal $\kappa$ wouldn't do us any favors, 
 as we should always be able to find a finite-dimensional space (thus of smaller cardinality than our set) in which it's embeddable. %citation
 
-So, what do we propose as models?
+I believe we motivated enough in the previous section that the combinatorial side provides an adequate counterpart to the geometric side.
 
-\subsection{Simplicial complexes}
-Simplicial complexes are the most widely used model of polyhedra: They give all the topological information about them with minimal size.
+\begin{definition}[Abstract simplicial complex]\hfill 
 
-\begin{definition}[Simplicial Complex]\hfill 
-
-    A \textbf{Simplicial complex} is a pair $(V,\Sigma)$ such that $\Sigma\subseteq\Pp(V)$ is closed under taking subsets.
-
-    We call the elements of $\Sigma$ \textbf{Simplices} and we say that $\tau$ is a \textbf{face} of $\sigma$ -denoted $\tau\prec\sigma$-
-    whenever $\tau \subseteq \sigma$. 
-
-    We will often avoid talking about $V$ and regard $\Sigma$ as the fundamental object, since $V$ can be extracted as its singletons.
-
-    A \textbf{Map} of simplicial complexes $(V,\Sigma)\to(V\sigma')$ is a function $f:V\to V'$ such that the image of every simplex of $\Sigma$ is a simplex of $\Sigma'$.
+An \textbf{abstract simplicial complex} is a family of sets $\Sigma$ closed under taking subsets.
+We rename the subset relation \textbf{face relation} and denote it with $\preceq$ (and its irreflexive counterpart with $\prec$).
 \end{definition}
 
-This is a pretty standard combinatorial description, that has its geometric counterpart:
+Note that every notion defined in $1.7$ makes sense in this context, thus we can finally define 
+\begin{definition}[Abstract Polyhedron]\hfill 
 
-\begin{definition}[Geometric realization]\hfill 
+    A(n abstract) \textbf{Polyhedron} is an equivalence class of abstract simplicial complexes under stellar equivalence.
+\end{definition}
 
-    Consider a simplicial complex $\Sigma$ regarded as a preorder with its face relation. Construct a functor $G:\Sigma\to\Top$ as follows:
+\begin{proposition}[Finite abstract equals combinatorial]\hfill
+
+    An abstract simplicial complex is (equivalent to) a combinatorial simplicial complex -in the sense of definition 1.2- if and only if it's finite.
+    In other words there is an equivalence between the category of finite abstract simplicial complexes and combinatorial simplicial complexes.
+\end{proposition}
+\begin{proof}
+    If $(V,\Sigma)$ is a combinatorial simplicial complex then $\Sigma$ is a collection of sets closed under taking subsets, thus an abstract simplicial complex.
+
+    Now suppose we have a finite abstract simplicial complex $\Sigma$. We can construct $V$ as the set of singletons of $\Sigma$. 
+    Every face $\sigma$ can be expressed as a disjoint union of its elements, which must be elements of $V$ as $\Sigma$ is closed under taking subsets, thus without loss
+    of generality $\sigma\in\Pp V$.
+    Closure under subsets implies the two condition of definition $1.2$.
+\end{proof}
+
+From here on out we will omit the word ``abstract'' and instead refer to the content of the previous subsection as ``finite'' or ``compact''
+
+We want to check that these constructions have the properties we look for.
+
+Recall that 
+\begin{definition}\hfill 
+
+    If $(X,R)$ is a frame, then the ultrafilter extension $(\Uf(X),\tilde{R})$ is the frame whose underlying set is
+    \begin{align*}
+        \Uf(X)=\{U\subseteq \Pp X:& X\in U,\\
+        & \forall A\in U, \uparrow A\subseteq U, \\
+        & A,B\in U\Rightarrow A\cap B\in U\\
+        &\forall A\subseteq X, A\in U \text{ or }X\setminus A\in U\}
+    \end{align*}
+    And the relation is 
+    \[U \tilde{R} V \iff \set{x\in X: \set{y\in X: xRy}\in V}\in U\]
+
+    For the face relation (or any other order relation), this becomes 
+    \[U\tilde{\prec}V\iff\set{x\in X: \uparrow^\prec(x)\in V}\in U\]
+\end{definition}
+
+As you may notice, applying the ultrafilter extension to a simplicial complex does not result in a simplicial complex:
+
+The basic reason is that no proper subset of an ultrafilter is an ultrafilter (for maximality), a deeper reason is that the construction 
+takes into account only the face poset and not the set-theoretical content of the faces.
+
+In other words, $\Uf$ takes in a poset and gives out a poset, thus we still need to realize it as a simplicial complex.
+
+\begin{definition}[Nerve of a poset]\hfill 
+
+    Let $(P,\leq)$ be a poset. The \textbf{Nerve} $\Nn(P)$ is a simplicial complex constructed in the following way:
     \begin{itemize}
-        \item $G(\sigma)=\Delta^{|\sigma|}$ (the simplex of order "cardinality of $\sigma$")
-        \item $G(\tau\leq\sigma):\Delta^m\to\Delta^n$ is the embedding of one of its faces.
+        \item  The \textbf{vertices} are the points of $P$.
+        \item  The \textbf{sides} are the $1$-chains $p_0\leq p_1$ in $P$.
+        \item  The \textbf{Triangles} are the $2-$chains $p_0\leq p_1\leq p_2$ in $P$.
+        \item  $\vdots $
+        \item The \textbf{n-simplices} are the $n-$chains $p_0\leq p_1\leq\cdots\leq p_n$ in $P$.
+        \item $\vdots$
     \end{itemize}
 
-    In this, we modify the existing structure a little:
-    We call $\tolde{G}$ the functor $\tolde{G}(X)=I(G(X))$ where $I$ denotes the \textbf{Relative interior}, that is, the interior of the face seen as immersed 
-    in the smallest possible real affine space contaning it.
-    as it's usually the case.
-
-    The \textbf{Geometric realization} of $\Sigma$ is the colimit $|\Sigma|:=\lim\limits_{\to} \tolde{G}$.
-
-    In other words it's the quotient space $\displaystyle{\frac{\coprod_{\sigma\in\Sigma}(G(\sigma))^o}{\sim}}$ where $\sim$ identifies each point
-     with its face embedding.
+    This is clearly a simplicial complex as for any $m<n$, any sub-$m$-chain on an $n-$chain is part of the complex.
 \end{definition}
 
-Here's a picture for clarity: 
-%insert picture 
+We will need the following theorem
+\begin{theorem}[Nerves behave well]\hfill 
 
-The abstract setting allows us not to bother about embedding the polyhedron in a bigger space.
-
-We encounter an issue here: Those who are familiar with the literature on polyhedral semantics know that we want to consider polyhedrally shaped
-subsets contained in a face, but this abstract view a priori does not give us access to points of a face.
-
-The abstract setting allows us to use an important theorem:
-\begin{theorem}
-    For any $x$ in the geometric realization of a simplicial complex, there exists a unique simplex $\sigma$ such that $x\in \tolde{G}(
-        \sigma)$
+    Let $\Sigma$ be a simplicial complex regarded as a poset with the face relation, then $\Nn(\Sigma)$ is stellarly equivalent to $\Sigma$.    
 \end{theorem}
-\begin{proof}
-    %\cite{}
+\begin{proof}\hfill 
+
+    It's proven that the Nerve of the face poset of a simplicial complex gives a \textbf{barycentric subdivision} of the complex %\cite{}
+
+    and that any barycentric subdivision can be obtained through a sequence of stellar moves.%\cite{}
 \end{proof}
-Let us define: 
-\begin{definition}[Polyhedra]\hfill 
 
-    Let $\Sigma,\Sigma'$ be two simplicial complexes. We say that $\Sigma\sim_p \Sigma'$ (read: $\Sigma$ and $\Sigma'$ are \textbf{Polyhedrally Equivalent}) 
-    whenever they have the same realization \footnote{Here 'the same' is a bit of a vague concept: Asking for \textbf{equality} is -as usual- too restrictive
-    but \textbf{homeomorphism} is a bit too loose (recall that a square and a triangle are very much homeomorphic. We will discuss what the appropriate notion of 
-    "sameness" is in a later section)}
-     %MORE PRECISE
+We will now abuse notation a little bit and call the ultrafilter extension of a simplicial complex $\Uf(\Sigma):=\Nn(\Uf(\Sigma))$ the Nerve of the 
+Ultrafilter extension of its face poset.
 
-    A \textbf{Polyhedron} $P$ is an equivalence class of simplicial complexes through $\sim_p$.
+\begin{proposition}[Closure under G-T]\hfill 
+
+    The class of abstract polyhedra is closed under ultrafilter extensions, disjoint unions and homomorphic images.    
+    \end{proposition}
+    \begin{proof}\hfill 
+
+        Homomorphic images are immediate:
+        Let $f:P\to Q$ be a morphism of polyhedra, i.e. an equivalence class of compatible morphisms of simplicial complexes.
+        The image of any simplicial complex is -by definition- a simplicial complex and the compatibility conditions mean that all images are equivalent.
+
+        we have to show that disjoint unions and Ultrafilter extensions of equivalent simplicial complexes are equivalent.
+    
+        Moreover, the ultrafilter extension of any finite preorder is isomorphic to the preorder itself, Thus its nerve falls in its equivalence class.
+        so we can restrict to only looking at infinite simplicial complexes.
+
+        Suppose $\Sigma\sim_\star\Sigma'$ through a single stellar move on a face, this means that their ultrafilter extensions will be the same outside of that face
+        meaning we can restrict to looking the local behaviour around the face, thus on a simplex.
+
+        Since the simplex is finite-dimensional $\Uf(\Sigma)\simeq \Sigma\sim_\star\Sigma'\simeq\Uf(\Sigma')$
+        \[NOTENTIRELYSURETHISARGUMETISCORRECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\]
+    \end{proof}
+
+\subsection{Polyhedral Models}
+\begin{definition}[Polyhedral model]\hfill 
+
+    A \textbf{Simplicial model} is a simplicial complex $K=(V,\Sigma)$ equipped with a valuation function
+    $\nu:\Prop\to\Pp\Sigma$
+
+    A \textbf{Polyhdral model} is a Polyhedron - in the sense of the previous section- $P=(V/\sim_p,\Sigma/\sim_p)$ equipped with a valuation.
+    In other words a polyhedral model is a collection of simplicial models with a partially defined valuation that is compatible for all finer triangulations.
 \end{definition}
 
-We have a way to pass from simplicial complexes to topological spaces, now we need a way to go back.
+In practice, when dealing with a polyhedral model, we fix a simplicial model that realizes the evaluation fully. Such a model will always exist 
+for reasons of size.
 
-We need a couple of checks:
+We interpret the logic the usual way: 
 
-\begin{proposition}[Equivalence and triangulation]
-    Let $\Sigma$ be a simplicial complex and $x\in |\Sigma|$ any point on its realization.
-    
-    Then there exists a complex $\Sigma'$ such that $\Sigma'\sim_p\Sigma$ and $x$ is the realization of a vertex of $\Sigma'$
-\end{proposition}
-\begin{proof}\hfill 
+\begin{itemize}
+    \item $M,\sigma\models \top\iff $always
+    \item $M,\sigma\models\phi\iff \sigma\in\nu(\phi)$
+    \item $M,\sigma\models\lnot\phi\iff M,\sigma\not{\models}\phi$
+    \item $M,\sigma\models\phi\wedge\psi\iff M,\sigma\models\phi$ and $M,\sigma\models\psi$
+    \item $M,\sigma\models \square\phi \iff \forall \tau\in \Sigma, \sigma\prec\tau\implies M,\tau\models\phi$
+\end{itemize}
+and all the other connectives can be derived from these. 
 
-    Consider the simplicial complex $P$ made of the vertices of $|\Sigma|$ (in $\Top$).
-    This realizes to itself, thus being equivalent to $|\Sigma|$. 
+Question: is there a purely combinatorial way to characterize when two simplicial complexes realize to the 'same' polyhedron?
 
-    Now consider the unique face $\sigma=(y_1,...,y_n)$ whose relative interior contains $x$.
-    Add the lines $(xy_i)_{i=1,...,n}$, then the triangles $(xy_iy_j)_{i<j=1,...,n}$, etcetera \\
-    until the n-simplices $(xy_{i_1}\cdots y_{i_{n-1}})_{i_1<...<i_{n-1}=1,...,n}$
+YES
+Every two PL homeomorphic simplicial complexes have a common stellar subdivision %\cite{}
 
-    As everything is contained in the same face $\sigma$ we obtain the same realization as $P$, thus the same realization as $\Sigma$.
-\end{proof}
-
-\begin{proposition}[$\sim_p$ induces morphisms]\hfill 
-
-Let $\Sigma$ and $\Sigma'$ be two polyhedrally equivalent simplicial complexes, then there exists a simplicial complex $\Sigma''$ in the same equivalence class
-and a pair of monomorphisms 
-\[\begin{tikzcd}[ampersand replacement=\&]
-	\Sigma \& {\Sigma''} \& {\Sigma'}
-	\arrow[tail, from=1-1, to=1-2]
-	\arrow[tail, from=1-3, to=1-2]
-\end{tikzcd}\]
-\end{proposition}
-\begin{proof}\hfill 
-
-This is non other than the triangulation lemma:
-We simply repeat the process described in the lemma above for all points not in common between the two.
-
-The original faces are maintained thus the two maps are simply inclusions.
-%\cite{}
-\end{proof}
-
-\begin{proposition}[$\sim_p$ extends on morphisms]\hfill 
-
-Let $f:\Sigma\to\Sigma'$ be a morphism of simplicial complexes. Then for all morphsims $P\in [\Sigma]_{\sim_p}\to Q\in [\Sigma']_{\sim_p}$
-there exist $P'\in [\Sigma]_{\sim_p}\to Q'\in [\Sigma']_{\sim_p}$ extending the two morphisms as pictured in the diagram:
-\[\begin{tikzcd}[ampersand replacement=\&]
-	\Sigma \&\& {\Sigma'} \\
-	{P'} \&\& {Q'} \\
-	P \&\& Q
-	\arrow[from=1-1, to=1-3]
-	\arrow[from=1-1, to=2-1]
-	\arrow[from=1-3, to=2-3]
-	\arrow[dashed, from=2-1, to=2-3]
-	\arrow[from=3-1, to=2-1]
-	\arrow[from=3-1, to=3-3]
-	\arrow[from=3-3, to=2-3]
-\end{tikzcd}\]
-\end{proposition}
-\begin{proof}\hfill 
-
-    We apply the previous lemma to construct $P'$ and $Q'$.
-    
-    Every vertex of $P'$ either comes from $\Sigma$ of from $P$, thus the map is well defined on vertices.
-
-    Now, if there exists a simplex in $P'$ that doesn't map onto a simplex of $Q'$ yadda yadda i'm sleepy it should be doable tho.
-    %refine this
-\end{proof}
-
+vattelo a pescare e produci (godo)
