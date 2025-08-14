@@ -246,6 +246,8 @@ Ultrafilter extension of its face poset.
 
         Since the simplex is finite-dimensional $\Uf(\Sigma)\simeq \Sigma\sim_\star\Sigma'\simeq\Uf(\Sigma')$
         \[NOTENTIRELYSURETHISARGUMETISCORRECT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\]
+
+        By induction we conclude the argument.
     \end{proof}
 
 \subsection{Polyhedral Models}
@@ -272,9 +274,8 @@ We interpret the logic the usual way:
 \end{itemize}
 and all the other connectives can be derived from these. 
 
-Question: is there a purely combinatorial way to characterize when two simplicial complexes realize to the 'same' polyhedron?
+The way we interpret this geometrically, is that the simplices realize to their \textbf{relative interior}, that is, the interior as immersed 
+in the smallest $\R^n$ containing them. We lose the interpretation of $\prec$ as the ``subset'' relation but we gain some other interesting properties:
 
-YES
-Every two PL homeomorphic simplicial complexes have a common stellar subdivision %\cite{}
-
-vattelo a pescare e produci (godo)
+The first is that the union of the simplices is now disjoint, the second one is that every point in the realization lays in exactly one simplex. Since by definition
+simplicial complexes are closed under taking subsets, the realization- as a topological space- is the exact same regardless to the interpretation we choose.
