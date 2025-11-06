@@ -1,0 +1,49 @@
+\section{Homology}
+
+Homology is a hot topic when talking about polyhedra.
+Here is a synthetic account 
+
+\subsection{simplicial homology}
+\lipsum
+\subsection{Modally undefinable homology}
+While there's little hope to give much information about homology through a modal language we shall note that our constructions map neatly
+onto the homology chain. 
+In particular 
+\begin{proposition}
+$H_\bullet(\Sigma\sqcup\Sigma')=H_\bullet(\Sigma)\oplus H_\bullet(\Sigma')$
+\end{proposition}
+\begin{proof}
+There's a proof of this somewhere for sure, can't be bothered now
+\end{proof}
+\begin{proposition}
+If $\Sigma\leq\Sigma'$ is a closed subcomplex, then there's a map $H_\bullet(\Sigma)\to H_\bullet(\Sigma')$
+\end{proposition}
+\begin{proof}
+Same here
+\end{proof}
+\begin{proposition}
+If $f:\Sigma\to\Sigma'$ is a simplicial map, then there's a bisimplicial map $f_*:H_\bullet(\Sigma)\to H_\bullet(\Sigma')$
+\end{proposition}
+\begin{proof}
+and here
+\end{proof}
+
+This means
+\begin{lemma}
+The homologies of a modally definable class of polyhedra must be closed under direct sum and images.
+
+Or, in the more useful direction:
+
+If the homology groups of a class of polyhedra is \textbf{not} closed under direct sums and images, then the class is not modally definable.
+\end{lemma}
+\begin{proof}
+Follows from the three translations.
+\end{proof}
+
+\begin{corollary}
+The class of genus $n$ polyhedra is not modally for any positive $n$ 
+\end{corollary}
+\begin{proof}
+    $H_1(\Sigma)\simeq\Z^n$ for all $\Sigma\in C$. 
+    As $\Z^n\oplus \Z^n\neq \Z^n$, the class is not closed under direct sums, thus not modally definable.
+\end{proof}

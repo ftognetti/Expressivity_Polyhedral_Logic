@@ -1,0 +1,97 @@
+\section{Goldblatt-Thomason Theorem for Polyhedra}
+
+Recall 
+\begin{theorem}[Goldblatt-Thomason]
+    A class of frames $C$ is definable by a set of modal formulas if and only if
+    \begin{enumerate}
+        \item It's closed under generated subframes
+        \item It's closed under bounded morphic images
+        \item It's closed under disjoint unions 
+        \item It's closed under and reflects ultrafilter extensions.
+    \end{enumerate}    
+\end{theorem}
+
+We want to define what it means for a class of Polyhedra to be modally definable:
+
+\begin{definition}\hfill
+
+    Let $C$ be a class of simplicial complexes. $C$ is modally definable if and only if the class
+    \[\F(C)=\set{\Face(\Sigma)\in\Pos: \Sigma\in C}\] is modally definable
+\end{definition}
+
+And of course we need a further geometric description:
+\begin{definition}\hfill 
+
+    Let $K$ be a class of Polyhedra (seen as combinatorial manifolds), we call the \textbf{simplicial companion} of $K$ the class 
+    \[\Simp(K)=\set{\Sigma\in\Scplx: |\Sigma|\in K}\]
+\end{definition}
+Thus we will say 
+\begin{lemma}\hfill 
+
+    A class of Polyhedra is modally definable if and ony if its simplicial companion is modally definable 
+\end{lemma}
+\begin{proof}
+    It's shown in %\cite{} maybe logics of polyhedral reachability?
+    that $|\Sigma|,x\models \phi\iff \Sigma,\sigma_x\models\phi$
+    Therefore \[|-|:\set{\Sigma:\Sigma\models\set{\phi_i}_{i\in I}}\twoheadrightarrow\set{|\Sigma|:|\Sigma|\models\set{\phi_i}_{i\in I}}\]
+    is an epimorphism
+
+    We showed that $\ker(|-|)$ is the 'common triangulation' equivalence, therefore 
+    \[\set{\Sigma:\Sigma\models\set{\phi_i}_{i\in I}}/\sim_{\star}\simeq \set{|\Sigma|:|\Sigma|\models\set{\phi_i}_{i\in I}}\]
+
+    Note that $\sim_{\star}$ is always a bisimilarity, thus the quotient is modally definable if and only if the class is 'modally definable up to bisimulation'
+    ,if and only if it's modally definable.
+\end{proof}
+
+Now let's see how the frame constructions are interpreted in simplicial complexes. 
+\subsection{Generated subframes}
+
+Recall:
+\begin{definition}[Generated subframe]\hfill 
+
+    Let $(K,R)$ be a Kripke frame. a \textbf{generated subframe} is a subset $K'\subseteq K$ with a relation $R'$ such that 
+    \begin{itemize}
+        \item if $w\in K'$ and $wRv$ then $v\in K'$.
+        \item $R'=R\cap (W'\times W')$
+    \end{itemize}
+\end{definition}
+
+In the face poset $R=\prec$ is the face relation. In other words we have that
+\begin{proposition}\hfill 
+
+Let $\Sigma$ be the face poset of a simplicial complex 
+$\Sigma'\subseteq \Sigma$ is a generated submodel if and only if it's upwards-closed, if and only if it's bisimilar to 
+\end{proposition}
+\begin{proof}
+For this, we regard every face poset as $\wedge-$complete, i.e., containing $\emptyset$.
+
+Let $\Sigma$ be a simplicial complex and $\Sigma'$ a generated submodel of $\Sigma$ regarded as its face poset. 
+
+Let $\mu$ be a minimal face in $\Sigma'$; $\mu\in \Sigma'$ implies that all faces containing $\mu$ are in $\Sigma'$ as it's upwards-closed.
+
+Now, the case $\mu=\emptyset$ means that $\Sigma=\Sigma'$ (it's the union of all links)
+
+The case where $\mu$ is a maximal face is also trivial: the only singleton-poset is the poset only containing $\emptyset$, which is the empty union.
+
+If $\mu$ is neither minimal nor maximal, then consider two cases: Either $\mu$ is the only minimal element or it isn't.
+
+If $\mu$ is the only minimal element, thus $\Sigma'=\uparrow\mu$: Every face of $\uparrow\mu$ contains $\mu$; Remove $\mu$ from every element of $\uparrow\mu$
+and call $\ell$ the resulting poset. 
+\[\ell=\set{\sigma\setminus\mu:\sigma\in\uparrow\mu}\]
+Note that now every element of $\ell$ is an element of $\Sigma$ as $\Sigma$ is downward-closed, and $\sigma\cap \mu=\emptyset$ by definition. 
+This means that $\ell=\ell_{\Sigma}(\mu)$.
+
+Now suppose there exist $\mu,\mu'$ distinct minimal elements of $\Sigma'$.
+Consider the poset \[\ell=\dfrac{\uparrow\mu\cup\uparrow\mu'}{(\mu\sim\mu'\sim \emptyset)}\]
+
+We can check that $\uparrow\mu\cup\uparrow\mu'\to \ell$ is a p-morphism:
+
+Let $\sigma\preceq\sigma'$, then $[\sigma]\preceq[\sigma']$: The edge cases are those where $\sigma\in \uparrow\mu$ and $\sigma'=\sigma\cup\mu'$, in which cases the
+quotient sends both to the same face.
+
+Now let $[\sigma]\preceq \tau$. This means that at least one between $\tau\cup\mu$, $\tau\cup\mu'$ is in $\uparrow\mu\cup\uparrow\mu'$.
+
+    WLOG suppose it's the first case: This means that if $[\sigma]\preceq\tau$ then in particular $\sigma\cup\mu\in \Sigma'$, thus $\tau\cup\mu$ realizes the 'zag' condition.
+
+Now, $\ell$ is isomorphic -as a poset- to $\ell_\Sigma(\mu)\cup\ell_\Sigma(\mu')$ 
+\end{proof}

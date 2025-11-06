@@ -1,2 +1,216 @@
-\section{Goldblatt-Thomason Theorem}
+\section{Definability of compact polyhedra}
 
+\cite{Blackburn_Rijke_Venema_2001} in chapter 3 gives us a definability result for classes of finite transitive frames
+
+\begin{theorem}
+
+A class of finite transitive frame is modally definable if and only if it's closed under finite disjoint union,
+bounded morphic images and generated subframes.
+\end{theorem}
+
+Suppose we have a class of simplicial complexes, it's modally definable if and only if the corresponding class of posets is.
+
+We want to translate these conditions in terms of simplicial complexes and then realize them in terms of polyhedra.
+
+The picture we want to have in mind when building classes is the following: 
+
+\[\begin{tikzcd}[ampersand replacement=\&]
+	\& C \\
+	{[C]} \& \Scplx \& {|C|} \\
+	\Pos \&\& \Pol
+	\arrow[from=1-2, to=2-1]
+	\arrow[hook, from=1-2, to=2-2]
+	\arrow[from=1-2, to=2-3]
+	\arrow[hook, from=2-1, to=3-1]
+	\arrow["{[-]}", from=2-2, to=3-1]
+	\arrow["{|-|}", from=2-2, to=3-3]
+	\arrow[hook, from=2-3, to=3-3]
+	\arrow["\Nn", shift left=3, from=3-1, to=2-2]
+\end{tikzcd}\]
+
+\subsection{Disjoint union}
+
+Let us start with disjoint unions: these are the easiest construction since they are the same in all three settings
+
+\begin{proposition}
+    For a pair of simplicial complexes $\Sigma, \Sigma'$, 
+    $[\Sigma\sqcup\Sigma']=[\Sigma]\sqcup[\Sigma']$
+\end{proposition}
+\begin{proof}
+    Let $\sigma$ be a simplex of $[\Sigma\sqcup\Sigma']$, then -as the union is disjoint- it must be a simplex of either $[\Sigma]$ or $[\Sigma']$, and vice versa.
+\end{proof}
+
+Similarly
+\begin{proposition}
+    For a pair of simplicial complexes $\Sigma,\Sigma'$, $|\Sigma\sqcup \Sigma'|=|\Sigma|\sqcup|\Sigma'|$
+\end{proposition}
+\begin{proof}
+    There are direct ways to show it but we appeal to abstract nonsense and say that the geometric realization is the coend 
+    \[\int^{n\in \N}\Delta^n\cdot \Sigma_n\] 
+    thus the constructions commutes with colimits.
+
+    This is not as clear, but theoretically better than a direct proof in $\R^n$ 
+    since it eventually will allow us to work with arbitrarily-sized polyhedra too.
+\end{proof}
+
+This means that
+\begin{lemma}
+    A class of simplicial complex $C$ is closed under disjoint union if and only if its corresponding class of posets $[C]$ is closed under disjoint union
+    if and only if its corresponding class of polyhedra $|C|$ is closed under disjoint union.
+\end{lemma}
+
+\subsection{generated subframes}
+
+Now suppose we have a simplicial complex $\Sigma$: What corresponds to generated subframes of $[\Sigma]$?
+
+Recall that
+\begin{definition}[Generated subframe]
+
+    A \textbf{Generated subframe} of a kripke frame $(W,R)$, is a subset $W'\subseteq W$ closed upwards under $R$.
+\end{definition}
+
+Recall that the posets we are considering are the 'coface' posets, i.e. the posets whose 
+elements are the faces of $\Sigma$ and whose relation is the opposite of the inclusion.
+
+This means that a generated subframe is $\uparrow-$closed under $\supseteq$, thus $\downarrow-$closed under $\subseteq$.
+
+in other words 
+\begin{lemma}\hfill
+
+    Let $C$ be a class of simplicial complexes, then $[C]$ is closed under generated subframes if and only if $C$ is closed under
+    subcomplexes. 
+\end{lemma}
+\begin{proof}\hfill 
+    Let $\Sigma$ be a simplicial complex and $\Sigma'$ a subcomplex. 
+    As $\Sigma'$ is a complex as well, then it's downward-closed.
+    
+    Conversely, if $S'\leq[\Sigma]$ is a downward-closed subposet, 
+    then by definition it's closed under taking subsets, thus it's a simplicial complex.
+\end{proof}
+
+\begin{lemma}
+    Let $C$ be a class of simplicial complexes, then $|C|$ is closed under subpolyhedra if and only if 
+    $C$ is closed under subcomplexes and triangulations.
+\end{lemma}
+\begin{proof}
+    if $\Sigma'\leq \Sigma$ is a subcomplex then $|\Sigma'|\subseteq |\Sigma|$ is a closed subpolyhedron.
+
+    Conversely, if $S\subseteq |\Sigma|$ is a closed subpolyhedron, then there exists a triangulation of $|\Sigma|$
+    that triangulates $S$, meaning that there exist two simplicial complexes $\Sigma',\Sigma''$ such that $|\Sigma'|=S,\ |\Sigma''|=|\Sigma|$
+\end{proof}
+
+\subsection{bounded morphic images}
+
+Lastly we need to interpret bounded morphism in our triad. Recall 
+\begin{definition}\hfill 
+
+    Let $(W,R)$ and $(W',R')$ be kripke frames and $f:W\to W'$ a function.
+
+    $f$ is a \textbf{bounded morphism} if and only if 
+    \begin{itemize}
+        \item $wRv$ implies $f(w)R'f(v)$
+        \item $f(w)R' v'$ implies that there exists $v$ such that $wRv$ and $f(v)=v'$.
+    \end{itemize}
+\end{definition}
+
+Interpreting this as the coface relation this means 
+\begin{itemize}
+    \item $\sigma\subseteq \tau$ implies $f(\sigma)\subseteq f(\tau)$
+    \item $\sigma'\subseteq f(\tau)$ implies that there exists $\sigma\subseteq \tau$ such that $f(\sigma)=\sigma'$
+\end{itemize}
+
+Let's define a class of simplicial maps:
+\begin{definition}[Bisimplicial map]\hfill 
+    
+    Let $(V,\Sigma),(V',\Sigma')$ be simplicial complexes. $f:V\to V'$ is called a \textbf{bisimplicial map} if 
+    \[\forall s\in \Pp(V), f(s)\in \Sigma' \iff s\in \Sigma\]
+\end{definition}
+
+\begin{lemma}\hfill 
+    
+    A map of simplicial complexes $f:\Sigma\to\Sigma'$ induces a bounded morphism $[\Sigma]\to[\Sigma']$ if and only if it's bisimplicial.
+\end{lemma}
+\begin{proof}
+    Suppose $f$ is a bisimplicial map, then suppose 
+    $\sigma\subseteq \tau$, then $f(\sigma)$ and $f(\tau)$ are simplices and $f(\sigma)\subseteq f(\tau)$ as it's an image map.
+
+    Now suppose $\sigma'=f(\tau)$. suppose $\tau=v_1,...,v_n$, thus $f(\tau)=f(v_1),...,f(v_n)$. up to reordering, $\sigma'=f(v_1),...,f(v_k)$.
+    As $f$ is bisimplicial, $f(v_1),...,f(v_k)=f(v_1,...,v_k)$ is a simplex, thus $\sigma:=v_1,...,v_k$ is a simplex and - by structure- a subsimplex of $v_1,...,v_n$. 
+    
+    Now conversely, suppose that $f$ is a bounded morphism $[\Sigma]\to[\Sigma']$, the (co)induced $f:\Sigma\to\Sigma'$
+
+    First we need to check that image of a vertex is a vertex. This is because vertices are simplices, and minimal ones at that:
+    suppose we have a vertex $v$ such that $f(v)=\sigma'$. then if $\sigma'$ is not a vertex, there exists $w'\subsetneq \sigma'=f(v)$.
+
+    This means that there must exist $w\subseteq v$ such that $f(w)=w'$, but such $w$ does not exist as $v$ is minimal. $\to\gets$.
+
+    Image of a simplex is a simplex (by definition), and suppose 
+    
+    $f(v_1,...,v_n)$ is a simplex of $\Sigma'$ but $v_1,...,v_n$ is not a simplex of $\Sigma$. but $f(v_1,...,v_n)=f(v_1,...,v_n)$ (thus in particular $\subseteq$)
+    But then there exist a simplex $v_1,...,v_k\subseteq v_1,...,v_n$ such that $f(v_1,...,v_k)=f(v_1,...,v_n)$. But then for a question of cardinality it must be the case that
+    $v_1,...,v_k=v_1,...,v_n$, thus $v_1,...,v_n$ is a simplex of $\Sigma$.
+\end{proof}
+
+Now to interpret bisimplicial maps as maps of polyhedra: 
+
+Suppose we have the map $|f|:|\Sigma|\to|\Sigma'|$ that is the realization of a map $f:\Sigma\to\Sigma'$. 
+
+If $f$ is bisimplicial, then this results in the conditions
+\begin{itemize}
+    \item if $\Hull(v_1,...,v_k)\subseteq |\Sigma|$, then $f(\Hull(v_1,...,v_k))=\Hull(f(v_1),...,f(v_k))\subseteq |\Sigma'|$, and 
+    \item if $\Hull(f(v_1),...,f(v_k))\subseteq |\Sigma'|$, then $\Hull(v_1,...,v_k)\subseteq |\Sigma|$
+\end{itemize} 
+
+This is equivalent to it being a retraction onto the image:
+\begin{theorem}
+    Suppose $f$ if a map $\Sigma\to\Sigma'$, then it's a bisimplicial map if and only if $f:\Sigma\to\im(f)$ is a retraction.
+\end{theorem}
+\begin{proof}\hfill 
+    Suppose that $f$ is bisimplicial.
+
+    First, note that $f$ is surjective onto the vertices of $\im(f)$. 
+    Moreover if $\sigma'=v_1',...,v_k'$ is a simplex in $\im(f)$, then there exist $v_1,...,v_k$ such that $f(v_i)=v_i'$ and $v_1,...,v_k$ is a simplex in $\Sigma$.
+
+    This means that $f:\Sigma\to\im f$ is epimorphic at the level of simplices as well. 
+    Now let $g:\im(f)\to \Sigma$ be defined as $g(v_i')=v_i$ for some $v_i$ such that $f(v_i)=v_i'$
+
+    This is a well-defined map, sending vertices to vertices, and $f(g(v_1',...,v_n'))=f(v_1,...,v_n)=v1',...,v_n'$ thus $fg=1_{\im(f)}$
+
+    Conversely, suppose that $f$ is a section, i.e. there exists a $g:\im(f)\to \Sigma$ such that $fg=1_{\im(f)}$
+    Then suppose $f(v_1),...,f(v_n)=v_1',...,v_n'$ is a simplex. then $g(v_1'),...,g(v_n')=v_1,...,v_n$ is a simplex since $g$ is simplicial.
+\end{proof}
+
+\begin{corollary}
+    Let $C$ be a class of simplicial complexes, then $|C|$ is closed under retracts if and only if $C$ is closed under bisimplicial images and triangulations. 
+\end{corollary}
+\begin{proof}
+    $\PL-$retracts of $|\Sigma|$ are retracts of a triangulation of $\Sigma$ which are bisimplicial images by the lemma above.
+\end{proof}
+\subsection{Compact Goldblatt-Thomason for polyhedra}
+
+Recall that the frames we defined are models for a modal logic (described extensively in \cite{DBLP}):
+
+Essentially propositions are interpreted in unions of open subpolyhedra, $[\lozenge\phi]$ is the least closed subpolyhedron containing $[\phi]$.
+
+We connect those as simplicial models by associating every simplex of a complex $\Sigma$ to its relative interior in $|\Sigma|$, thus obtaining a neighborhood-description:
+
+\begin{corollary}
+    If $\Sigma$ is a simplicial complex, for each point $x\in |\Sigma|$ there exists a unique face $\sigma\in\Sigma$ such that $x\in \sigma$, and 
+    such $\Sigma$ can be interpreted as a poset through the face (or coface) relation.
+\end{corollary}
+
+Here we can finally express the main result of this paper:
+\begin{theorem}[Compact GTT for Polyhedra]\hfill 
+
+A class of compact polyhedra is modally definable if and only if it's closed under disjoint unions, closed subpolyhedra and retractions. 
+\end{theorem}
+\begin{proof}
+
+    There's a direct correspondence between classes of polyhedra and class of simplicial complexes closed under triangulations: Indeed we showed that 
+    two simplicial complexes are $\PL-$homeomorphic if and only if they have a common triangulation, thus the triangulation-equivalence forms the kernel 
+    of the realization functor.
+
+    As the constructions we built are stable under triangulation (indeed, up to triangulation equivalence, $\N$ and $[-]$ are inverses!),
+    we have an equivalence between modally definable classes of polyhedra and of simplicial complexes 
+    modulo triangulation.
+\end{proof}

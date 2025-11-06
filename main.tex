@@ -10,6 +10,7 @@
 \usepackage{mathrsfs,afterpage,MnSymbol,bbm,mdframed}
 
 \usepackage{epigraph,stmaryrd,xcolor,enumerate}
+\usepackage{lipsum}
 \usepackage[activate={true,nocompatibility},tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
 
 %graphic packages
@@ -148,10 +149,13 @@ sorting=ynt
 \DeclareMathOperator{\b}{\Box}
 \let \d\relax
 \DeclareMathOperator{\d}{\Diamond}
-\DeclareMathOperator{\Sub}{Sub}
+\DeclareMathOperator{\Sub}{Subd}
+\DeclareMathOperator{\Hull}{Hull}
+\DeclareMathOperator{\RelInt}{RelInt}
 \DeclareMathOperator{\inv}{ inv.}
 \DeclareMathOperator{\ar}{ar}
-
+\DeclareMathOperator{\Face}{\textbf{Face}}
+\DeclareMathOperator{\Simp}{\textbf{Simp}}
 %categories
 \DeclareMathOperator{\Prop}{\textbf{Prop}}
 \DeclareMathOperator{\Uf}{\textbf{Uf}}
@@ -178,11 +182,16 @@ sorting=ynt
 \DeclareMathOperator{\ASyn}{\textbf{ASyn}}
 \DeclareMathOperator{\Cor}{\textbf{Cor}}
 \DeclareMathOperator{\Split}{\textbf{Split}}
+\DeclareMathOperator{\Pol}{\textbf{Pol}}
+\DeclareMathOperator{\Pos}{\textbf{Pos}}
+\DeclareMathOperator{\Scplx}{\textbf{Scplx}}
 
 \begin{document}
 \tableofcontents
 \include{Sections/1}
 \include{Sections/2}
+\include{Sections/3}
+\include{Sections/4}
 \nocite{*}
 \printbibliography
 \end{document}

@@ -1,0 +1,21 @@
+{
+    "files.exclude": {
+        "main.aux": true,
+        "main.bbl": true,
+        "main.bcf": true,
+        "main.blg": true,
+        "main.fdb_latexmk": true,
+        "main.fls": true,
+        "main.log": true,
+        "main.out": true,
+        "main.run.xml": true,
+        "main.synctex.gz": true,
+        "main.toc": true,
+        ".gitattributes": true,
+        "bibliography.bib": false,
+        "Sections/1.aux": true,
+        "Sections/2.aux": true,
+        ".gitignore": true,
+        "Sections/3.aux": true
+    }
+}
