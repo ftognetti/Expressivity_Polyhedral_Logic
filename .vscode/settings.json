@@ -10,12 +10,26 @@
         "main.out": true,
         "main.run.xml": true,
         "main.synctex.gz": true,
-        "main.toc": true,
-        ".gitattributes": true,
+        "main.toc": false,
+        ".gitattributes": false,
         "bibliography.bib": false,
         "Sections/1.aux": true,
         "Sections/2.aux": true,
-        ".gitignore": true,
-        "Sections/3.aux": true
-    }
+        ".gitignore": false,
+        "Sections/3.aux": true,
+        "Sections/5.aux": true,
+        "Sections/4.aux": true,
+        "Sections/Untitled.aux": true,
+        "Sections/GTKP.pdf": true,
+        "Sections/abstract.pdf": true,
+        "Sections/GTKPv0.pdf": true,
+        "Sections/GTKP.tex": true,
+        "expressivity_Polyhedra.pdf": true,
+        "main.bbl-SAVE-ERROR": true,
+        "Sections/Untitled.synctex.gz": true,
+        "Sections/Untitled.log": true
+    },
+    "latex-workshop.format.fixQuotes.enabled": true,
+    "latex-workshop.intellisense.package.unusual": true,
+    "latex-workshop.intellisense.subsuperscript.enabled": true
 }

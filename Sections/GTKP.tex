@@ -1,0 +1,249 @@
+\documentclass[12pt]{article}
+\usepackage[left=2cm, right=2cm, top =2cm,bottom=2cm]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{stix,enumerate,tikz-cd}
+\title{GT For Compact Polyhedra}
+\DeclareMathOperator{\Log}{Log}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\C}{\mathcal{C}}
+\DeclareMathOperator{\Fmla}{Fmla}
+\DeclareMathOperator{\Ll}{\mathcal{L}}
+\DeclareMathOperator{\ri}{RelInt}
+\DeclareMathOperator{\Pol}{\textbf{Pol}}
+\DeclareMathOperator{\upred}{\looparrowright}
+\DeclareMathOperator{\note}{CHECK!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!}
+\newcommand{\set}[1]{\left\{#1\right\}}
+
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\numberwithin{equation}{subsection}
+\begin{document}
+\maketitle
+\section{Goldblatt-Thomason I}
+\begin{definition}
+	Let $P,X$ be polyhedra, $\Sigma$ a triangulation of $X$, and $U$ an open subpolyhedron of P.
+	
+	When $\Sigma$ is equipped with the poset topology, we call $f:U\to \Sigma$ a \textbf{face up-reduction} $P\upred X$ if 
+	\begin{itemize}
+		\item $f$ is polyhedral, i.e. $f^{\gets}(V)$ is an open subpolyhedron of $U$ for any upward closed set $V\subseteq \Sigma$
+		\item $f$ is open
+	\end{itemize}
+\end{definition}
+\begin{theorem}
+A class of polyhedra $\C$ is modally definable if and only if it's closed under finite disjoint unions and face up-reductions, i.e. 
+\begin{enumerate}[(I)]
+	\item if $P,Q\in \C$, then $P\sqcup Q\in \C$
+	\item if $P\in C$ and $P\upred X$, then $X\in \C$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof ($\implies$)]
+Let $\C$ be a modally definable class, i.e. $\C=\set{P\in \Pol^K:P\models F}$ for some set of formulas $F$.
+
+Then if $P,Q\in \C$, then $P\sqcup Q\models F$.
+
+If $P\in \C$ and $P\upred X$, then suppose $X\notin \C$, i.e. there exists a formula $\varphi\in F$ such that $X\not{\models}\varphi$. In other words, there exists an evaluation $\nu:\Fmla\to X$ and a point $x\in X$ such that $X,x\not{\models}\varphi$. 
+We may select a triangulation $S$ of $X$ such that $\nu(\varphi)$ is a subtriangulation of $S$.
+	Now call $\Sigma$ the triangulation of $X$ realizing the face up-reduction $P\upred X$.
+	
+	From \cite{Dekker} we know that there exists a barycentric subdivision of $\Sigma$ triangulating $S$. 
+	
+	Furthermore, we can extend any up-p-morphism $P\to \Sigma$ to an up-p-morphism $P\to\Sigma^{(k)}$ for any $k\in \mathbb{N}$.
+	
+	This means that we have an up-p-morphism $P\to \Sigma^{(k)}\to S$, therefore $P\not{\models}\varphi$, leading to a contradiction.
+\end{proof}
+\begin{proof}[Proof ($\impliedby$)]
+
+Let $\C$ be a class of polyhedra closed under (I) and (II), call $\Ll:=\Log(\C)$ and call $\C':=\set{P\in \Pol^K:P\models \Ll}$
+
+Clearly $\C\subseteq \C'$.
+Let $X\in \C'$, we want to show that $X\in \C$.
+
+We know that $X\models \Ll$, and let $\Sigma\in \Tr(P')$. 
+
+Call $v_i$ the vertices of $\Sigma$. We know that $\bigsqcup_i (\uparrow v_i)\twoheadrightarrow \Sigma$ is a p-morphism.
+
+Consider $\chi_i:=\chi(\uparrow v_i)$ the Jankov-Fine formula for the (rooted) subposet. 
+
+As $(\uparrow v_i)\not\models \chi_i$, we know that $\Sigma\not\models\chi_i$, as all $(\uparrow v_i)$ are generated subframes of $\Sigma$.
+
+In particular $X\twoheadrightarrow\Sigma$, thus $X\not\models\chi_i$, meaning none of the $\chi_i$ are elements of $\Ll$. 
+
+This means that for each $\chi_i$ there exists some $P_i\in \C$ such that $P_i\not\models \chi_i$, thus $P_i\twoheadrightarrow (\uparrow v_i)$.
+
+This means that $P:=\bigsqcup_i P_i$ admits an up-p-morphism to $\bigsqcup_i(\uparrow v_i)$, and we can take the composition with $\bigsqcup_i(\uparrow v_i)\twoheadrightarrow \Sigma$ to find $P\upred X$.
+	By (I) we know $P\in \C$, and by (II) $X\in \C$.
+\end{proof}
+\section{Goldblatt-Thomason II}
+Now we want to show that (II) is equivalent to 
+\begin{enumerate}[(I')]
+\addtocounter{enumi}{1}
+	\item $P\in \C$ and there exists an open polyhedral map $P\supseteq U\to X$ for $U$ an open subpolyhedron of $P$, then $X\in \C$.
+\end{enumerate}
+
+It's clear that (II') implies (II) as $X$ admits an open polyhedral map $X\twoheadrightarrow \Sigma$ to any of its triangulations. 
+It is less clear why (II) implies (II')
+
+We will split this proof into two separate parts.
+
+\begin{lemma}
+	Let $f:K\to K'$ be a map of simplicial complexes.
+	Then $f$ is open if and only $|f|$ is open.
+\end{lemma}
+\begin{proof}
+	Recall that if $|\Sigma|$ is the realization of $\Sigma$ then there exists an open polyhedral map $\pi:|\Sigma|\to \Sigma$, allowing us to draw the diagram
+	
+	 \[\begin{tikzcd}[ampersand replacement=\&]
+	{|\Sigma'|} \& {|\Sigma|} \\
+	{\Sigma'} \& \Sigma
+	\arrow[dashed, two heads, from=1-1, to=1-2]
+	\arrow["{\pi'}"', two heads, from=1-1, to=2-1]
+	\arrow["\pi", two heads, from=1-2, to=2-2]
+	\arrow[from=2-1, to=2-2]
+\end{tikzcd}\]
+	
+	One side of the implication is simple: If $|f|$ is open, then suppose $U'\subseteq \Sigma'$ is an open subcomplex, i.e. $U'$ is upward-closed. $V'=\pi'^\gets(U)$ is an open subpolyhedron of $|\Sigma'|$.
+	
+	$f(U)=\pi|f|(V)$ is open.
+	
+	Conversely, suppose $V'\in |\Sigma'|$ is open.
+	Then by \cite{dekker} there exists an iterated baricentric subdivision $\Sigma'^{(k)}$ of $\Sigma'$ extending $\Sigma'$ and covering $V'$.
+	
+	We may extend $f$ to $\Sigma'^{(k)}$, and by the previous lemma it will be open.
+	We may do the same to $|f|(V)$, thus $|f|(V)=\pi^{(l)\gets}f^{(k)}(\pi^{(k)}(V)$ which is open.
+\end{proof}
+\subsection{Nerving}
+This is the correct moment to fix some notations about nerves as the following lemmas will use it extensively.
+\begin{definition}
+	Let $P$ be a compact polyhedron, $\Sigma\in \Tr(P)$.
+	Then $N(\Sigma)$ is the poset consisting of chains $(\sigma_0<...<\sigma_k)$ for $\sigma_i\in\Sigma$ ordered by inclusion.
+	This constitutes the face poset of a simplicial complex triangulating $P$.
+	We call $\overline{\sigma}$ elements of $N(\Sigma)$ and in particular if $\sigma_i\in \Sigma$, then $\overline\sigma_i=(\sigma_i)$ (the chain with one element containing it).
+	
+	When taking iterated nerves we say $\overline{\sigma}^1=\overline\sigma$ and  $\overline\sigma^{n+1}=\overline{\overline\sigma^n}$
+\end{definition}
+\begin{lemma}
+	If $S\subseteq \Sigma$ is a closed subcomplex of $\Sigma$, then $N(S)\subseteq N(\Sigma)$ is a subcomplex of $N(\Sigma)$.
+	Furthermore $S$ and $N(S)$ triangulate the same closed subpolyhedron of $P$
+\end{lemma}
+\begin{proof}
+$S\subseteq \Sigma$ is a subcomplex if and only if it's downward closed. Let $\sigma\in \Sigma$, then $\overline\sigma=(\sigma)\in N(S)$
+	If $\overline\tau\in N(S)$, then $\overline\tau=(\tau_0<...<\tau_k)$ for $\tau_0,...,\tau_k\in S$.
+	This means that any $(\tau_i<...<\tau_j)\in \downarrow \overline\tau$ is also comprised of elements of $S$, thus a member of $N(S)$.
+	
+	Moreover recall that $|N(S)|=|S|$ if $S$ is a simplicial complex. 
+	We call $N(S):=\overline S$ following the notation described above.
+\end{proof}
+\begin{proposition}
+	Let $X$ be a compact polyhedron, $\Sigma\in \Tr(X)$.
+	Call $\pi:X\to \Sigma,\pi_1:X\to N(\Sigma)$ the maps onto the triangulation and its nerve respectively.
+	
+	Then for all $x\in X$, $\overline{\pi(x)}\leq \pi_1(x)$ in $N(\Sigma)$.
+\end{proposition}
+\begin{proof}
+	As $N(\Sigma)$ is a baricentric subdivision $\overline{\pi(x)}$ is the baricenter of $\pi(x)$, which is always a vertex of $\pi_1(x).$
+\end{proof}
+\begin{lemma}
+If $U$ is an open subcomplex of $\Sigma$,
+
+We know that there exists a polyhedral open map $\pi:|\Sigma|\twoheadrightarrow\Sigma$, then consider $\pi^{\gets}(U):=|U|\subseteq |\Sigma|$	
+Call $\pi_1:|\Sigma|\twoheadrightarrow N(\Sigma)$ the open polyhedral map onto the nerve.
+Then $\sigma\in \pi_1(|U|)$ if and only if $\sigma\in \uparrow\overline\sigma_i$ for some $\sigma_i\in U$
+\end{lemma}
+
+\begin{proof}
+	Note that if $\sigma\in \pi_1(|U|)$, this means that there exists a point $x$ in $|U|$ such that $\pi_1(x)=\sigma$.
+	
+	As $|U|=\pi^{\gets}(U)$, this means that $\pi(x)\in U$.
+	
+	Then $\overline{\pi(x)}$ is a simplex of $N(\Sigma)$, and $\overline{\pi(x)}\leq \pi_1(x)$, i.e. $\pi_1(x)\in \uparrow{\overline{\pi(x)}}$.
+	
+	Conversely, if $\sigma\in \uparrow\overline{\sigma_i}$ for some $\sigma_i\in U$, then $\sigma=(\sigma_i<s_1<...<s_k)$.
+	As $U$ is upward-closed, each $s_i$ is an element of $U$ as well.
+	This means each $\overline{s_i}$ is a vertex of $\sigma$. 
+	$\pi_1^{\gets}(\overline{s_i})$ is the center of a simplex in $U$, thus in particular $\pi_1^\gets(\sigma)\in |U|$.
+	
+$\note$
+\end{proof}
+
+\begin{definition}
+	The previous lemma justifies the notation \[N(U):=\bigcup_{\sigma\in U}\uparrow\overline\sigma\] for any open subcomplex $U\subseteq\Sigma$ of a simplicial complex $\Sigma$.
+\end{definition}
+
+\begin{proposition}
+	Let $X$ be a compact polyhedron, U an open subpolyhedron and $C\subseteq U$ a closed subpolyhedron. 
+	Let $\Sigma\in \Tr(X)$ be a triangulation triangulating $U$ and $C$. as $\Sigma_U$ and $\Sigma_C$
+	
+	Let $B=\downarrow\uparrow \overline{\Sigma_C}^2\subseteq N^2\Sigma$
+	
+	Then $|B|\subseteq U$.
+\end{proposition}
+\begin{proof}
+	We showed above that $|B|\subseteq U\iff B\subseteq N^2(\Sigma_U)$.
+	
+	1) $\Sigma_C\subseteq \Sigma_U$, thus $\overline\Sigma_C\subseteq N(\Sigma_U)$, thus $\overline\Sigma_C^2\subseteq N^2(\Sigma_U)$
+	
+	2) $\uparrow \overline\Sigma_C^2\subseteq N^2(\Sigma_U)$ as $N^2(\Sigma_U)$ is upward-closed.
+	
+	3) We want to show that $\downarrow \uparrow \overline\Sigma_C^2\subseteq N^2(\Sigma_U)$.
+		Let $x\in \downarrow\uparrow\overline\Sigma_C^2$, we want to show that $x\in \uparrow \overline\sigma^2$ for some $\overline\sigma\in N(\Sigma_U)$
+		
+		Write $x=(\overline\sigma_0<...<\overline\sigma_k)$.
+		
+		We know that $x\subseteq (\overline c<\overline\sigma_0<...<\overline\sigma_k)$ for some $\overline c\in \overline\Sigma_C$, as it's in the closure of $\uparrow\overline\Sigma_C^2$.
+		
+		This means that $\overline\sigma_0\in \uparrow\overline c$, and $c\in \Sigma_C\subseteq \Sigma_U$.
+		
+		This implies that $\overline\sigma_0\in N(\Sigma_U)$, which in turn implies $x\in \uparrow \overline\sigma_0^2$  is an element of $N^2(\Sigma_U)$.
+\end{proof}
+\begin{proposition}
+	Let $P, X$ be compact polyhedra, $T$ a triangulation of $P$, $\Sigma$ a triangulation of $X$ and $f:T\twoheadrightarrow\Sigma$ a p-morphism.
+	Then there exists a surjective up-p-morphism $F:P\twoheadrightarrow X$.
+\end{proposition}
+\begin{proof}
+	Let $v_i$ be vertices of $\Sigma$. As $v_i$ are closed simplices, $f^{\gets}(v_i)$ must contain vertices. Choose a vertex $p_i$ in each $f^{\gets}(v_i)$.
+	
+	Call $U:=\bigcup_i\uparrow_{N^2}\downarrow\uparrow_N(\overline p_i)$
+	and define $F:|U|\to X$ as the geometric realization of $\tilde{f}_{|U}$.
+	
+	We want to show that $\tilde{f}$ is open and surjective:
+	
+	It is open since it's the restriction of an open map to an open subset.
+	
+	Note that \[\tilde{f}(U)=\bigcup_i \uparrow_{N^2}\downarrow\uparrow_NN(f)(\overline{p_i})=\bigcup_i\uparrow_{N^2}\downarrow\uparrow_N \overline v_i\]
+
+We can show that $\bigcup_i\downarrow\uparrow_N\overline v_i$ covers $N(\Sigma)$: 
+Let $\overline\sigma$ be a simplex of $N(\sigma).$
+
+Then $\overline\sigma=(\sigma_0<...<\sigma_k).$
+If $\sigma_0=v_i$ is a vertex, then $\overline\sigma\in \uparrow v_i\subseteq \downarrow\uparrow v_i$.
+If $\sigma_0$ is not a vertex, then consider any $w\in V_{\sigma_0}$: $w<\sigma_0$, thus 
+
+$(\sigma_0<...<\sigma_k)\leq (w<\sigma_0<...<\sigma_k)$ thus $\overline\sigma\in \downarrow (\uparrow w)$.
+
+As $\downarrow\uparrow v_i$ cover $\Sigma$, $\uparrow\downarrow\uparrow v_i\supseteq \downarrow\uparrow v_i$ cover $\Sigma$ as well, and form an open cover, thus $U$ is open, thus $\tilde{f}$ is open.
+
+by the previous lemma $F$ is open since $\tilde{f}$ is.
+\end{proof}
+
+\begin{proposition}
+	Let $P,X$ be compact polyhedra, $\Sigma$ a triangulation of $X$ and $f:P\twoheadrightarrow \Sigma$ an up-p-morphism defined on an open subpolyhedron $U\subseteq P$.
+	
+	Then there exists a triangulation $T$ of $P$ and a closed subcomplex $T_U$ such that
+	\begin{itemize}
+		\item $|T_U|\subseteq U$
+		\item $f|_{T_U}:T_U\to\Sigma$ is a surjective p-morphism
+	\end{itemize}
+\end{proposition}
+\begin{proof}
+	Following the steps of the previous proof, choosing $T_U:=\downarrow\uparrow_{N^2}\downarrow\uparrow_N p_i$ in an appropriate triangulation is enough.
+	To ensure that $|T_U|\subseteq U$ we need to choose a triangulation $T$ such that $p_i$ are vertices and it triangulates $f$.
+	Then pick $\tilde{T}=N^2 T$
+	
+	By proposition $9$, $p_i$ is a closed subcomplex in $T_U$, thus $\uparrow\downarrow p_i$ is a closed subcomplex contained in $N^2(T_U)$, thus $\uparrow\downarrow(\uparrow\downarrow p_i)$ is a closed subcomplex contained in $N^2(N^2(T_U))=N^4(T_U)\subseteq N^2\tilde T$,
+	
+	then we apply the previous proposition to it.
+\end{proof}
+\end{document}

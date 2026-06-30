@@ -1,49 +1,201 @@
-\section{Homology}
+\section{GTKP}
+\subsection{Face up-reductions}
+To any poset we can assign to it a topology that is compatible with topological semantics.
 
-Homology is a hot topic when talking about polyhedra.
-Here is a synthetic account 
+\begin{definition}{Alexandrov topology}\hfill 
 
-\subsection{simplicial homology}
-\lipsum
-\subsection{Modally undefinable homology}
-While there's little hope to give much information about homology through a modal language we shall note that our constructions map neatly
-onto the homology chain. 
-In particular 
-\begin{proposition}
-$H_\bullet(\Sigma\sqcup\Sigma')=H_\bullet(\Sigma)\oplus H_\bullet(\Sigma')$
+Let $(P,\leq)$ be a poset. We call the \textbf{Alexandrov} topology on $P$ 
+$\tau\subseteq \Pp P$ where $U\in\tau$ if and only if $U$ is upward-closed.
+\end{definition}
+
+We will use it to define a weaker version of the up-reduction between polyhedra.
+\begin{definition}{Face up-reduction}
+    Let $P,Q$ be (compact) polyhedra and $K$ a triangulation of $Q$.
+
+    A \textbf{face up-reduction} $P\fupred Q$ is a partial map $f:P\upred [K]$ 
+    such that 
+    \begin{enumerate}[(i)]
+        \item The preimage of every open of $[K]$ (in the Alexandrov topology) is an open subpolyhedron of $P$
+        \item It is \textbf{open}
+        \item It is \textbf{Surjective}.
+    \end{enumerate}
+\end{definition}
+
+Note that
+\begin{proposition}\hfill 
+
+    $Q\upred[K]$ for any triangulation $K$.
+
+    In particular $Q\fupred Q$.
 \end{proposition}
-\begin{proof}
-There's a proof of this somewhere for sure, can't be bothered now
-\end{proof}
-\begin{proposition}
-If $\Sigma\leq\Sigma'$ is a closed subcomplex, then there's a map $H_\bullet(\Sigma)\to H_\bullet(\Sigma')$
-\end{proposition}
-\begin{proof}
-Same here
-\end{proof}
-\begin{proposition}
-If $f:\Sigma\to\Sigma'$ is a simplicial map, then there's a bisimplicial map $f_*:H_\bullet(\Sigma)\to H_\bullet(\Sigma')$
-\end{proposition}
-\begin{proof}
-and here
-\end{proof}
+\begin{proof}\hfill 
 
-This means
-\begin{lemma}
-The homologies of a modally definable class of polyhedra must be closed under direct sum and images.
+    Let $K$ be a triangulation of $Q$ and recall that for every point 
+    $q\in Q$ there exists a unique face $\sigma_q$ of $K$ such that $q\in\sigma_q$, thus 
+    the map is trivially surjective.
 
-Or, in the more useful direction:
+    Let $f$ be the map $q\mapsto \sigma_q$.
 
-If the homology groups of a class of polyhedra is \textbf{not} closed under direct sums and images, then the class is not modally definable.
+    This means that the face of the polyhedron $|\sigma|=f^{\gets}(\sigma)$.
+
+    If $U$ is an upward-closed set of $[K]$, then $[K]\setminus U$ is downward-closed,
+    thus is a compact polyhedron.
+    This means that $f^\gets([K]\setminus U)=Q\setminus f^{\gets}(U)$ is compact, thus closed,
+    therefore $f^\gets(U)$ is open and is the union of faces, thus an open subpolyhedron.
+
+    This same argument shows that the map is open:
+    If $P\subseteq Q$ is an open subpolyhedron, then $Q\setminus P$ is a compact polyhedron, thus 
+    $[K]\setminus f(P)$ is downward-closed, thus $f(P)$ is upward-closed, i.e. open.
+\end{proof}
+\begin{corollary}\hfill 
+
+    If there exists an up-reduction, 
+    i.e. an open partial simplicial map $P\upred Q$
+    whose domain is an open subpolyhedron of $P$ 
+    then $P\fupred Q$
+\end{corollary}
+
+
+We may also make explicit the following fact:
+
+\begin{lemma}{}\hfill 
+
+    Let $f:P\fupred Q$ be a face up-reduction, $U\subseteq^o P$ is the domain of $f$ and 
+    $L$ is the triangulation of $Q$ such that $f:U\upred [L]$.
+    
+    Then there exists a triangulation $K$ of $P$ such that
+    \begin{itemize}
+        \item $U$ is the union of relative interiors of faces of $K$, i.e. $U=\bigcup_{\sigma\in K_U}\RelInt\sigma$.
+        \item $\tilde{f}:[K]\upred[L]$ defined as $\tilde{f}(\sigma_p)=f(p)$ is an up-reduction of posets.
+    \end{itemize}
+\end{lemma}
+\begin{proof}\hfill 
+
+    Note that $[L]$ is a \textbf{finite} poset and that 
+    $\set{f^\gets(l):l\in L}$ is a collection of possibly open polyhedra in $P$.
+    By the common triangulation lemma, we may extract a common triangulation $K$
+    of all of them.
+
+    Now, recall that for each point $p\in P$ there exists a unique face $\sigma_p$
+    such that $p\in\RelInt(\sigma_p)$.
+    This allows us to define $\tilde{f}$ as above. Uniqueness gives us that $\tilde{f}$ is 
+    well-defined, and $f(\uparrow\sigma_p)=\uparrow f(p)$ by openness of $f$.
+\end{proof}
+\begin{lemma}[Up-reductions refute formulas]
+
+    Let $P$ be a polyhedron, $S$ a poset, $P\upred S$ an up-reduction.
+
+    If $S\not{\models} \varphi$ then $P\not\models\varphi$ as well.
 \end{lemma}
 \begin{proof}
-Follows from the three translations.
+    The proof goes essentially as the topological case in \cite{Gabelaia2001ModalDI}
+\end{proof}
+
+\subsection{Goldblatt-Thomason for Compact Polyhedra}
+\begin{theorem}{GTKP}\hfill 
+
+A class of compact polyhedra $\C$ is modally definable if and only if 
+it's closed under finite disjoint unions and face up-reductions, i.e. 
+\begin{enumerate}[(I)]
+	\item if $P,Q\in \C$, then $P\sqcup Q\in \C$
+	\item if $P\in C$ and $P\fupred X$, then $X\in \C$.
+\end{enumerate}
+\end{theorem}
+\begin{proof}[Proof ($\implies$)]\hfill 
+
+Let $\C$ be a modally definable class, i.e. $\C=\set{P\in \Pol:P\models F}$ for some set of formulas $F$.
+
+Closure under disjoint union is trivial, if $P,Q\in \C$, then $P\sqcup Q\models F$.
+
+If $P\in \C$ and $P\fupred X$, then suppose $X\notin \C$.
+By definition this means that there exists a formula $\varphi\in F$ such that $X\not{\models}\varphi$. 
+
+Spelling out the validity condition,
+there exists an evaluation $\nu:\Ll\to \Pp X$ and a point $x\in X$ such that $X,x\not{\models}\varphi$. 
+
+By the simultaneous triangulation lemma, we may select a triangulation 
+$S$ of $X$ such that $\nu(\varphi)$ is triangulated by $S$.
+
+Now call $K=(V,\Sigma)$ the triangulation of $X$ realizing the face up-reduction $P\fupred X$.
+	
+By the 'nerves are dense' lemma,
+we know that there exists a barycentric subdivision $K^{(n)}$ of $K$ subdividing $S$. 
+	
+We also know that we can extend any up-p-morphism $P\upred \Sigma$ to an up-p-morphism
+$P\upred \Sigma^{(k)}$ for any $k\in \mathbb{N}$.
+	
+This means that we have an up-p-morphism 
+$P\upred \Sigma^{(k)}\upred S$, therefore 
+$P\not{\models}\varphi$, leading to a contradiction.
+\end{proof}
+\begin{proof}[Proof ($\impliedby$)]\hfill 
+
+Let $\C$ be a class of polyhedra closed under (I) and (II),
+call $L:=\Log(\C)$ and call $\C'=\Pol(L)$.
+
+Clearly $\C\subseteq \C'$.
+Let $X\in \C'$, we want to show that $X\in \C$.
+
+We know that $X\models L$, and let $K=(V,\Sigma)\in \Tr(X)$. 
+
+Call $v_i$ the vertices of $\Sigma$. We know that
+ \[\bigsqcup_i (\uparrow v_i)\twoheadrightarrow \Sigma\]
+is a p-morphism.
+
+Consider $\chi_i:=\chi(\uparrow v_i)$ the Jankov-Fine formula for the (rooted) subposet. 
+
+As $(\uparrow v_i)\not\models \chi_i$, we know that $\Sigma\not\models\chi_i$, 
+as all $(\uparrow v_i)$ are generated subframes of $\Sigma$.
+
+In particular $X\upred\Sigma$, thus $X\not\models\chi_i$, for all $i$.
+
+This means that none of the $\chi_i$ are elements of $L$. 
+
+This means that for each $\chi_i$ there exists some $P_i\in \C$ 
+such that $P_i\not\models \chi_i$, thus $P_i\upred(\uparrow v_i)$.
+
+This means that $P:=\bigsqcup_i P_i$ admits an up-p-morphism to $\bigsqcup_i(\uparrow v_i)$,
+and we can take the composition with $\bigsqcup_i(\uparrow v_i)\twoheadrightarrow \Sigma$ 
+to find an up-reduction $P\upred \Sigma$, thus a face up-reduction $P\fupred X$.
+
+By (I) we know $P\in \C$, and by (II) $X\in \C$.
 \end{proof}
 
 \begin{corollary}
-The class of genus $n$ polyhedra is not modally for any positive $n$ 
+    
+    A class of polyhedra closed under finite disjoint unions and simplicial up-reductions is 
+    modally definable, where a simplicial up-reduction is an open simplicial partial map $f:P\upred Q$
+    whose domain is an open subpolyhedron of $P$.
 \end{corollary}
 \begin{proof}
-    $H_1(\Sigma)\simeq\Z^n$ for all $\Sigma\in C$. 
-    As $\Z^n\oplus \Z^n\neq \Z^n$, the class is not closed under direct sums, thus not modally definable.
+    Follows from Corollary 3.1.4:
+    If $f:P\upred Q$ is a simplicial up-reduction, then there exists a face up-reduction $P\fupred Q$
+    by composing with the face p-morphism onto any face poset.
 \end{proof}
+
+The theorem above is strengthened by the following lemma
+\begin{lemma}[Any Triangulation]\hfill 
+
+Let $P\upred \Sigma$ for a triangulation $L=(V,\Sigma)$ of $Q$, and let $L'=(V',\Sigma')$ be 
+a different triangulation of $Q$. 
+Then there exists an up-reduction $P\upred \Sigma'$.
+\end{lemma}
+\begin{proof}
+Let $f:P\upred\Sigma$ be an up-reduction with domain $U\subseteq P$.
+
+Then we can extend $f$ to $f^{(1)}:P\upred\Sigma^{(1)}$ in the following way:
+
+Take the triangulation $K$ of $P$ realizing $f$ as a simplicial map $\tilde{f}$ (as per lemma 3.1.5)
+
+Then utilize the subdivision lemma (lemma 1.3.4) to extract an up-reduction $K'\upred L^{(1)}$.
+
+Now, utilizing lemma (1.3.3) we may repeat this $n$ times, such that $L^{(n)}$ is a subdivision of $L'$.
+
+This means that we have a map $h: K^{\prime \cdots\prime }\upred L^{(n)}\twoheadrightarrow L'$
+
+As $K^{\prime \cdots\prime }$ is a triangulation of $P$ we can extract an up-reduction $g:P\upred L'$ by 
+setting it as locally constant on the relative interior of the faces of $P$.
+\end{proof}
+
+In other words, if a face up-reduction exists to a triangulation then one exists to any triangulation, 
+even with the same domain.

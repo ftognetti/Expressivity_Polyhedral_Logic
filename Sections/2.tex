@@ -1,216 +1,171 @@
-\section{Definability of compact polyhedra}
-
-\cite{Blackburn_Rijke_Venema_2001} in chapter 3 gives us a definability result for classes of finite transitive frames
-
-\begin{theorem}
-
-A class of finite transitive frame is modally definable if and only if it's closed under finite disjoint union,
-bounded morphic images and generated subframes.
-\end{theorem}
-
-Suppose we have a class of simplicial complexes, it's modally definable if and only if the corresponding class of posets is.
-
-We want to translate these conditions in terms of simplicial complexes and then realize them in terms of polyhedra.
-
-The picture we want to have in mind when building classes is the following: 
-
-\[\begin{tikzcd}[ampersand replacement=\&]
-	\& C \\
-	{[C]} \& \Scplx \& {|C|} \\
-	\Pos \&\& \Pol
-	\arrow[from=1-2, to=2-1]
-	\arrow[hook, from=1-2, to=2-2]
-	\arrow[from=1-2, to=2-3]
-	\arrow[hook, from=2-1, to=3-1]
-	\arrow["{[-]}", from=2-2, to=3-1]
-	\arrow["{|-|}", from=2-2, to=3-3]
-	\arrow[hook, from=2-3, to=3-3]
-	\arrow["\Nn", shift left=3, from=3-1, to=2-2]
-\end{tikzcd}\]
-
-\subsection{Disjoint union}
-
-Let us start with disjoint unions: these are the easiest construction since they are the same in all three settings
-
-\begin{proposition}
-    For a pair of simplicial complexes $\Sigma, \Sigma'$, 
-    $[\Sigma\sqcup\Sigma']=[\Sigma]\sqcup[\Sigma']$
-\end{proposition}
-\begin{proof}
-    Let $\sigma$ be a simplex of $[\Sigma\sqcup\Sigma']$, then -as the union is disjoint- it must be a simplex of either $[\Sigma]$ or $[\Sigma']$, and vice versa.
-\end{proof}
-
-Similarly
-\begin{proposition}
-    For a pair of simplicial complexes $\Sigma,\Sigma'$, $|\Sigma\sqcup \Sigma'|=|\Sigma|\sqcup|\Sigma'|$
-\end{proposition}
-\begin{proof}
-    There are direct ways to show it but we appeal to abstract nonsense and say that the geometric realization is the coend 
-    \[\int^{n\in \N}\Delta^n\cdot \Sigma_n\] 
-    thus the constructions commutes with colimits.
-
-    This is not as clear, but theoretically better than a direct proof in $\R^n$ 
-    since it eventually will allow us to work with arbitrarily-sized polyhedra too.
-\end{proof}
-
-This means that
-\begin{lemma}
-    A class of simplicial complex $C$ is closed under disjoint union if and only if its corresponding class of posets $[C]$ is closed under disjoint union
-    if and only if its corresponding class of polyhedra $|C|$ is closed under disjoint union.
-\end{lemma}
-
-\subsection{generated subframes}
-
-Now suppose we have a simplicial complex $\Sigma$: What corresponds to generated subframes of $[\Sigma]$?
-
-Recall that
-\begin{definition}[Generated subframe]
-
-    A \textbf{Generated subframe} of a kripke frame $(W,R)$, is a subset $W'\subseteq W$ closed upwards under $R$.
+\section{Definability}
+Here we define the standard versions of our theorem and 
+our semantics, and how we are going to use them.
+\subsection{Polyhedral semantics}
+As it is always the case, we have a language, in this case
+the standard modal language.
+\begin{definition}{Modal language}
+    Our language is the standard modal language:
+    We assume a (countable) set of propositional 
+    variables $X$ and we define inductively
+    \[\Ll = x\in X \ |\ \bot\ |\ \varphi\vee\psi\ |\ \lnot\varphi\ |\ \d\varphi \]
 \end{definition}
 
-Recall that the posets we are considering are the 'coface' posets, i.e. the posets whose 
-elements are the faces of $\Sigma$ and whose relation is the opposite of the inclusion.
+And we interpret our formulas in polyhedra in the following way 
 
-This means that a generated subframe is $\uparrow-$closed under $\supseteq$, thus $\downarrow-$closed under $\subseteq$.
+\begin{definition}{Polyhedral semantics}\hfill 
 
-in other words 
-\begin{lemma}\hfill
+    Let $P$ be a (compact) polyhedron. Our \textbf{evaluation} is a map 
+    $\nu :\Ll \to \Pp P$ such that $\nu(\varphi)$ is the 
+    union of relative interior of subpolyhedra of $P$.
 
-    Let $C$ be a class of simplicial complexes, then $[C]$ is closed under generated subframes if and only if $C$ is closed under
-    subcomplexes. 
-\end{lemma}
-\begin{proof}\hfill 
-    Let $\Sigma$ be a simplicial complex and $\Sigma'$ a subcomplex. 
-    As $\Sigma'$ is a complex as well, then it's downward-closed.
-    
-    Conversely, if $S'\leq[\Sigma]$ is a downward-closed subposet, 
-    then by definition it's closed under taking subsets, thus it's a simplicial complex.
-\end{proof}
+    We say $P,x\models \varphi$ if and only if $x\in \nu(\varphi)$.
 
-\begin{lemma}
-    Let $C$ be a class of simplicial complexes, then $|C|$ is closed under subpolyhedra if and only if 
-    $C$ is closed under subcomplexes and triangulations.
-\end{lemma}
-\begin{proof}
-    if $\Sigma'\leq \Sigma$ is a subcomplex then $|\Sigma'|\subseteq |\Sigma|$ is a closed subpolyhedron.
+    Moreover we ask that $\nu$ satisfies the following properties:
+    \begin{itemize}
+        \item $\nu(\bot)=\emptyset$,
+        \item $\nu(\varphi\vee\psi)=\nu(\varphi)\cup\nu(\psi)$,
+        \item $\nu(\lnot\varphi)=P\setminus \nu(\varphi)$,
+        \item $\nu(\d\varphi)=\overline{\nu(\varphi)}$
+    \end{itemize}
 
-    Conversely, if $S\subseteq |\Sigma|$ is a closed subpolyhedron, then there exists a triangulation of $|\Sigma|$
-    that triangulates $S$, meaning that there exist two simplicial complexes $\Sigma',\Sigma''$ such that $|\Sigma'|=S,\ |\Sigma''|=|\Sigma|$
-\end{proof}
+    We say that $\varphi$ \textbf{is valid in} $P$, written$P\models\varphi$ 
+    if for any $x\in P$ and for any evaluation $\nu$, $P,x\models \varphi$
+\end{definition}
 
-\subsection{bounded morphic images}
-
-Lastly we need to interpret bounded morphism in our triad. Recall 
+This allows us to define the \textbf{logic} of a polyhedron
 \begin{definition}\hfill 
 
-    Let $(W,R)$ and $(W',R')$ be kripke frames and $f:W\to W'$ a function.
-
-    $f$ is a \textbf{bounded morphism} if and only if 
-    \begin{itemize}
-        \item $wRv$ implies $f(w)R'f(v)$
-        \item $f(w)R' v'$ implies that there exists $v$ such that $wRv$ and $f(v)=v'$.
-    \end{itemize}
+    Let $P$ be a polyhedron. We call the \textbf{Logic} of $P$
+    \[\Log(P):=\set{\varphi\in \Ll:P\models\varphi}\]
 \end{definition}
 
-Interpreting this as the coface relation this means 
-\begin{itemize}
-    \item $\sigma\subseteq \tau$ implies $f(\sigma)\subseteq f(\tau)$
-    \item $\sigma'\subseteq f(\tau)$ implies that there exists $\sigma\subseteq \tau$ such that $f(\sigma)=\sigma'$
-\end{itemize}
-
-Let's define a class of simplicial maps:
-\begin{definition}[Bisimplicial map]\hfill 
-    
-    Let $(V,\Sigma),(V',\Sigma')$ be simplicial complexes. $f:V\to V'$ is called a \textbf{bisimplicial map} if 
-    \[\forall s\in \Pp(V), f(s)\in \Sigma' \iff s\in \Sigma\]
-\end{definition}
-
-\begin{lemma}\hfill 
-    
-    A map of simplicial complexes $f:\Sigma\to\Sigma'$ induces a bounded morphism $[\Sigma]\to[\Sigma']$ if and only if it's bisimplicial.
-\end{lemma}
-\begin{proof}
-    Suppose $f$ is a bisimplicial map, then suppose 
-    $\sigma\subseteq \tau$, then $f(\sigma)$ and $f(\tau)$ are simplices and $f(\sigma)\subseteq f(\tau)$ as it's an image map.
-
-    Now suppose $\sigma'=f(\tau)$. suppose $\tau=v_1,...,v_n$, thus $f(\tau)=f(v_1),...,f(v_n)$. up to reordering, $\sigma'=f(v_1),...,f(v_k)$.
-    As $f$ is bisimplicial, $f(v_1),...,f(v_k)=f(v_1,...,v_k)$ is a simplex, thus $\sigma:=v_1,...,v_k$ is a simplex and - by structure- a subsimplex of $v_1,...,v_n$. 
-    
-    Now conversely, suppose that $f$ is a bounded morphism $[\Sigma]\to[\Sigma']$, the (co)induced $f:\Sigma\to\Sigma'$
-
-    First we need to check that image of a vertex is a vertex. This is because vertices are simplices, and minimal ones at that:
-    suppose we have a vertex $v$ such that $f(v)=\sigma'$. then if $\sigma'$ is not a vertex, there exists $w'\subsetneq \sigma'=f(v)$.
-
-    This means that there must exist $w\subseteq v$ such that $f(w)=w'$, but such $w$ does not exist as $v$ is minimal. $\to\gets$.
-
-    Image of a simplex is a simplex (by definition), and suppose 
-    
-    $f(v_1,...,v_n)$ is a simplex of $\Sigma'$ but $v_1,...,v_n$ is not a simplex of $\Sigma$. but $f(v_1,...,v_n)=f(v_1,...,v_n)$ (thus in particular $\subseteq$)
-    But then there exist a simplex $v_1,...,v_k\subseteq v_1,...,v_n$ such that $f(v_1,...,v_k)=f(v_1,...,v_n)$. But then for a question of cardinality it must be the case that
-    $v_1,...,v_k=v_1,...,v_n$, thus $v_1,...,v_n$ is a simplex of $\Sigma$.
-\end{proof}
-
-Now to interpret bisimplicial maps as maps of polyhedra: 
-
-Suppose we have the map $|f|:|\Sigma|\to|\Sigma'|$ that is the realization of a map $f:\Sigma\to\Sigma'$. 
-
-If $f$ is bisimplicial, then this results in the conditions
-\begin{itemize}
-    \item if $\Hull(v_1,...,v_k)\subseteq |\Sigma|$, then $f(\Hull(v_1,...,v_k))=\Hull(f(v_1),...,f(v_k))\subseteq |\Sigma'|$, and 
-    \item if $\Hull(f(v_1),...,f(v_k))\subseteq |\Sigma'|$, then $\Hull(v_1,...,v_k)\subseteq |\Sigma|$
-\end{itemize} 
-
-This is equivalent to it being a retraction onto the image:
+Recall that the kripke semantics for (S4.Grz) modal logic is the
+one interpreting boolean connectives usually, and interpreting 
+\[P,p\models \d\varphi\iff \exists q\geq p: P,q\models\varphi\]
+We may connect the two semantics via this theorem 
 \begin{theorem}
-    Suppose $f$ if a map $\Sigma\to\Sigma'$, then it's a bisimplicial map if and only if $f:\Sigma\to\im(f)$ is a retraction.
+    Let $P$ be a polyhedron, $K=(V,\Sigma)\in \Tr(P)$ a simplicial complex
+    realizing to $P$.
+
+    Then for each $x\in P$ there exists a unique $\sigma_x\in \Sigma$ such that 
+    $x\in \RelInt(\sigma_x)$. Then 
+    \[P,x\models\varphi \text{ (as polyhedra) if and only if }\Sigma,\sigma_x\models\varphi\text{ (as posets)}\]
+    Moreover
+    \[\Log(P)=\bigcap_{K\in \Tr(P)}\Log([K]).\]
 \end{theorem}
 \begin{proof}\hfill 
-    Suppose that $f$ is bisimplicial.
 
-    First, note that $f$ is surjective onto the vertices of $\im(f)$. 
-    Moreover if $\sigma'=v_1',...,v_k'$ is a simplex in $\im(f)$, then there exist $v_1,...,v_k$ such that $f(v_i)=v_i'$ and $v_1,...,v_k$ is a simplex in $\Sigma$.
-
-    This means that $f:\Sigma\to\im f$ is epimorphic at the level of simplices as well. 
-    Now let $g:\im(f)\to \Sigma$ be defined as $g(v_i')=v_i$ for some $v_i$ such that $f(v_i)=v_i'$
-
-    This is a well-defined map, sending vertices to vertices, and $f(g(v_1',...,v_n'))=f(v_1,...,v_n)=v1',...,v_n'$ thus $fg=1_{\im(f)}$
-
-    Conversely, suppose that $f$ is a section, i.e. there exists a $g:\im(f)\to \Sigma$ such that $fg=1_{\im(f)}$
-    Then suppose $f(v_1),...,f(v_n)=v_1',...,v_n'$ is a simplex. then $g(v_1'),...,g(v_n')=v_1,...,v_n$ is a simplex since $g$ is simplicial.
+    A complete account may be found in \cite{TENCATE} and \cite{DBLP}.
 \end{proof}
+\subsection{Modally definable classes}
 
-\begin{corollary}
-    Let $C$ be a class of simplicial complexes, then $|C|$ is closed under retracts if and only if $C$ is closed under bisimplicial images and triangulations. 
-\end{corollary}
-\begin{proof}
-    $\PL-$retracts of $|\Sigma|$ are retracts of a triangulation of $\Sigma$ which are bisimplicial images by the lemma above.
-\end{proof}
-\subsection{Compact Goldblatt-Thomason for polyhedra}
+The dual question of validity is definability:
 
-Recall that the frames we defined are models for a modal logic (described extensively in \cite{DBLP}):
+Given a set of formulas $F$, what class of models satisfies it?
 
-Essentially propositions are interpreted in unions of open subpolyhedra, $[\lozenge\phi]$ is the least closed subpolyhedron containing $[\phi]$.
+\begin{definition}{MD Class}
 
-We connect those as simplicial models by associating every simplex of a complex $\Sigma$ to its relative interior in $|\Sigma|$, thus obtaining a neighborhood-description:
+    Let $F\subseteq \Ll$ be a set of formulas.
+    We call $\Pol(F)$ the class of (compact) polyhedra modeling every formula of $F$, i.e.
+    \[\Pol(F)=\set{P\in\Pol: \forall\varphi\in F. P\models\varphi}\]
+\end{definition}
 
-\begin{corollary}
-    If $\Sigma$ is a simplicial complex, for each point $x\in |\Sigma|$ there exists a unique face $\sigma\in\Sigma$ such that $x\in \sigma$, and 
-    such $\Sigma$ can be interpreted as a poset through the face (or coface) relation.
-\end{corollary}
+We want to form a Goldblatt-Thomason-Like theorem for this class of spaces.
 
-Here we can finally express the main result of this paper:
-\begin{theorem}[Compact GTT for Polyhedra]\hfill 
+recall
+\begin{theorem}{Goldblatt-Thomason for Finite transitive frames (I)}\hfill 
 
-A class of compact polyhedra is modally definable if and only if it's closed under disjoint unions, closed subpolyhedra and retractions. 
+    A class of finite transitive models $\C$ is modally definable 
+    if and only if it is closed under 
+    \begin{itemize}
+        \item Finite disjoint unions
+        \item Generated subframes
+        \item P-morphic images
+    \end{itemize}
 \end{theorem}
 \begin{proof}
+    \cite{Blackburn_Rijke_Venema_2001}, Chapter 3.
+\end{proof}
+We will see that 'generated subframes' correspond to open subpolyhedra.
+As our classes are formed by \textbf{compact} polyhedra,
+then open subpolyhedra wil never be there
 
-    There's a direct correspondence between classes of polyhedra and class of simplicial complexes closed under triangulations: Indeed we showed that 
-    two simplicial complexes are $\PL-$homeomorphic if and only if they have a common triangulation, thus the triangulation-equivalence forms the kernel 
-    of the realization functor.
+We shall use a slightly different but equivalent result:
+\begin{corollary}{Goldblatt-Thomason for Finite transitive frames (II)}\hfill 
 
-    As the constructions we built are stable under triangulation (indeed, up to triangulation equivalence, $\N$ and $[-]$ are inverses!),
-    we have an equivalence between modally definable classes of polyhedra and of simplicial complexes 
-    modulo triangulation.
+    A class of finite transitive models $\C$ is modally definable 
+    if and only if it is closed under 
+    \begin{itemize}
+        \item Finite disjoint unions
+        \item surjective up-reductions
+    \end{itemize}
+    Where an up-reduction is a partial p-morphism whose domain is a generated subframe.
+\end{corollary}
+\begin{proof}
+    Suppose $\C$ is closed under $(I)$, $X\in \C$ and $f:X\upred Y$ an up-reduction
+    Call $U$ the domain of $f$, then $U\in \C$. 
+
+    $f_{|U}: U\twoheadrightarrow Y$ is a surjective p-morphism, thus $Y$ is p-morphic image of $U$, thus $Y\in \C$.
+
+    This means that $\C$ is closed under $(II)$.
+
+    Conversely suppose that $\C$ is closed under $(II)$, let $X\in \C$ and and let $U$ be a generated 
+    subframe of $X$. Then the identity of $U$, seen as a partial map $X\to U$ is an up-reduction.
+    Similarly, if $Y$ is a $p-$morphic image of $Y$, as $X$ is a generated subframe of $X$, 
+    we may extract an up-reduction. 
+\end{proof}
+
+Note that this means that the class of models \textbf{is always closed under generated subframes} but we may 
+intersect the class with a category that doesn't have them.
+
+We will also make use of the Jankov-Fine axiomatization.
+
+\begin{theorem}{Jankov Fine}
+    Let $U$ be a finite rooted frame.
+    Then there exists a formula $\chi(U)$ such that 
+    $F\models\chi(U)$ if $F$ does \textbf{not} up-reduce to $U$.
+\end{theorem}
+\begin{proof}
+    \cite{Bezhanishvili2022}%provide a more direct source?
+\end{proof}
+\begin{corollary}
+    A class of finite frames $\C$ in a category of models $\Mod$ can be characterized as
+    \[\C=\set{M\in \Mod: \forall U\notin \C \text{ rooted},\  M\models\chi(U)}\]
+\end{corollary}
+
+\subsection{Topological connection}
+\begin{proposition}\hfill
+
+    The realization $|-|$ enjoys the following properties:
+
+    \begin{enumerate}[(i)]
+        \item $|U\cup V|=|U|\cup|V|$
+        \item $|U\cap V|=|U|\cap |V|$
+        \item $|U^\circ|=|U|^\circ$
+        \item $|\Sigma\setminus U|=|\Sigma|\setminus |U|$
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    They follow immediately from the fact that $|U|$ is a disjoint union.
+\end{proof}
+
+\begin{lemma}{up-sets are open}\hfill
+    
+    Let $K=(V,\Sigma)$ be a simplicial complex, $U\subseteq \Sigma$
+    and consider $|U|=\bigsqcup_{\sigma\in U}\RelInt(\sigma)$ 
+
+    Then $|U|$ is open if and only if $U$ is upward-closed.
+
+    Respectively, $|U|$ is closed if and only if $U$ is downward-closed
+\end{lemma}
+\begin{proof}
+    We may use the characterization that $|U|$ is closed if and only if $|U|\cup\partial |U|=|U|$
+
+    Note that $\partial |U|$ is given by $|U|\setminus \RelInt(|U|)=|U\setminus U^*|$
+     (where) $U^*$ are the maximal faces.
+     This means that $|U|$ is closed if and only if $U$ contains everything below its maximal faces.
+
+    Then $|U|$ is open if and only if $|\Sigma|\setminus|U|=|\Sigma\setminus U|$ is closed
+    thus if $\Sigma\setminus U$ is downward-closed, thus if $U$ is upward-closed.
 \end{proof}

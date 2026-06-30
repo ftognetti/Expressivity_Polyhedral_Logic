@@ -1,0 +1,60 @@
+\documentclass[a4paper]{article}
+%\usepackage{simplemargins}
+
+%\usepackage[square]{natbib}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+
+\begin{document}
+\pagenumbering{gobble}
+
+\Large
+ \begin{center}
+Modal definability in precompact polyhedra\\ 
+
+\hspace{10pt}
+
+% Author names and affiliations
+\large
+Francesco Tognetti$^1$ \\
+
+\hspace{10pt}
+
+\small  
+$^1$) University of Luxembourg\\
+francesco.tognetti@uni.lu
+
+\end{center}
+
+\hspace{10pt}
+
+\normalsize
+
+\noindent The aim of the paper is to prove an equivalent of Goldblatt-Thomason's theorem for classes of precompact polyhedra, i.e. subsets of the affine space whose closure is a compact polyhedron.
+
+	We adapt from the semantics from \cite{DBLP} on compact polyhedra, where the closure operator $\lozenge$ acts as a closure on subpolyhedra, to draw a closer connection between polyhedra and what we call 'simplicial precomplexes', some combinatorial objects, that generalize simplicial complexes.
+	
+	This allows us to swiftly translate conditions between polyhedra -as geometric objects,  precomplexes - as combinatorial objects, and posets, giving us a result similar to\cite{Stop}
+	\begin{enumerate}
+		\item  Any class of polyhedra is equivalent to the realization of a class of simplicial precomplexes closed under subdivision.
+		\item A class of (finite) simplicial precomplexes is modally definable if and only if it's closed under disjoint unions, open simplicial images, and open subcomplexes
+		\item A class of polyhedra is modally definable if and only if it's closed under disjoint unions, open PL-maps and open subpolyhedra.
+	\end{enumerate}
+
+\noindent As simplicial complexes (and their realization) carry topological meaning, we can obtain a negative result on homological properties:
+\begin{enumerate}
+	\addtocounter{enumi}{3}
+	\item The homology chains of a modally definable class of simplicial complexes must be closed under direct sums and images
+\end{enumerate}
+
+Thus excluding the definability of any class of the kind ``polyhedra of a certain genus''
+	
+\begin{thebibliography}{9}
+\bibitem{DBLP} Nick Bezhanishvili et al. “Geometric Model Checking of Continuous Space”. In: CoRR
+abs/2105.06194 (2021). arXiv: 2105.06194. url: https://arxiv.org/abs/2105.06194.
+
+\bibitem{Stop}
+\end{thebibliography}
+\end{document}

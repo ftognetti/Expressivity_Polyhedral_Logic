@@ -1,12 +1,176 @@
-\section{Future Work}
+\section{Open questions}
+\subsection{A refinement of GTKP}
+The result we have spent the most time trying to obtain is the following refinement
+\begin{conjecture}
+    A class of compact polyhedra is modally definable if and only if 
+    it is closed under finite disjoint union and simplicial up-reductions.
+\end{conjecture}
 
-An interesting question is what happens when we allow for arbitrarily sized simplicial complexes, both in dimension and number of simplices.
+The procedure we have in mind to prove the equivalence between the current result 
+and the one above is the following:
+\begin{itemize}
+    \item Consider the face up-reduction $f:P\fupred Q$ realized as $f:P\upred [L]$;
+    \item Realize $f$ as a map $\tilde{f}:[K]\upred [L]$;
+    \item Construct an up-reduction $\tilde{g}:K\upred L$ ``informed by $\tilde{f}$''
+    that is an up-reduction and a map of simplicial complexes;
+    \item Realize $\tilde{g}$ as a simplicial up-reduction $g:P\upred Q$.
+\end{itemize}
+If $\tilde{f}$ were (or densely contained) a map of (abstract) simplicial complexes and not only one of posets
+   our work would be done: It is possible to realize any map of ASCs into a simplicial map 
+   of their polyhedra. 
+   In general though this is not the case: Consider 
+   $P$ to be three segments, and $Q$ to be the triangle (boundary of the $2-$simplex), and consider 
+
+\[\begin{tikzpicture}[scale=1]
+  % Coordinates
+  \coordinate (A) at (0.00, 0.00);
+  \coordinate (B) at (2.00, 0.00);
+  \coordinate (D) at (0.00, 1.00);
+  \coordinate (E) at (2.00, 1.00);
+  \coordinate (F) at (0.00, 2.00);
+  \coordinate (J) at (4.00, 0.00);
+  \coordinate (K) at (4.00, 2.00);
+  \coordinate (L) at (5.50, 2.00);
+  \coordinate (M) at (7.00, 0.00);
+  \coordinate (N) at (7.00, 2.00);
+  \coordinate (O) at (5.50, 0.00);
+  \coordinate (P) at (4.00, 4.00);
+  \coordinate (Q) at (7.00, 4.00);
+  \coordinate (R) at (5.50, 6.50);
+  \coordinate (G) at (2.00, 2.00);
+  \coordinate (H) at (1.00, 2.00);
+  \coordinate (I) at (1.00, 1.00);
+  \coordinate (C) at (1.00, 0.00);
+
+  % Drawing
+  \draw (A) -- (B);
+  \draw (D) -- (E);
+  \draw (F) -- (G);
+  \draw (J) -- (K);
+  \draw (J) -- (L);
+  \draw (L) -- (M);
+  \draw (M) -- (N);
+  \draw (K) -- (O);
+  \draw (O) -- (N);
+  \draw[gray] (P) -- (Q) -- (R) -- cycle;
+  \draw[pastelred, thick, loosely dashed] (F) -- node[above, text=pastelred, midway] {$AC$} (H);
+  \draw (H) -- (G);
+  \draw[pastelgreen, thick, loosely dashed] (H) -- node[above, text=pastelgreen, midway] {$BC$} (G);
+  \draw[pastelviolet, thick, loosely dashed] (I) -- node[above, text=pastelviolet, midway] {$AB$} (E);
+  \draw[pastelred, thick, loosely dashed] (C) -- node[above, text=pastelred, midway] {$AC$} (B);
+  \draw[pastelviolet, thick, loosely dashed] (A) -- node[above, text=pastelviolet, midway] {$AB$} (C);
+  \draw[pastelgreen, thick, loosely dashed] (D) -- node[above, text=pastelgreen, midway] {$BC$} (I);
+  \draw[pastelviolet,thick, loosely dashed] (P) -- (Q);
+  \draw[pastelred, thick,loosely dashed] (P) -- (R);
+  \draw[pastelgreen, thick, loosely dashed] (R) -- (Q);
+  \fill[pastelviolet] (A) circle (1pt);
+  \fill[pastelgreen] (D) circle (1pt);
+  \fill[pastelviolet] (E) circle (1pt);
+  \fill[pastelred] (F) circle (1pt);
+  \fill[pastelblue] (J) circle (1pt);
+  \node[above left, pastelblue] at (J) {$A$};
+  \fill[pastelviolet] (K) circle (1pt);
+  \node[above left, pastelviolet] at (K) {$AB$};
+  \fill[pastelred] (L) circle (1pt);
+  \node[above, pastelred] at (L) {$AC$};
+  \fill[pastelblue] (M) circle (1pt);
+  \node[above right, pastelblue] at (M) {$C$};
+  \fill[pastelgreen] (N) circle (1pt);
+  \node[above right, pastelgreen] at (N) {$BC$};
+  \fill[pastelblue] (O) circle (1pt);
+  \node[above, pastelblue] at (O) {$B$};
+  \fill[pastelblue] (P) circle (1pt);
+  \node[below left, pastelblue] at (P) {$A$};
+  \fill[pastelblue] (Q) circle (1pt);
+  \node[below right, pastelblue] at (Q) {$B$};
+  \fill[pastelblue] (R) circle (1pt);
+  \node[left, pastelblue] at (R) {$C$};
+  \fill[pastelgreen] (G) circle (1pt);
+  \fill[pastelblue] (H) circle (1pt);
+  \node[above, pastelblue] at (H) {$C$};
+  \fill[pastelblue] (I) circle (1pt);
+  \node[above, pastelblue] at (I) {$B$};
+  \fill[pastelblue] (C) circle (1pt);
+  \node[above, pastelblue] at (C) {$A$};
+  \fill[pastelblue] (J) circle (1pt);
+  \node[above left, pastelblue] at (J) {$A$};
+  \fill[pastelviolet] (K) circle (1pt);
+  \node[above left, pastelviolet] at (K) {$AB$};
+  \fill[pastelred] (L) circle (1pt);
+  \node[above, pastelred] at (L) {$AC$};
+  \fill[pastelblue] (M) circle (1pt);
+  \node[above right, pastelblue] at (M) {$C$};
+  \fill[pastelgreen] (N) circle (1pt);
+  \node[above right, pastelgreen] at (N) {$BC$};
+  \fill[pastelblue] (O) circle (1pt);
+  \node[above, pastelblue] at (O) {$B$};
+  \fill[pastelblue] (P) circle (1pt);
+  \node[below left, pastelblue] at (P) {$A$};
+  \fill[pastelblue] (Q) circle (1pt);
+  \node[below right, pastelblue] at (Q) {$B$};
+  \fill[pastelblue] (R) circle (1pt);
+  \node[left, pastelblue] at (R) {$C$};
+  \fill[pastelblue] (H) circle (1pt);
+  \node[above, pastelblue] at (H) {$C$};
+  \fill[pastelblue] (I) circle (1pt);
+  \node[above, pastelblue] at (I) {$B$};
+  \fill[pastelblue] (C) circle (1pt);
+  \node[above, pastelblue] at (C) {$A$};
+\end{tikzpicture}\]
+
+The hasse diagram (bottom right) is $L$, the three lines are $P$ and the triangle is $Q$.
+The map is indicated by the coloring.
+
+It can be checked that it is a p-morphism but clearly it's not a map of simplicial complexes
+as the image of vertices are not vertices themselves.
+
+\subsection{The precompact case}
+
+How do things change if we allow for open polyhedra? 
+We gain access to generated subframes, but then the relationship between polyhedra and 
+simplicial complexes becomes more loose:
+
+Consider the poset made of one point, it is the poset of the maximal face of any simplex.
+
+Moreover, even trying to circumvent this problem by considering their closure, 
+indeed a simplicial complex, we can encounter the case where the combinatorial 
+description is not PL-invariant.
+
+For example consider the disjoint union of two triangles.
+\[\begin{tikzpicture}[scale=1]
+  % Coordinates
+  \coordinate (A) at (0.00, 0.00);
+  \coordinate (B) at (0.00, 2.00);
+  \coordinate (C) at (2.00, 0.00);
+  \coordinate (D) at (0.00, 3.00);
+  \coordinate (E) at (2.00, 1.00);
+  \coordinate (F) at (2.00, 3.00);
+  \coordinate (G) at (3.00, 1.01);
+  \coordinate (H) at (4.00, 2.00);
+  \coordinate (I) at (4.00, 0.00);
+  \coordinate (J) at (6.00, 0.00);
+  \coordinate (K) at (6.00, 2.00);
+
+  % Drawing
+  \filldraw[dashed, fill=black, fill opacity=0.3] (A) -- (B) -- (C) -- cycle;
+  \filldraw[dashed, fill=black, fill opacity=0.3] (D) -- (E) -- (F) -- cycle;
+  \filldraw[dashed, fill=black, fill opacity=0.3] (H) -- (I) -- (J) -- cycle;
+  \filldraw[dashed, fill=black, fill opacity=0.3] (H) -- (K) -- (J) -- cycle;
+  \node[above, black] at (G) {$\simeq$};
+\end{tikzpicture}\]
+
+The two objects are PL-homeomorphic but their simplicial complexes are not.
+\subsection{The infinite case}
+
+An interesting question is what happens when we allow for arbitrarily 
+sized simplicial complexes, both in dimension and number of simplices.
 Then the class is not of transitive finite frames but arbitrary ones.
 \begin{itemize}
-    \item What is the geometric realization of an arbitrarily big simplicial complex?
-    \item What is the ultrafilter extension of ``
+    \item What is the geometric realization of an arbitrarily big abstract simplicial complex?
+    \item What is the ultrafilter extension of an arbitrarily big simplicial complex?
     \item How do we describe such ultrafilter extension geometrically?
-    \item Simplicial complexes allow for a coalgebraic description: They are a class of $\Pp\circ \Pp$ coalgebras over (finite) sets 
+    \item (abstract) simplicial complexes allow for a coalgebraic description: 
+    They are a class of $\Pp\circ \Pp$ coalgebras over sets 
     (the map $V\to \Pp\Pp V$ is the one associating to every point the up-set of simplices containing it).
     Do completeness and definability results coincide to the usual ones in that setting?
 \end{itemize}

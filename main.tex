@@ -2,19 +2,25 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{lmodern}
-\renewcommand{\familydefault}{\sfdefault}
+%\renewcommand{\familydefault}{\sfdefault}
 %\usepackage{utopia}%\usepackage{XCharter}%\usepackage{beramono}
 
 %writing packages
-\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools,latexsym,csquotes}
-\usepackage{mathrsfs,afterpage,MnSymbol,bbm,mdframed}
-
+\usepackage{amsfonts,amsthm,amsmath,amssymb,mathtools,csquotes}
+\usepackage{mathrsfs,afterpage,bbm,mdframed}
+\usepackage{stix}
 \usepackage{epigraph,stmaryrd,xcolor,enumerate}
 \usepackage{lipsum}
-\usepackage[activate={true,nocompatibility},tracking=true,kerning=true,spacing=true,factor=1100,stretch=10,shrink=10]{microtype}
+\usepackage[activate={true,nocompatibility},nopatch=footnote,tracking=true,kerning=true,factor=1100,stretch=10,shrink=10]{microtype}
+\microtypecontext{spacing=nonfrench}
+\setlength\parindent{0pt}
 
 %graphic packages
 \usepackage{tikz,tikz-cd,float,caption,subcaption,graphicx,adjustbox}
+\definecolor{pastelred}{rgb}{1.0, 0.41, 0.38}
+\definecolor{pastelviolet}{rgb}{0.8, 0.6, 0.79}
+\definecolor{pastelgreen}{rgb}{0.47, 0.87, 0.47}
+\definecolor{pastelblue}{rgb}{0.47, 0.62, 0.8}
 \usepackage{quiver}  
 \usepackage{bussproofs}
 
@@ -22,17 +28,16 @@
 \usetikzlibrary{calc}
 
 \let\lrcorner\relax
-\newsavebox{\pullback} 
-\sbox\pullback{%
+\newsavebox{\pback} 
+\sbox\pback{%
 \begin{tikzpicture}%
 \draw (0,0) -- (1ex,0ex);%
 \draw (1ex,0ex) -- (1ex,1ex);%
 \end{tikzpicture}}
-\DeclareMathOperator{\lrcorner}{\usebox\pullback}
+\DeclareMathOperator{\lrcorner}{\usebox\pback}
 
 %various packages
 \usepackage[
-backend=biber,
 style=alphabetic,
 sorting=ynt
 ]{biblatex}
@@ -44,7 +49,7 @@ sorting=ynt
 
 %Frontespiece packages
 \usepackage{subfiles}
-\usepackage[a4paper,top=4.5cm,bottom=4cm,inner=3.5cm,outer=3.5cm]{geometry}
+\usepackage[a4paper,margin=1.5cm]{geometry}
 
 %commands
 \newcommand\myemptypage{
@@ -77,13 +82,14 @@ sorting=ynt
 \newcommand\ra[1]{\xsquigrightarrow{#1}}
 \newcommand\la[1]{\xsquigleftarrow{#1}}
 %numbering settings
-\numberwithin{equation}{section} 
+\numberwithin{equation}{subsection} 
 
 %theorems
 \newtheorem{theorem}[equation]{Theorem}
 \newtheorem{proposition}[equation]{Proposition}
 \newtheorem{definition}[equation]{Definition}
 \newtheorem{observation}[equation]{Observation}
+\newtheorem{conjecture}[equation]{Conjecture}
 \newtheorem{lemma}[equation]{Lemma}
 \newtheorem{corollary}[equation]{Corollary}
 \newtheorem*{note}{Note}
@@ -117,14 +123,14 @@ sorting=ynt
 \DeclareMathOperator{\Z}{\mathbb{Z}}
 \DeclareMathOperator{\Q}{\mathbb{Q}}
 \DeclareMathOperator{\R}{\mathbb{R}}
-\DeclareMathOperator{\C}{\mathbb{C}}
+\DeclareMathOperator{\C}{\mathcal{C}}
 \DeclareMathOperator{\A}{\mathbb{A}}
 \DeclareMathOperator{\bF}{\mathbb{F}}
 \DeclareMathOperator{\N}{\mathbb{N}}
 \let\P\relax
 \DeclareMathOperator{\P}{\mathbb{P}}
 \DeclareMathOperator{\pp}{\mathfrak{p}}
-\DeclareMathOperator{\Pp}{\mathscr{P}}
+\DeclareMathOperator{\Pp}{\mathcal{P}}
 \DeclareMathOperator{\Nn}{\mathscr{N}}
 \DeclareMathOperator{\E}{\mathcal{E}}
 \DeclareMathOperator{\F}{\mathcal{F}}
@@ -149,13 +155,23 @@ sorting=ynt
 \DeclareMathOperator{\b}{\Box}
 \let \d\relax
 \DeclareMathOperator{\d}{\Diamond}
-\DeclareMathOperator{\Sub}{Subd}
+\DeclareMathOperator{\Sub}{Sub}
 \DeclareMathOperator{\Hull}{Hull}
 \DeclareMathOperator{\RelInt}{RelInt}
+\DeclareMathOperator{\Fmla}{\textbf{Fmla}}
+\DeclareMathOperator{\Log}{\textbf{Log}}
 \DeclareMathOperator{\inv}{ inv.}
 \DeclareMathOperator{\ar}{ar}
 \DeclareMathOperator{\Face}{\textbf{Face}}
 \DeclareMathOperator{\Simp}{\textbf{Simp}}
+\DeclareMathOperator{\Ll}{\mathcal{L}}
+\DeclareMathOperator{\Tr}{Triang}
+\newcommand{\upred}{
+  \mathrel{\circ}~\kern-0.6em~\relbar\joinrel\twoheadrightarrow
+}
+\newcommand{\fupred}{
+  \mathrel{\circ}~\kern-0.6em~\relbar\joinrel\mapsto
+}
 %categories
 \DeclareMathOperator{\Prop}{\textbf{Prop}}
 \DeclareMathOperator{\Uf}{\textbf{Uf}}
@@ -186,12 +202,17 @@ sorting=ynt
 \DeclareMathOperator{\Pos}{\textbf{Pos}}
 \DeclareMathOperator{\Scplx}{\textbf{Scplx}}
 
+\title{A Goldblatt-Thomason theorem for Compact Polyhedra}
+\author{Gabelaia, D. Tognetti, F.}
+
 \begin{document}
+\maketitle
 \tableofcontents
 \include{Sections/1}
 \include{Sections/2}
 \include{Sections/3}
 \include{Sections/4}
+\include{Sections/5}
 \nocite{*}
 \printbibliography
 \end{document}
