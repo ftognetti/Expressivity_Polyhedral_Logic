@@ -1,5 +1,78 @@
-
-
 \section{Applications}
 \subsection{Some Modally definable classes}
+We may start by giving some somewhat obvious examples of modally definable classes:
+
+\begin{proposition}{Bounded Dimension}\hfill
+    
+    For any given $n\in\N$, the class of polyhedra of dimension 
+    $\leq n$ is modally definable
+\end{proposition}
+
 \subsection{Some Not modally definable classes}
+More interesting is what is \textbf{not} modally definable:
+
+\begin{proposition}{Contractible spaces}\hfill
+    
+    The class of all (locally) contractible polyhedra is \textbf{not modally
+    definable}
+\end{proposition}
+\begin{proof}
+    The map illustrated by the drawing 
+  \[\begin{tikzpicture}[scale=1]
+  % Coordinates
+  \coordinate (A) at (0.00, 0.00);
+  \coordinate (B) at (1.50, 3.00);
+  \coordinate (C) at (3.00, 0.00);
+  \coordinate (D) at (1.00, 0.50);
+  \coordinate (E) at (2.00, 0.50);
+  \coordinate (F) at (1.50, 1.75);
+  \coordinate (J) at (4.00, 0.00);
+  \coordinate (K) at (5.50, 3.00);
+  \coordinate (L) at (7.00, 0.00);
+  \coordinate (M) at (5.00, 0.50);
+  \coordinate (N) at (5.50, 1.75);
+  \coordinate (O) at (6.00, 0.50);
+  \coordinate (G) at (9.00, 0.50);
+  \coordinate (H) at (10.00, 0.50);
+  \coordinate (I) at (9.50, 1.75);
+  \coordinate (P) at (9.50, 3.00);
+  \coordinate (Q) at (8.00, 0.00);
+  \coordinate (R) at (11.00, 0.00);
+  \coordinate (S) at (12.00, 0.00);
+  \coordinate (T) at (15.00, 0.00);
+  \coordinate (U) at (13.50, 3.00);
+
+  % Drawing
+  \filldraw[pastelred, fill=black, fill opacity=0.3] (A) -- (B) -- (C) -- cycle;
+  \draw (D) -- (E) -- (F) -- cycle;
+  \draw (F) -- (B);
+  \draw (A) -- (D);
+  \draw (E) -- (C);
+  \filldraw[fill=pastelred, fill opacity=0.3] (A) -- (D) -- (F) -- (B);
+  \filldraw[fill=pastelred, fill opacity=0.3] (B) -- (F) -- (E) -- (C);
+  \filldraw[fill=pastelred, fill opacity=0.3] (C) -- (E) -- (D) -- (A);
+  \draw[pastelred] (J) -- (K) -- (L) -- cycle;
+  \draw[pastelred, dashed] (M) -- (N) -- (O) -- cycle;
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (M) -- (J) -- (K) -- (N);
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (O) -- (L) -- (K) -- (N);
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (G) -- (Q) -- (P) -- (I) -- cycle;
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (M) -- (J) -- (L) -- (O);
+  \filldraw[pastelgreen, fill=pastelgreen, fill opacity=0.3] (R) -- (H) -- (I) -- (P) -- cycle;
+  \filldraw[pastelviolet, fill=pastelviolet, fill opacity=0.3] (Q) -- (R) -- (H) -- (G) -- cycle;
+  \draw[pastelblue] (I) -- (P);
+  \draw[pastelblue] (H) -- (R);
+  \draw[pastelblue] (G) -- (Q);
+  \draw[pastelred] (S) -- (U);
+  \draw[pastelgreen] (T) -- (U);
+  \draw[pastelviolet] (S) -- (T);
+  \fill[pastelblue] (S) circle (2pt);
+  \fill[pastelblue] (T) circle (2pt);
+  \fill[pastelblue] (U) circle (2pt);
+  \draw[white,dashed] (G) -- (G) -- (H) -- (I) -- cycle;
+\end{tikzpicture}\]
+describes a face up-reduction
+
+\begin{proposition}
+    The class of convex polyhedra and the class of PL-manifolds are not modally definable.
+\end{proposition}
+\end{proof}
