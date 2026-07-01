@@ -7,9 +7,42 @@ We may start by giving some somewhat obvious examples of modally definable class
     For any given $n\in\N$, the class of polyhedra of dimension 
     $\leq n$ is modally definable
 \end{proposition}
+\begin{proof}
+    Indeed it's $\Pol(S4.\text{Grz}.\text{Bd}_n)$
+\end{proof}
+
+An interesting (and somewhat surprising) example of a modally definable class is 
+\begin{proposition}{Locally $\leq n$-holed $1d$}\hfill 
+
+    The class of $1d$ polyhedra such that each connected component 
+    has ``less than $n$ holes'' (we may ask $\text{rk}(H_1(X_i,\Z))\leq n$) is modally 
+    definable.
+\end{proposition}
+\begin{proof}
+    Indeed it's $\Pol(S4.\text{Grz}.\text{Bd}_n.\chi(F_{n+1}))$
+    where $F_k$ is the $k-$fork 
+\end{proof}
+
+\begin{conjecture}\hfill 
+
+    Given the proposition above, we have reasons to think 
+    that some form of bounded homology on connected components might be modally 
+    definable: I suppose that inside the class of polyhedra of bounded dimension $n$
+    bounding the rank of the $n^{\text{th}}$ homology group might be 
+    achievable by utilizing Jankov-Fine formulas.
+\end{conjecture}
 
 \subsection{Some Not modally definable classes}
 More interesting is what is \textbf{not} modally definable:
+
+Obviously 
+\begin{proposition}{Connected spaces}\hfill 
+
+    The class of connected polyhedra is not modally definable.
+\end{proposition}
+\begin{proof}
+    It immediately fails to be closed under disjoint unions.
+\end{proof}
 
 \begin{proposition}{Contractible spaces}\hfill
     
