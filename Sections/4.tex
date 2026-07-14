@@ -1,12 +1,12 @@
 \section{Open questions}
 \subsection{A refinement of GTKP}
-The result we have spent the most time trying to obtain is the following refinement
+The result we have spent the most time trying to obtain is the following refinement:
 \begin{conjecture}
-    A class of compact polyhedra is modally definable if and only if 
-    it is closed under finite disjoint union and simplicial up-reductions.
+    A class of compact polyhedra is modally definable if and only if
+    it is closed under finite disjoint unions and simplicial up-reductions.
 \end{conjecture}
 
-The procedure we have in mind to prove the equivalence between the current result 
+The procedure we have in mind to prove the equivalence between the current result
 and the one above is the following:
 \begin{itemize}
     \item Consider the face up-reduction $f:P\fupred Q$ realized as $f:P\upred [L]$;
@@ -15,11 +15,9 @@ and the one above is the following:
     that is an up-reduction and a map of simplicial complexes;
     \item Realize $\tilde{g}$ as a simplicial up-reduction $g:P\upred Q$.
 \end{itemize}
-If $\tilde{f}$ were (or densely contained) a map of (abstract) simplicial complexes and not only one of posets
-   our work would be done: It is possible to realize any map of ASCs into a simplicial map 
-   of their polyhedra. 
-   In general though this is not the case: Consider 
-   $P$ to be three segments, and $Q$ to be the triangle (boundary of the $2-$simplex), and consider 
+If $\tilde{f}$ were (or were densely contained in) a map of (abstract) simplicial complexes, rather than merely one of posets, our work would be done: it is possible to realize any map of ASCs as a simplicial map of their polyhedra.
+
+In general, though, this is not the case. Consider $P$ to be three segments and $Q$ the triangle (the boundary of the $2$-simplex):
 
 \[\begin{tikzpicture}[scale=1]
   % Coordinates
@@ -119,25 +117,19 @@ If $\tilde{f}$ were (or densely contained) a map of (abstract) simplicial comple
   \node[above, pastelblue] at (C) {$A$};
 \end{tikzpicture}\]
 
-The hasse diagram (bottom right) is $L$, the three lines are $P$ and the triangle is $Q$.
-The map is indicated by the coloring.
+The Hasse diagram (bottom right) is $L$; the three segments are $P$, and the triangle is $Q$. The map is indicated by the coloring.
 
-It can be checked that it is a p-morphism but clearly it's not a map of simplicial complexes
-as the image of vertices are not vertices themselves.
+One can check that it is a p-morphism, but clearly not a map of simplicial complexes, since the images of the vertices are not themselves vertices.
 
 \subsection{The precompact case}
 
-How do things change if we allow for open polyhedra? 
-We gain access to generated subframes, but then the relationship between polyhedra and 
-simplicial complexes becomes more loose:
+How do things change if we allow open polyhedra? We gain access to generated subframes, but the relationship between polyhedra and simplicial complexes becomes looser:
 
-Consider the poset made of one point, it is the poset of the maximal face of any simplex.
+Consider the poset consisting of a single point: it is the poset of the maximal face of any simplex.
 
-Moreover, even trying to circumvent this problem by considering their closure, 
-indeed a simplicial complex, we can encounter the case where the combinatorial 
-description is not PL-invariant.
+Moreover, even if we try to circumvent this problem by considering the closure of a face --- which is indeed a simplicial complex --- we can find cases where the combinatorial description fails to be PL-invariant.
 
-For example consider the disjoint union of two triangles.
+For example, consider the disjoint union of two triangles:
 \[\begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
@@ -160,18 +152,15 @@ For example consider the disjoint union of two triangles.
   \node[above, black] at (G) {$\simeq$};
 \end{tikzpicture}\]
 
-The two objects are PL-homeomorphic but their simplicial complexes are not.
+The two objects are PL-homeomorphic, but their simplicial complexes are not.
 \subsection{The infinite case}
 
-An interesting question is what happens when we allow for arbitrarily 
-sized simplicial complexes, both in dimension and number of simplices.
-Then the class is not of transitive finite frames but arbitrary ones.
+An interesting question is what happens when we allow arbitrarily large simplicial complexes, both in dimension and in number of simplices: the relevant class is then no longer that of finite transitive frames, but of arbitrary ones.
 \begin{itemize}
-    \item What is the geometric realization of an arbitrarily big abstract simplicial complex?
-    \item What is the ultrafilter extension of an arbitrarily big simplicial complex?
-    \item How do we describe such ultrafilter extension geometrically?
-    \item (abstract) simplicial complexes allow for a coalgebraic description: 
-    They are a class of $\Pp\circ \Pp$ coalgebras over sets 
-    (the map $V\to \Pp\Pp V$ is the one associating to every point the up-set of simplices containing it).
-    Do completeness and definability results coincide to the usual ones in that setting?
+    \item What is the geometric realization of an arbitrarily large abstract simplicial complex?
+    \item What is the ultrafilter extension of an arbitrarily large simplicial complex?
+    \item How do we describe such an ultrafilter extension geometrically?
+    \item (Abstract) simplicial complexes admit a coalgebraic description: they form a class of $\Pp\circ \Pp$-coalgebras over sets
+    (the map $V\to \Pp\Pp V$ associates to every point the up-set of simplices containing it).
+    Do completeness and definability results in that setting coincide with the usual ones?
 \end{itemize}

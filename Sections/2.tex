@@ -1,172 +1,128 @@
 \section{Definability}
-Here we define the standard versions of our theorem and 
-our semantics, and how we are going to use them.
+Here we set out the standard versions of our theorem and of our semantics, and explain how we will use them.
 \subsection{Polyhedral semantics}
-As it is always the case, we have a language, in this case
-the standard modal language.
-\begin{definition}{Modal language}\hfill 
-
-    Our language is the standard modal language:
-    We assume a (countable) set of propositional 
-    variables $X$ and we define inductively
+As is always the case, we begin with a language; here, the standard modal language.
+\begin{definition}[Modal language]
+    Our language is the standard modal language: we assume a (countable) set of propositional variables $X$ and define inductively
     \[\Ll = \set{x\in X \ \|\ \bot\ \|\ \varphi\vee\psi\ \|\ \lnot\varphi\ \|\ \d\varphi}\]
 \end{definition}
 
-And we interpret our formulas in polyhedra in the following way 
+We interpret our formulas in polyhedra as follows.
 
-\begin{definition}{Polyhedral semantics}\hfill 
-
-    Let $P$ be a (compact) polyhedron. Our \textbf{evaluation} is a map 
-    $\nu :\Ll \to \Pp P$ such that $\nu(\varphi)$ is the 
-    union of relative interior of subpolyhedra of $P$.
+\begin{definition}[Polyhedral semantics]
+    Let $P$ be a (compact) polyhedron. An \textbf{evaluation} is a map $\nu :\Ll \to \Pp P$ such that $\nu(\varphi)$ is a union of relative interiors of subpolyhedra of $P$.
 
     We say $P,x\models \varphi$ if and only if $x\in \nu(\varphi)$.
 
-    Moreover we ask that $\nu$ satisfies the following properties:
+    Moreover, we ask that $\nu$ satisfies the following properties:
     \begin{itemize}
         \item $\nu(\bot)=\emptyset$,
         \item $\nu(\varphi\vee\psi)=\nu(\varphi)\cup\nu(\psi)$,
         \item $\nu(\lnot\varphi)=P\setminus \nu(\varphi)$,
-        \item $\nu(\d\varphi)=\overline{\nu(\varphi)}$
+        \item $\nu(\d\varphi)=\overline{\nu(\varphi)}$.
     \end{itemize}
 
-    We say that $\varphi$ \textbf{is valid in} $P$, written$P\models\varphi$ 
-    if for any $x\in P$ and for any evaluation $\nu$, $P,x\models \varphi$
+    We say that $\varphi$ \textbf{is valid in} $P$, written $P\models\varphi$, if $P,x\models \varphi$ for every $x\in P$ and every evaluation $\nu$.
 \end{definition}
 
-This allows us to define the \textbf{logic} of a polyhedron
-\begin{definition}\hfill 
-
-    Let $P$ be a polyhedron. We call the \textbf{Logic} of $P$
+This allows us to define the \textbf{logic} of a polyhedron.
+\begin{definition}
+    Let $P$ be a polyhedron. We call the \textbf{logic} of $P$ the set
     \[\Log(P):=\set{\varphi\in \Ll:P\models\varphi}\]
 \end{definition}
 
-Recall that the kripke semantics for (S4.Grz) modal logic is the
-one interpreting boolean connectives usually, and interpreting 
-\[P,p\models \d\varphi\iff \exists q\geq p: P,q\models\varphi\]
-We may connect the two semantics via this theorem 
+Recall that the Kripke semantics for the modal logic (S4.Grz) interprets the Boolean connectives as usual, together with
+\[P,p\models \d\varphi\iff \exists q\geq p: P,q\models\varphi.\]
+The following theorem connects the two semantics.
 \begin{theorem}
-    Let $P$ be a polyhedron, $K=(V,\Sigma)\in \Tr(P)$ a simplicial complex
-    realizing to $P$.
+    Let $P$ be a polyhedron and let $K=(V,\Sigma)\in \Tr(P)$ be a simplicial complex realizing $P$.
 
-    Then for each $x\in P$ there exists a unique $\sigma_x\in \Sigma$ such that 
-    $x\in \RelInt(\sigma_x)$. Then 
-    \[P,x\models\varphi \text{ (as polyhedra) if and only if }\Sigma,\sigma_x\models\varphi\text{ (as posets)}\]
-    Moreover
+    For each $x\in P$ there exists a unique $\sigma_x\in \Sigma$ such that $x\in \RelInt(\sigma_x)$, and
+    \[P,x\models\varphi \text{ (as polyhedra) if and only if }\Sigma,\sigma_x\models\varphi\text{ (as posets)}.\]
+    Moreover,
     \[\Log(P)=\bigcap_{K\in \Tr(P)}\Log([K]).\]
 \end{theorem}
-\begin{proof}\hfill 
-
-    A complete account may be found in \cite{TENCATE} and \cite{DBLP}.
+\begin{proof}
+    See \cite{TENCATE} and \cite{DBLP} for a complete account.
 \end{proof}
 \subsection{Modally definable classes}
 
-The dual question of validity is definability:
+The dual question to validity is definability: given a set of formulas $F$, which class of models satisfies it?
 
-Given a set of formulas $F$, what class of models satisfies it?
-
-\begin{definition}{MD Class}
-
-    Let $F\subseteq \Ll$ be a set of formulas.
-    We call $\Pol(F)$ the class of (compact) polyhedra modeling every formula of $F$, i.e.
+\begin{definition}[MD class]
+    Let $F\subseteq \Ll$ be a set of formulas. We call $\Pol(F)$ the class of (compact) polyhedra modeling every formula of $F$, i.e.
     \[\Pol(F)=\set{P\in\Pol: \forall\varphi\in F. P\models\varphi}\]
 \end{definition}
 
-We want to form a Goldblatt-Thomason-Like theorem for this class of spaces.
-
-recall
-\begin{theorem}{Goldblatt-Thomason for Finite transitive frames (I)}\hfill 
-
-    A class of finite transitive models $\C$ is modally definable 
-    if and only if it is closed under 
+We want to establish a Goldblatt-Thomason-like theorem for this class of spaces. Recall the classical result:
+\begin{theorem}[Goldblatt-Thomason for finite transitive frames (I)]
+    A class of finite transitive models $\C$ is modally definable if and only if it is closed under
     \begin{itemize}
-        \item Finite disjoint unions
-        \item Generated subframes
-        \item P-morphic images
+        \item finite disjoint unions,
+        \item generated subframes,
+        \item p-morphic images.
     \end{itemize}
 \end{theorem}
 \begin{proof}
-    \cite{Blackburn_Rijke_Venema_2001}, Chapter 3.
+    See \cite{Blackburn_Rijke_Venema_2001}, Chapter 3.
 \end{proof}
-We will see that 'generated subframes' correspond to open subpolyhedra.
-As our classes are formed by \textbf{compact} polyhedra,
-then open subpolyhedra wil never be there
-
-We shall use a slightly different but equivalent result:
-\begin{corollary}{Goldblatt-Thomason for Finite transitive frames (II)}\hfill 
-
-    A class of finite transitive models $\C$ is modally definable 
-    if and only if it is closed under 
+We will see that `generated subframes' correspond to open subpolyhedra. Since our classes are formed of \textbf{compact} polyhedra, open subpolyhedra will never occur among them, so we shall instead use a slightly different but equivalent result:
+\begin{corollary}[Goldblatt-Thomason for finite transitive frames (II)]
+    A class of finite transitive models $\C$ is modally definable if and only if it is closed under
     \begin{itemize}
-        \item Finite disjoint unions
-        \item surjective up-reductions
+        \item finite disjoint unions,
+        \item surjective up-reductions,
     \end{itemize}
-    Where an up-reduction is a partial p-morphism whose domain is a generated subframe.
+    where an up-reduction is a partial p-morphism whose domain is a generated subframe.
 \end{corollary}
 \begin{proof}
-    Suppose $\C$ is closed under $(I)$, $X\in \C$ and $f:X\upred Y$ an up-reduction
-    Call $U$ the domain of $f$, then $U\in \C$. 
+    Suppose $\C$ is closed under $(I)$. Let $X\in \C$ and let $f:X\upred Y$ be an up-reduction; call $U$ the domain of $f$, so that $U\in \C$.
 
-    $f_{|U}: U\twoheadrightarrow Y$ is a surjective p-morphism, thus $Y$ is p-morphic image of $U$, thus $Y\in \C$.
+    Then $f_{|U}: U\twoheadrightarrow Y$ is a surjective p-morphism, so $Y$ is a p-morphic image of $U$, and thus $Y\in \C$. This means that $\C$ is closed under $(II)$.
 
-    This means that $\C$ is closed under $(II)$.
-
-    Conversely suppose that $\C$ is closed under $(II)$, let $X\in \C$ and and let $U$ be a generated 
-    subframe of $X$. Then the identity of $U$, seen as a partial map $X\to U$ is an up-reduction.
-    Similarly, if $Y$ is a $p-$morphic image of $Y$, as $X$ is a generated subframe of $X$, 
-    we may extract an up-reduction. 
+    Conversely, suppose that $\C$ is closed under $(II)$. Let $X\in \C$ and let $U$ be a generated subframe of $X$. Then the identity on $U$, seen as a partial map $X\to U$, is an up-reduction. Similarly, if $Y$ is a p-morphic image of $Y$, then, since $X$ is a generated subframe of $X$, we may extract an up-reduction.
 \end{proof}
 
-Note that this means that the class of models \textbf{is always closed under generated subframes} but we may 
-intersect the class with a category that doesn't have them.
+Note that this means the class of models \textbf{is always closed under generated subframes}, but we may intersect this class with a category that lacks them.
 
 We will also make use of the Jankov-Fine axiomatization.
 
-\begin{theorem}{Jankov Fine}
-    Let $U$ be a finite rooted frame.
-    Then there exists a formula $\chi(U)$ such that 
-    $F\models\chi(U)$ if $F$ does \textbf{not} up-reduce to $U$.
+\begin{theorem}[Jankov-Fine]
+    Let $U$ be a finite rooted frame. Then there exists a formula $\chi(U)$ such that $F\models\chi(U)$ if $F$ does \textbf{not} up-reduce to $U$.
 \end{theorem}
 \begin{proof}
-    \cite{Bezhanishvili2022}%provide a more direct source?
+    See \cite{Bezhanishvili2022}.%provide a more direct source?
 \end{proof}
 \begin{corollary}
     A class of finite frames $\C$ in a category of models $\Mod$ can be characterized as
-    \[\C=\set{M\in \Mod: \forall U\notin \C \text{ rooted},\  M\models\chi(U)}\]
+    \[\C=\set{M\in \Mod: \forall U\notin \C \text{ rooted},\  M\models\chi(U)}.\]
 \end{corollary}
 
 \subsection{Topological connection}
-\begin{proposition}\hfill
-
+\begin{proposition}
     The realization $|-|$ enjoys the following properties:
-
     \begin{enumerate}[(i)]
-        \item $|U\cup V|=|U|\cup|V|$
-        \item $|U\cap V|=|U|\cap |V|$
-        \item $|U^\circ|=|U|^\circ$
-        \item $|\Sigma\setminus U|=|\Sigma|\setminus |U|$
+        \item $|U\cup V|=|U|\cup|V|$,
+        \item $|U\cap V|=|U|\cap |V|$,
+        \item $|U^\circ|=|U|^\circ$,
+        \item $|\Sigma\setminus U|=|\Sigma|\setminus |U|$.
     \end{enumerate}
 \end{proposition}
 \begin{proof}
     They follow immediately from the fact that $|U|$ is a disjoint union.
 \end{proof}
 
-\begin{lemma}{up-sets are open}\hfill
-    
-    Let $K=(V,\Sigma)$ be a simplicial complex, $U\subseteq \Sigma$
-    and consider $|U|=\bigsqcup_{\sigma\in U}\RelInt(\sigma)$ 
+\begin{lemma}[Up-sets are open]
+    Let $K=(V,\Sigma)$ be a simplicial complex, $U\subseteq \Sigma$, and consider $|U|=\bigsqcup_{\sigma\in U}\RelInt(\sigma)$.
 
     Then $|U|$ is open if and only if $U$ is upward-closed.
 
-    Respectively, $|U|$ is closed if and only if $U$ is downward-closed
+    Dually, $|U|$ is closed if and only if $U$ is downward-closed.
 \end{lemma}
 \begin{proof}
-    We may use the characterization that $|U|$ is closed if and only if $|U|\cup\partial |U|=|U|$
+    We may use the characterization that $|U|$ is closed if and only if $|U|\cup\partial |U|=|U|$.
 
-    Note that $\partial |U|$ is given by $|U|\setminus \RelInt(|U|)=|U\setminus U^*|$
-     (where) $U^*$ are the maximal faces.
-     This means that $|U|$ is closed if and only if $U$ contains everything below its maximal faces.
+    Note that $\partial |U|$ is given by $|U|\setminus \RelInt(|U|)=|U\setminus U^*|$, where $U^*$ is the set of maximal faces of $U$. This means that $|U|$ is closed if and only if $U$ contains everything below its maximal faces.
 
-    Then $|U|$ is open if and only if $|\Sigma|\setminus|U|=|\Sigma\setminus U|$ is closed
-    thus if $\Sigma\setminus U$ is downward-closed, thus if $U$ is upward-closed.
+    Then $|U|$ is open if and only if $|\Sigma|\setminus|U|=|\Sigma\setminus U|$ is closed, i.e., if and only if $\Sigma\setminus U$ is downward-closed, i.e., if and only if $U$ is upward-closed.
 \end{proof}

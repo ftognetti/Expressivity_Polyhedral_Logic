@@ -1,72 +1,51 @@
 \section{Polyhedra}
-As for the title, we are interested in compact polyhedra. 
-Our claim find its roots in the fundamental interplay between the 
-geometric and the combinatorial nature of said objects, 
-which is perfectly represented by simplicial complexes.
+As the title suggests, we are interested in compact polyhedra. Our approach is rooted in the interplay between the geometric and combinatorial facets of these objects, an interplay that is captured most naturally by simplicial complexes.
 \subsection{Polyhedra and maps}
-\begin{definition}{Simplex}\hfill 
+\begin{definition}[Simplex]
+    Fix a set of \textbf{vertices} $V\subseteq\R^n$ (for some $n\in \N$). For vertices $v_0,\dots,v_k\in V$ in general position (i.e., affinely independent), we say that
+    \[\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}\]
+    is a \textbf{face} or \textbf{simplex} with support $v_1,\dots,v_k$.
 
-    First consider a set of \textbf{vertices} $V\subseteq\R^n$ (for some $n\in \N$).
+    For a face $\sigma$ on $v_1,\dots,v_k$, a face whose support is a subset of these vertices is called a \textbf{subface} or \textbf{subsimplex}.
 
-    We say that 
-    
-    \[\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}\] 
-    for $v_0,...,v_k$ vertices in general position (affinely independent)
-    Is called a \textbf{face} or \textbf{simplex} with support $v_1,...,v_k$.
-    
-    For a face $\sigma$ on $v_1,...,v_k$, a face with support a subset of the vertices 
-    is called a \textbf{subface} or \textbf{subsimplex}.
-    
-    If a face $\sigma$ has vertices $v_0,...,v_k$, then we say that $\dim(\sigma)=k$.
+    If a face $\sigma$ has vertices $v_0,\dots,v_k$, we say that $\dim(\sigma)=k$.
 
-    We call $\RelInt(\sigma)$ the \textbf{Relative interior} of a face $\sigma$ the interior of the set 
-    in the smallest affine subspace of $\R^n$ containing it.
+    We call $\RelInt(\sigma)$, the \textbf{relative interior} of a face $\sigma$, the interior of the set in the smallest affine subspace of $\R^n$ containing it.
 \end{definition}
-\begin{definition}{Simplicial Complex}\hfill 
-    
-    A \textbf{simplicial complex} is defined to be a pair $K=(V,\Sigma)$ 
-    where $V$ is a set of vertices and $\Sigma$ is a set of simplices such that 
+\begin{definition}[Simplicial complex]
+    A \textbf{simplicial complex} is a pair $K=(V,\Sigma)$ where $V$ is a set of vertices and $\Sigma$ is a set of simplices such that
     \begin{itemize}
-        \item If $\sigma\in \Sigma$ and $\sigma'$ is a subsimplex of $\sigma$, then $\sigma'\in\Sigma$
-        \item The relative interior of any two simplices is disjoint.
+        \item if $\sigma\in \Sigma$ and $\sigma'$ is a subsimplex of $\sigma$, then $\sigma'\in\Sigma$;
+        \item the relative interior of any two simplices is disjoint.
     \end{itemize}
-    If $K=(V,\Sigma)$ is a simplicial complex we say that $\dim(K)=\max_{\sigma\in \Sigma}(\dim(\sigma))$
+    If $K=(V,\Sigma)$ is a simplicial complex, we say that $\dim(K)=\max_{\sigma\in \Sigma}(\dim(\sigma))$.
 \end{definition}
 
-This clearly defines a polyhedron in $\R^n$ but in a way that ``remembers the faces''.
-We can forget about the structure and define a polyhedron in the following way:
+This clearly defines a polyhedron in $\R^n$, but in a way that ``remembers the faces''. We can forget this extra structure and define a polyhedron directly, as follows:
 
-\begin{definition}{Polyhedron}\hfill 
+\begin{definition}[Polyhedron]
+    Let $K=(V,\Sigma)$ be a simplicial complex. We call
+    \[|K|=\bigcup_{\sigma\in\Sigma}\sigma=\bigsqcup_{\sigma\in\Sigma}\RelInt(\sigma)\]
+    the \textbf{realization} of $K$, or the \textbf{polyhedron} associated to $K$.
 
-    Let $K=(V,\Sigma)$ be a simplicial complex. Then we call 
-    \[|K|=\bigcup_{\sigma\in\Sigma}\sigma=\bigsqcup_{\sigma\in\Sigma}\RelInt(\sigma)\] 
-    the \textbf{realization} of $K$ or the \textbf{polyhedron} associated to $K$.
-    
-    We say that $P\subseteq \R^n$ is a \textbf{polyhedron} if there exists 
-    a simplicial complex $K$ such that $P=|K|$
+    We say that $P\subseteq \R^n$ is a \textbf{polyhedron} if there exists a simplicial complex $K$ such that $P=|K|$.
 \end{definition}
 
-This leads us to two definitions of maps of polyhedra: 
-one that only preserves the information about the simplicial complex,
-the other informed by the affine construction we did. 
+This leads to two notions of maps between polyhedra: one that preserves only the combinatorial structure of the simplicial complex, and one informed by the affine construction above.
 
-\begin{definition}{Simplicial map, PL map}\hfill 
-
+\begin{definition}[Simplicial map, PL map]
     Let $K=(V,\Sigma),K'=(V',\Sigma')$ be two geometric simplicial complexes.
 
-    $f:|K|\to|K'|$ is called a \textbf{Simplicial map} (or \textbf{Polyhedral map})
-    if
+    A map $f:|K|\to|K'|$ is called a \textbf{simplicial map} (or \textbf{polyhedral map}) if
     \begin{itemize}
-        \item for any point $v\in V$, $f(v)$ is a point of $V'$, and 
+        \item for any point $v\in V$, $f(v)$ is a point of $V'$, and
         \item for any simplex $\sigma\in\Sigma$, $f_{\to}(\sigma)$ is a simplex of $\Sigma'$.
     \end{itemize}
 
-    $f$ is furthermore called $PL$ (\textbf{Piecewise linear}) if it is affine when
-    restricted to any face.
+    We further call $f$ \textbf{PL} (\textbf{piecewise linear}) if it is affine when restricted to any face.
 \end{definition}
 
-Note that given a simplicial complex, there is a unique polyhedron associated to it, but the other
-association is not unique: 
+Note that a simplicial complex determines a unique polyhedron, but the converse fails: a polyhedron may be realized by several different simplicial complexes, as in the picture below.
 \[\begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
@@ -93,31 +72,23 @@ association is not unique:
   \fill[black] (F) circle (1pt);
   \fill[black] (G) circle (1pt);
 \end{tikzpicture}\]
-In the picture above, clearly the two polyhedra are the same (a triangle) but 
-the complex on the left has one face of dimension 2,
-while the complex on the right has three.
-\begin{definition}{Triangulation}\hfill 
-
-    Let $P$ be a polyhedron in $\R^n$, then a simplicial complex 
-    $K$ such that $|K|=P$ is called a \textbf{triangulation} of $P$.
+In the picture above, the two polyhedra are clearly the same (a triangle), but the complex on the left has a single face of dimension $2$, while the complex on the right has three.
+\begin{definition}[Triangulation]
+    Let $P$ be a polyhedron in $\R^n$. A simplicial complex $K$ such that $|K|=P$ is called a \textbf{triangulation} of $P$.
 \end{definition}
 
-In particular, given a simplicial complex we have a way of generating arbitrarily
-rich simplicial complexes resulting in the same polyhedron.
-\begin{definition}{Barycentric subdivision}\hfill
+In particular, starting from a single simplicial complex, we can generate arbitrarily rich simplicial complexes that all realize the same polyhedron.
+\begin{definition}[Barycentric subdivision]
+    Recall that if $\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}$, the point
+    \[b_\sigma=\frac{1}{k+1}\sum_{i=0}^k v_i\]
+    is called the \textbf{barycenter} of $\sigma$.
 
-Recall that if $\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}$, the point 
-\[b_\sigma=\frac{1}{k+1}\sum_{i=0}^k v_i\]
-is called the \textbf{barycenter} of $\sigma$.
-
-Let $K=(V,\Sigma)$ be a simplicial complex. Then we call the \textbf{barycentric subdivision} 
-subdivision of $K$ the simplicial complex $K^{(1)}$
-having as vertices the set of \textbf{barycenters} of faces in $\Sigma$
-\[V^{(1)}=\set{b_\sigma:\sigma\in\Sigma}\]
-And as simplices the ones obtained by inductively replacing vertices with the barycenters in descending dimensions.
-\[\sigma^{(1)}_{j}=\set{\alpha_1 v_1+\cdots+\widehat{\alpha_j v_i}+\alpha_j b_{\sigma}+\cdots+\alpha_k v_k\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1}\]
+    Let $K=(V,\Sigma)$ be a simplicial complex. We call the \textbf{barycentric subdivision} of $K$ the simplicial complex $K^{(1)}$ having as vertices the set of barycenters of faces in $\Sigma$,
+    \[V^{(1)}=\set{b_\sigma:\sigma\in\Sigma}\]
+    and as simplices those obtained by inductively replacing vertices with barycenters, in decreasing order of dimension:
+    \[\sigma^{(1)}_{j}=\set{\alpha_1 v_1+\cdots+\widehat{\alpha_j v_i}+\alpha_j b_{\sigma}+\cdots+\alpha_k v_k\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1}\]
 \end{definition}
-Visually,
+Visually, the barycentric subdivision of a triangle looks as follows:
 \[\begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
@@ -151,151 +122,106 @@ Visually,
   \fill[black] (J) circle (1pt);
 \end{tikzpicture} \]
 
-\begin{theorem}{$|K|=|K^{(1)}|$}\hfill 
-
-    The geometric realization is invariant under taking barycenters.
+\begin{theorem}[$|K|=|K^{(1)}|$]
+    The geometric realization of a simplicial complex is unchanged by barycentric subdivision.
 \end{theorem}
 \begin{proof}
-    We need to show two inclusions: one is that 
-    $\sigma_j^{(1)}\subseteq \sigma$ for all $\sigma$ and for all $j$
-    and then, that $\sigma\subseteq \bigcup_j\sigma^{(1)}_j$
+    We must show two inclusions: that $\sigma_j^{(1)}\subseteq \sigma$ for all $\sigma$ and all $j$, and that $\sigma\subseteq \bigcup_j\sigma^{(1)}_j$.
 
-    For the first claim, suppose $p\in\sigma_j^{(1)}$, 
-    without loss of generality $p\in \sigma_1^{(1)}$.
-
-    Then 
+    For the first claim, suppose $p\in\sigma_j^{(1)}$; without loss of generality, $p\in \sigma_1^{(1)}$. Then
     \begin{align*}
         p&=a_1 b_\sigma + a_2 v_2+\cdots + a_kv_k\\
         &=\frac{a_1}{k+1}(v_1+\cdots+v_k)+a_2v_2+\cdots+a_kv_k\\
-        &=\frac{a_1}{k+1} v_1+ (a_2+\frac{a_1}{k+1})v_2+\cdots+(a_k+\frac{a_1}{k+1})v_k\\
+        &=\frac{a_1}{k+1} v_1+ (a_2+\frac{a_1}{k+1})v_2+\cdots+(a_k+\frac{a_1}{k+1})v_k.
     \end{align*}
-    Now 
+    Now
     \begin{align*}
         &\frac{a_1}{k+1}+(a_2+\frac{a_1}{k+1})+\cdots+(a_k+\frac{a_1}{k+1})\\
         &=(k+1)\frac{a_1}{k+1}+a_2+\cdots+a_k\\
-        &=a_1+a_2+\cdots+a_k=1
+        &=a_1+a_2+\cdots+a_k=1,
     \end{align*}
-    and all of them are positive.
-    This means that any subdivision obtained by replacing
-    a vertex with the barycenter of a face containing it 
-    and taking a convex hull is contained in the original face.
-    As the barycentric subdivision is an iteration of this process, $K^{(1)}\subseteq K$
+    and all of these coefficients are positive. This means that any subdivision obtained by replacing a vertex with the barycenter of a face containing it, and taking the convex hull, is contained in the original face. Since the barycentric subdivision is an iteration of this process, $K^{(1)}\subseteq K$.
 
-    To show the converse, suppose $p\in \sigma$, then 
-    \[p=a_1v_1+\cdots+a_kv_k\]
-    We want to show that there are $b_1,...,b_k$ such that
-    $p=b_1 v_1 + \cdots + b_j b_\sigma +\cdots + b_k v_k$. 
-    If we try to do the substitutions backwards
+    For the converse, suppose $p\in \sigma$, so that
+    \[p=a_1v_1+\cdots+a_kv_k.\]
+    We want to find $b_1,\dots,b_k$ such that $p=b_1 v_1 + \cdots + b_j b_\sigma +\cdots + b_k v_k$. Substituting backwards,
     \begin{align*}
         &b_j v_j + b_1 v_1 + \cdots + b_k v_k\\
-        &=\frac{a_j}{k+1} v_j + (a_1+\frac{a_j}{k+1}) v_1 + \cdots + (a_k+\frac{a_j}{k+1}) v_k
+        &=\frac{a_j}{k+1} v_j + (a_1+\frac{a_j}{k+1}) v_1 + \cdots + (a_k+\frac{a_j}{k+1}) v_k,
     \end{align*}
-    we get a system of equations 
-    \[a_j=(k+1)b_j\ \ a_1= b_1-b_j \ \ \cdots \ \ a_k=b_k-b_j\]
-    To ensure they're all positive we can just pick $j$ 
-    as the one realizing the minimum of the $b_j$'s.
+    which yields the system of equations
+    \[a_j=(k+1)b_j,\quad a_1= b_1-b_j, \quad \cdots, \quad a_k=b_k-b_j.\]
+    To ensure that all the $b_i$ are positive, we choose $j$ to realize the minimum of the $b_j$.
 
-    Then by induction on the subdivision we may conclude $K\subseteq K^{(1)}$.
+    An induction on the subdivision then gives $K\subseteq K^{(1)}$.
 \end{proof}
 \subsection{Posets}
-Forgetting about the support in $\R^n$ gives us a great combinatorial 
-descryption of simplicial complexes: We have essentially a downward-closed poset.
-\begin{definition}{Face Poset}\hfill 
-
-    Let $K=(V,\Sigma)$ be a simplicial complex. 
-    We call $[K]=(\Sigma,\subseteq)$ the \textbf{face poset} of $K$
+Forgetting the support in $\R^n$ gives a purely combinatorial description of a simplicial complex: what remains is essentially a downward-closed poset.
+\begin{definition}[Face poset]
+    Let $K=(V,\Sigma)$ be a simplicial complex. We call $[K]=(\Sigma,\subseteq)$ the \textbf{face poset} of $K$.
 \end{definition}
-    
-$[K]$ is essentially all we need to recover the structure of a 
-simplicial complex up to PL-homeomorphism.
-\begin{lemma}\hfill 
 
-    Let $K,K'$ be two simplicial complexes with $[K]\simeq [K']$, then 
-    there exists a PL-homeomorphism $K\simeq K'$ 
+The face poset $[K]$ already contains everything we need to recover the structure of $K$ up to PL-homeomorphism.
+\begin{lemma}
+    Let $K,K'$ be two simplicial complexes with $[K]\simeq [K']$. Then there exists a PL-homeomorphism $K\simeq K'$.
 \end{lemma}
 \begin{proof}
-    \cite{PLTopology}{Lemma 2.18}
+    See \cite[Lemma 2.18]{PLTopology}.
 \end{proof}
 
-This means that we can define 
-\begin{definition}{ASC}\hfill 
-    
-    An \textbf{abstract simplicial complex}, or \textbf{ASC} is a pair $K=(V,\Sigma)$
-    where $V$ is a set, and $\Sigma\subseteq \Pp(V)$ is a 
-    collection of subsets of $V$ closed under taking subsets.
+This allows us to define:
+\begin{definition}[ASC]
+    An \textbf{abstract simplicial complex}, or \textbf{ASC}, is a pair $K=(V,\Sigma)$ where $V$ is a set and $\Sigma\subseteq \Pp(V)$ is a collection of subsets of $V$ closed under taking subsets.
 
-    In particular, given a simplicial complex $K$, we may associate to any 
-    face the set of its vertices, resulting in an ASC $\overline{K}$.
+    Given a simplicial complex $K$, associating to each face the set of its vertices yields an ASC $\overline{K}$.
 \end{definition}
 
-Of course we may assign an essentially unique simplicial complex to an ASC.
-\begin{lemma}\hfill 
-
+Conversely, every ASC arises this way from an essentially unique simplicial complex.
+\begin{lemma}
     Let $K$ be an ASC. Then there exists a simplicial complex $K'$ such that $\overline{K'}=K$.
 \end{lemma}
-\begin{proof}\hfill 
-
-    We may realize every $d-$simplex to the standard simplex of the correct 
-    dimension in $\R^{d+1}$ and glue them according to the intersections.
-    \cite{PLTopology} has a complete account of it.
+\begin{proof}
+    Realize every $d$-simplex as the standard simplex of the appropriate dimension in $\R^{d+1}$, and glue them together according to their intersections; see \cite{PLTopology} for a complete account.
 \end{proof}
-This lemma and the previous one give a correspondence
+Together, these two lemmas give a correspondence
 \[\dfrac{\set{\textbf{Simplicial Complexes}}}{\text{PL-homeomorphism}}\leftrightarrow\set{\textbf{ASCs}}\]
+since to each ASC we may associate a simplicial complex, and any two simplicial complexes associated to the same ASC are PL-homeomorphic.
 
-As to each ASC we may associate a simplicial complex, and 
-any two corresponding ones are PL-homeomorphic.
+We also want a way to define an (abstract) simplicial complex from any poset:
 
-We want a way to define a(n abstract) simplicial complex from any poset:
-
-\begin{definition}{Nerve}\hfill 
-
-    Let $(P,\leq)$ be a poset.
-    We call $\Nn(P)$ the \textbf{nerve} of $P$, the abstract simplicial complex 
-    whose vertices are the elements of $P$, and whose simplices are the
-    flags $p_1<\cdots<p_k$ of ordered elements of $P$.
+\begin{definition}[Nerve]
+    Let $(P,\leq)$ be a poset. We call $\Nn(P)$, the \textbf{nerve} of $P$, the abstract simplicial complex whose vertices are the elements of $P$ and whose simplices are the flags $p_1<\cdots<p_k$ of ordered elements of $P$.
 \end{definition}
 
-A fact we want to use freely in the future is
+We will freely use the following fact:
 \begin{theorem}
-
-If $K=(V,\Sigma)$ is a simplicial complex, then 
-\[\Nn(\Sigma)=\overline{K^{(1)}}\]  
+    If $K=(V,\Sigma)$ is a simplicial complex, then
+    \[\Nn(\Sigma)=\overline{K^{(1)}}.\]
 \end{theorem}
 \begin{proof}
-    \cite{PLTopology}
+    See \cite{PLTopology}.
 \end{proof}
 \subsection{Subdivision theorems}
-We care about polyhedra as a semantics for modal logic, 
-thus our choice of morphisms is slightly different from the 
-classical framework.
+We are interested in polyhedra as semantics for modal logic, and so our choice of morphisms differs slightly from the classical framework.
 
-First recall that if we have (binary) kripke frames $(W,R)$, $(W',R')$,
-a function $f:W\to W'$ is called a $p-$morphism if and only if
-it satisfies
+Recall first that, given (binary) Kripke frames $(W,R)$ and $(W',R')$, a function $f:W\to W'$ is called a p-morphism if and only if it satisfies
 \begin{enumerate}
-    \item $w R w'$ implies $f(w) R f(w')$
+    \item $w R w'$ implies $f(w) R f(w')$;
     \item $f(v) R w'$ implies that there exists $w\in W$ such that $v R w$ and $f(w)=w'$.
 \end{enumerate}
 
-If $R=\leq$ is a partial order, then the two conditions become equivalent to 
-\[\forall w\in W.\ \uparrow f(w)=f(\uparrow w)\]
-where $\uparrow w=\set{v\in W: w<v}$.
+If $R=\leq$ is a partial order, these two conditions become equivalent to
+\[\forall w\in W.\ \uparrow f(w)=f(\uparrow w),\]
+where $\uparrow w=\set{v\in W: w<v}$. We refer to this property as \textbf{upward-closure}.
 
-We refer to this as \textbf{upward-closure}.
-
-The proofs of all following lemmas are found in \cite{Dekker}.
-\begin{lemma}{Subdivisions are p-morphic}\hfill 
-
-    The map $K^{(1)}\twoheadrightarrow K$ sending each face of $\Sigma^{(1)}$
-    to the (only) face in $\Sigma$ containing it is a p-morphism.
+The proofs of all the following lemmas can be found in \cite{Dekker}.
+\begin{lemma}[Subdivisions are p-morphic]
+    The map $K^{(1)}\twoheadrightarrow K$ sending each face of $\Sigma^{(1)}$ to the (unique) face of $\Sigma$ containing it is a p-morphism.
 \end{lemma}
-\begin{lemma}{Common Triangulation}\hfill 
-
-    Let $K$ be a simplicial complex, $K'\subseteq K$ another simplicial complex.
-    Then there exists a subdivision $L$ of $K$ and a subset $L'$ such that $L'$ is 
-    a subdivision of $K'$.
+\begin{lemma}[Common triangulation]
+    Let $K$ be a simplicial complex and $K'\subseteq K$ another simplicial complex. Then there exists a subdivision $L$ of $K$, and a subset $L'$ of $L$ that is a subdivision of $K'$.
 \end{lemma}
-The visualization of this is pretty simple:
+This is easy to visualize:
 \[\begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
@@ -345,20 +271,16 @@ The visualization of this is pretty simple:
   \fill[black] (N) circle (1pt);
 \end{tikzpicture}\]
 
-\begin{lemma}{Nerves are dense}\hfill 
-
-    Let $K$ be a simplicial complex, $L$ a subdivision of $K$.
+\begin{lemma}[Nerves are dense]
+    Let $K$ be a simplicial complex and $L$ a subdivision of $K$.
 
     Then there exists $n\in \N$ such that $K^{(n)}$ is (isomorphic to) a subdivision of $L$.
 \end{lemma}
 
-\begin{lemma}{Subdividing p-morphisms}\hfill 
+\begin{lemma}[Subdividing p-morphisms]
+    Let $K,K'$ be simplicial complexes and $f:K\upred K'$ an up-reduction, that is, a p-morphism defined on an upward-closed (open) subset of $K$.
 
-    Let $K,K'$ be simplicial complexes, $f:K\upred K'$ an up-reduction, 
-    that is a p-morphism defined on an upward closed (open) subset of $K$.
-
-    Let $L'$ be a subdivision of $K'$, then there exists a subdivision $L$ of $K$ 
-    and an up-reduction $L\upred L'$ such that 
+    Let $L'$ be a subdivision of $K'$. Then there exists a subdivision $L$ of $K$ and an up-reduction $L\upred L'$ such that
 
     \[\begin{tikzcd}[ampersand replacement=\&]
 	K \& {K'} \\

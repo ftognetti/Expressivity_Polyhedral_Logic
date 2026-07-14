@@ -1,56 +1,46 @@
 \section{Applications}
-\subsection{Some Modally definable classes}
-We may start by giving some somewhat obvious examples of modally definable classes:
+\subsection{Some modally definable classes}
+We start by giving some fairly obvious examples of modally definable classes.
 
-\begin{proposition}{Bounded Dimension}\hfill
-    
-    For any given $n\in\N$, the class of polyhedra of dimension 
-    $\leq n$ is modally definable
+\begin{proposition}[Bounded dimension]
+    For any given $n\in\N$, the class of polyhedra of dimension
+    $\leq n$ is modally definable.
 \end{proposition}
 \begin{proof}
-    Indeed it's $\Pol(S4.\text{Grz}.\text{Bd}_n)$
+    Indeed, it is $\Pol(S4.\text{Grz}.\text{Bd}_n)$.
 \end{proof}
 
-An interesting (and somewhat surprising) example of a modally definable class is 
-\begin{proposition}{Locally $\leq n$-holed $1d$}\hfill 
-
-    The class of $1d$ polyhedra such that each connected component 
-    has ``less than $n$ holes'' (we may ask $\text{rk}(H_1(X_i,\Z))\leq n$) is modally 
+An interesting (and somewhat surprising) example of a modally definable class is the following:
+\begin{proposition}[Locally $\leq n$-holed $1d$]
+    The class of $1d$ polyhedra such that each connected component
+    has ``fewer than $n$ holes'' (i.e., $\text{rk}(H_1(X_i,\Z))\leq n$) is modally
     definable.
 \end{proposition}
 \begin{proof}
-    Indeed it's $\Pol(S4.\text{Grz}.\text{Bd}_n.\chi(F_{n+1}))$
-    where $F_k$ is the $k-$fork 
+    Indeed, it is $\Pol(S4.\text{Grz}.\text{Bd}_n.\chi(F_{n+1}))$, where $F_k$ is the $k$-fork.
 \end{proof}
 
-\begin{conjecture}\hfill 
-
-    Given the proposition above, we have reasons to think 
-    that some form of bounded homology on connected components might be modally 
-    definable: I suppose that inside the class of polyhedra of bounded dimension $n$
-    bounding the rank of the $n^{\text{th}}$ homology group might be 
-    achievable by utilizing Jankov-Fine formulas.
+\begin{conjecture}
+    Given the proposition above, we have reason to believe that some form of bounded homology on connected components might also be modally definable. Specifically, within the class of polyhedra of bounded dimension $n$, bounding the rank of the $n^{\text{th}}$ homology group might be achievable using Jankov-Fine formulas.
 \end{conjecture}
 
-\subsection{Some Not modally definable classes}
-More interesting is what is \textbf{not} modally definable:
+\subsection{Some classes that are not modally definable}
+More interesting are the classes that fail to be modally definable.
 
-Obviously 
-\begin{proposition}{Connected spaces}\hfill 
-
+Obviously, we have the following.
+\begin{proposition}[Connected spaces]
     The class of connected polyhedra is not modally definable.
 \end{proposition}
 \begin{proof}
     It immediately fails to be closed under disjoint unions.
 \end{proof}
 
-\begin{proposition}{Contractible spaces}\hfill
-    
+\begin{proposition}[Contractible spaces]
     The class of all (locally) contractible polyhedra is \textbf{not modally
-    definable}
+    definable}.
 \end{proposition}
 \begin{proof}
-    The map illustrated by the drawing 
+    The map illustrated by the drawing below describes a face up-reduction.
   \[\begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
@@ -103,9 +93,8 @@ Obviously
   \fill[pastelblue] (U) circle (2pt);
   \draw[white,dashed] (G) -- (G) -- (H) -- (I) -- cycle;
 \end{tikzpicture}\]
-describes a face up-reduction
+\end{proof}
 
 \begin{proposition}
     The class of convex polyhedra and the class of PL-manifolds are not modally definable.
 \end{proposition}
-\end{proof}
