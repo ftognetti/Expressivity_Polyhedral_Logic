@@ -207,7 +207,34 @@ sorting=ynt
 
 \begin{document}
 \maketitle
+\begin{abstract}
+    Modal logic is most commonly interpreted over Kripke frames,
+    but it also admits a polyhedral semantics, in which formulas of the modal logic 
+    $S4.\text{Grz}$ are evaluated on compact polyhedra, 
+    with the diamond modality read as the topological closure 
+    of a union of relative interiors of subpolyhedra. 
+    This semantics is compatible with the classical relational semantics: 
+    any triangulation of a polyhedron induces a finite poset, 
+    its face poset, on which the same formulas may be evaluated combinatorially.
+
+    A cornerstone of correspondence theory for Kripke frames is the 
+    Goldblatt-Thomason theorem, which characterizes the modally 
+    definable classes of finite transitive frames as exactly those 
+    closed under finite disjoint unions, generated subframes, and p-morphic images. 
+    We transfer this characterization to the polyhedral setting. 
+    Since a compact polyhedron admits no compact generated subpolyhedron, 
+    the classical closure conditions do not translate directly, 
+    and we introduce a weaker, purely polyhedral notion in their place:
+     the \textbf{face up-reduction}, built from the Alexandrov topology on face posets. 
+     Our main result shows that a class of compact polyhedra is modally definable 
+     if and only if it is closed under finite disjoint unions and face up-reductions. 
+     We develop the requisite machinery on simplicial complexes and their subdivisions, 
+     illustrate the theorem with several modally definable and non-modally-definable classes, 
+     and close with a conjectured strengthening 
+     of the result to simplicial maps and related open questions.
+\end{abstract}
 \tableofcontents
+\include{Sections/intro}
 \include{Sections/1}
 \include{Sections/2}
 \include{Sections/3}
