@@ -1,16 +1,30 @@
 \section{Definability}
-Here we set out the standard versions of our theorem and of our semantics, and explain how we will use them.
+Here we render explicit the standard (kripke) version of our definability theorem, explain our choice of semantics, 
+and suggest how we will transport the standard result to the new setting.
+
 \subsection{Polyhedral semantics}
-As is always the case, we begin with a language; here, the standard modal language.
+As is always the case, we begin with a syntax: here we consider the standard propositional modal language.
 \begin{definition}[Modal language]
     Our language is the standard modal language: we assume a (countable) set of propositional variables $X$ and define inductively
     \[\Ll = \set{x\in X \ \|\ \bot\ \|\ \varphi\vee\psi\ \|\ \lnot\varphi\ \|\ \d\varphi}\]
 \end{definition}
+This is a minimal description of our syntax, where we can assume the ``not'' to be primitive and derive 
+\begin{itemize}
+    \item $\top=\lnot\bot$
+    \item $\varphi \wedge \psi=\lnot(\lnot \varphi\vee\lnot\psi)$
+    \item $\varphi\to\psi=\lnot \varphi\vee\psi$
+    \item $\b \varphi=\lnot\d\lnot\varphi$
+\end{itemize}
+Our semantics is a tamer version of the topological semantics for modal logic (\cite{Gabelaia2001ModalDI}), interpreting the box $\b$ as an interior operator
+and the diamond $\d$ as a closure operator.
 
-We interpret our formulas in polyhedra as follows.
+The main difference between polyhedral and topological semantics is that the evaluation of the elementary propositions is (possibly open) subpolyhedra
+and not arbitrary subsets.
+
+To express ``possibly open'' subpolyhedra, we take unions of relative interiors of subpolyhedra.
 
 \begin{definition}[Polyhedral semantics]
-    Let $P$ be a (compact) polyhedron. An \textbf{evaluation} is a map $\nu :\Ll \to \Pp P$ such that $\nu(\varphi)$ is a union of relative interiors of subpolyhedra of $P$.
+    Let $P$ be a (compact) polyhedron. An \textbf{evaluation} is a map $\nu :\Ll \to \Pp(P)$ such that $\nu(\varphi)$ is a union of relative interiors of subpolyhedra of $P$.
 
     We say $P,x\models \varphi$ if and only if $x\in \nu(\varphi)$.
 
@@ -25,7 +39,7 @@ We interpret our formulas in polyhedra as follows.
     We say that $\varphi$ \textbf{is valid in} $P$, written $P\models\varphi$, if $P,x\models \varphi$ for every $x\in P$ and every evaluation $\nu$.
 \end{definition}
 
-This allows us to define the \textbf{logic} of a polyhedron.
+This allows us to define the \textbf{logic} of a polyhedron, i.e. the set of formulas that are valid in a given polyhedron.
 \begin{definition}
     Let $P$ be a polyhedron. We call the \textbf{logic} of $P$ the set
     \[\Log(P):=\set{\varphi\in \Ll:P\models\varphi}\]
@@ -33,7 +47,9 @@ This allows us to define the \textbf{logic} of a polyhedron.
 
 Recall that the Kripke semantics for the modal logic (S4.Grz) interprets the Boolean connectives as usual, together with
 \[P,p\models \d\varphi\iff \exists q\geq p: P,q\models\varphi.\]
-The following theorem connects the two semantics.
+($\d \varphi$ is true at $p$ if and only if $\varphi$ is true on some element above $p$).
+
+The following theorem connects the two semantics:
 \begin{theorem}
     Let $P$ be a polyhedron and let $K=(V,\Sigma)\in \Tr(P)$ be a simplicial complex realizing $P$.
 
@@ -45,18 +61,30 @@ The following theorem connects the two semantics.
 \begin{proof}
     See \cite{TENCATE} and \cite{DBLP} for a complete account.
 \end{proof}
+
+In the form of a slogan: a formula is satisfied on a polyhedron if and only if it's satisfied on some triangulation,
+and a formula is valid on a polyhedron if and only if it's valid on every triangulation.
+
 \subsection{Modally definable classes}
 
-The dual question to validity is definability: given a set of formulas $F$, which class of models satisfies it?
+The dual question to validity is definability: given a set of formulas $F$, we can define the class of models validating it:
 
 \begin{definition}[MD class]
     Let $F\subseteq \Ll$ be a set of formulas. We call $\Pol(F)$ the class of (compact) polyhedra modeling every formula of $F$, i.e.
     \[\Pol(F)=\set{P\in\Pol: \forall\varphi\in F. P\models\varphi}\]
 \end{definition}
 
-We want to establish a Goldblatt-Thomason-like theorem for this class of spaces. Recall the classical result:
+Goldblatt and Thomason's theorem gives necessary and sufficient condition for when an arbitrary class $\C$ is modally definable, i.e. 
+It is the class of models validating some set of formulas.
+
+Every flavor of models generates a slightly different Goldblatt-Thomason-like theorem. The classical result is about 
+frames, and says that a class of kripke frames is modally definable if and only if it's closed under disjoint unions, generated subframes,
+p-morphic images and it's closed under and reflects ultrafilter extensions.
+
+As we are considering compact polyhedra, our frames (posets) are finite, thus we can use a stronger theorem with easier conditions.
+
 \begin{theorem}[Goldblatt-Thomason for finite transitive frames (I)]
-    A class of finite transitive models $\C$ is modally definable if and only if it is closed under
+    A class of finite transitive frames $\C$ is modally definable if and only if it is closed under
     \begin{itemize}
         \item finite disjoint unions,
         \item generated subframes,
@@ -66,9 +94,16 @@ We want to establish a Goldblatt-Thomason-like theorem for this class of spaces.
 \begin{proof}
     See \cite{Blackburn_Rijke_Venema_2001}, Chapter 3.
 \end{proof}
-We will see that `generated subframes' correspond to open subpolyhedra. Since our classes are formed of \textbf{compact} polyhedra, open subpolyhedra will never occur among them, so we shall instead use a slightly different but equivalent result:
+
+We see that generate subframes correspond to open subpolyhedra. This constitute a problem: Our polyhedra lay in some euclidean space, thus have open non-compact subsets.
+
+Such a subset cannot be part of our class as it's not compact, but a priori there might be maps that can be defined on it and not on the starting space.
+
+Our solution is to avoid considering generated subframes (equivalently open subpolyhedra) and combine the notion of generated subframe and p-morphic image into one notion.
+
+We need to show equivalence, so let us state it as a corollary and prove it.
 \begin{corollary}[Goldblatt-Thomason for finite transitive frames (II)]
-    A class of finite transitive models $\C$ is modally definable if and only if it is closed under
+    A class of finite transitive frames $\C$ is modally definable if and only if it is closed under
     \begin{itemize}
         \item finite disjoint unions,
         \item surjective up-reductions,
@@ -83,9 +118,12 @@ We will see that `generated subframes' correspond to open subpolyhedra. Since ou
     Conversely, suppose that $\C$ is closed under $(II)$. Let $X\in \C$ and let $U$ be a generated subframe of $X$. Then the identity on $U$, seen as a partial map $X\to U$, is an up-reduction. Similarly, if $Y$ is a p-morphic image of $Y$, then, since $X$ is a generated subframe of $X$, we may extract an up-reduction.
 \end{proof}
 
-Note that this means the class of models \textbf{is always closed under generated subframes}, but we may intersect this class with a category that lacks them.
+Note that this means the class of models is always closed under generated subframes, but we may consider this class within a category that lacks them.
 
-We will also make use of the Jankov-Fine axiomatization.
+We will also make use of the Jankov-Fine axiomatization: There exists some formulas that prohibit up-reduction to a given (rooted) frame, i.e. a model validates 
+the formula corresponding to the frame if and only if it does not up-reduce to the frame.
+
+These formulas are useful for example and counterexamples and fully characterize classes of finite frames.
 
 \begin{theorem}[Jankov-Fine]
     Let $U$ be a finite rooted frame. Then there exists a formula $\chi(U)$ such that $F\models\chi(U)$ if $F$ does \textbf{not} up-reduce to $U$.
@@ -104,14 +142,13 @@ We will also make use of the Jankov-Fine axiomatization.
     \begin{enumerate}[(i)]
         \item $|U\cup V|=|U|\cup|V|$,
         \item $|U\cap V|=|U|\cap |V|$,
-        \item $|U^\circ|=|U|^\circ$,
         \item $|\Sigma\setminus U|=|\Sigma|\setminus |U|$.
     \end{enumerate}
 \end{proposition}
 \begin{proof}
     They follow immediately from the fact that $|U|$ is a disjoint union.
 \end{proof}
-
+Moreover we have that the realization of an up-set is open and taking the downward-closure corresponds in the realization to taking the topological closure.
 \begin{lemma}[Up-sets are open]
     Let $K=(V,\Sigma)$ be a simplicial complex, $U\subseteq \Sigma$, and consider $|U|=\bigsqcup_{\sigma\in U}\RelInt(\sigma)$.
 
@@ -126,3 +163,9 @@ We will also make use of the Jankov-Fine axiomatization.
 
     Then $|U|$ is open if and only if $|\Sigma|\setminus|U|=|\Sigma\setminus U|$ is closed, i.e., if and only if $\Sigma\setminus U$ is downward-closed, i.e., if and only if $U$ is upward-closed.
 \end{proof}
+
+The topological Goldblatt-Thomason theorem states that a class of topological spaces is modally definable if and only 
+if it's closed under disjoint unions, open subsets, image of open continuous maps and Alexandrov extensions.
+
+We expect our result to be similar (save the extensions, parallelly to the frame-finite frame case) to the topological one, thus a closure under 
+(finite) disjoint unions, some form of open subsets, and some form of open continuous images.

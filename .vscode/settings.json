@@ -27,7 +27,16 @@
         "expressivity_Polyhedra.pdf": true,
         "main.bbl-SAVE-ERROR": true,
         "Sections/Untitled.synctex.gz": true,
-        "Sections/Untitled.log": true
+        "Sections/Untitled.log": true,
+        "TACL_2026/main.nav": true,
+        "TACL_2026/main.snm": true,
+        "TACL_2026/main.fdb_latexmk": true,
+        "TACL_2026/main.aux": true,
+        "TACL_2026/main.fls": true,
+        "TACL_2026/main.log": true,
+        "TACL_2026/main.out": true,
+        "TACL_2026/main.synctex.gz": true,
+        "Sections/intro.aux": true
     },
     "latex-workshop.format.fixQuotes.enabled": true,
     "latex-workshop.intellisense.package.unusual": true,

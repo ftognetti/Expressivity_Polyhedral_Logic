@@ -1,0 +1,319 @@
+\documentclass{beamer}
+\usepackage{tikz,tikz-cd,amsmath,amssymb,float,graphicx}
+\usepackage{quiver}
+\usepackage{XCharter}\usepackage{beramono}
+
+\let\d\relax
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\Sub}{SubPol}
+\DeclareMathOperator{\Set}{\textbf{Set}}
+\DeclareMathOperator{\Pp}{\mathcal{P}}
+\DeclareMathOperator{\Ll}{\mathcal{L}}
+\DeclareMathOperator{\Cc}{\mathcal{C}}
+\DeclareMathOperator{\Q}{\mathbb{Q}}
+\DeclareMathOperator{\R}{\mathbb{R}}
+\DeclareMathOperator{\Z}{\mathbb{Z}}
+\DeclareMathOperator{\d}{\lozenge}
+\newcommand{\upred}{
+  \mathrel{\circ}~\kern-0.6em~\relbar\joinrel\twoheadrightarrow
+}
+\newcommand{\fupred}{
+  \mathrel{\circ}~\kern-0.6em~\relbar\joinrel\mapsto
+}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\usetheme[progressbar=frametitle]{metropolis}
+
+\title{A Goldblatt-Thomason Theorem for Compact Polyhedra}
+\subtitle{}
+\author{David Gabelaia, Francesco Tognetti}
+\date{July 2026}
+\institute{TACL @ Krakow}
+
+
+
+\begin{document}
+\begin{frame}
+    \maketitle
+\end{frame}
+\begin{frame}{Hello!}
+    A small presentation, \\
+    from least to most important 
+    \begin{itemize}
+        \item My name is \textbf{Francesco Tognetti},
+        \item I'm a second year PhD student 
+        at the \textbf{University of Luxembourg},
+        \item I have a very cute \textbf{dog}.
+    \end{itemize}
+\end{frame}
+\begin{frame}{Oopsie}
+    The \textbf{abstract} in the conference website 
+    said I'd be presenting a Goldblatt-Thomason theorem for 
+    \textbf{Pre-compact} polyhedra.
+
+    Apparently that approach was \textbf{flawed}, to the point that
+    the result turned out not to be valid. 
+
+    We managed to prove one for \textbf{Compact} polyhedra instead.
+    \vfill
+    (I'm very sorry for the mix-up)
+\end{frame}
+\section{Topological and Polyhedral semantics}
+\begin{frame}{Topological semantics}
+    A quick recap is in order:
+
+    We are doing \textbf{Polyhedral semantics of modal logic}, that can be 
+    seen as a slight modification of \textbf{Topological semantics}.
+
+    We have the standard unimodal language 
+    \[\Ll=\set{p\in P\ \|\ \bot\ \|\ \lnot\varphi\ \|\ \varphi\vee\psi\ \|\ \d\varphi}\]
+\end{frame}
+\begin{frame}{Polyhedral Semantics}
+    As it's the case in topological semantics we interpret formulas in a space $X$
+    \[\nu:\Ll\to \Pp(X)\]
+    \begin{itemize}
+        \item $\bot$ as the \textbf{Empty Set}\hfill $\nu(\bot)=\emptyset$
+        \item $\lnot$ as the \textbf{Complementary } \hfill $\nu(\lnot\varphi)=X\setminus \nu(\varphi)$
+        \item $\vee$ as the \textbf{Union} \hfill $\nu(\varphi\vee\psi)=\nu(\varphi)\cup\nu(\psi)$
+        \item $\d$ as the \textbf{Topological closure} \hfill $\nu(\d\varphi)=\overline{\nu(\varphi)}$
+    \end{itemize}
+\end{frame}
+\begin{frame}{Polyhedral Semantics}
+    The distinguishing factor between \textbf{Topological} and \textbf{Polyhedral} semantics
+    is that
+    \begin{itemize}
+        \item We require $X$ to be a \textbf{Polyhedron}
+        \item For any $\varphi$ we require $\nu(\varphi)$ to be a \textbf{Subpolyhedron}
+    \end{itemize}
+\end{frame}
+\begin{frame}{Polyhedra}
+    Polyhedra are essentially higher dimensional generalizations of polygons,
+    thus the nicest way to describe them is as \textbf{unions of simplices}.
+    \begin{itemize}
+        \item A $0-$Simplex is a point,
+        \item A $1-$Simplex is a segment,
+        \item A $2-$Simplex is a triangle,
+        \item A $3-$Simplex is a tetrahedron,
+        \item $\cdots$
+    \end{itemize}
+\end{frame}
+\begin{frame}{Polyhedra}
+    Since we want to allow \textbf{open} sets (in the euclidean topology)
+    What we consider as ``acceptable subsets'' is 
+    \textbf{unions of relative interior of simplices}
+    \vfill
+\end{frame}
+\begin{frame}{Compactness}
+    It's not obvious what an \textbf{infinite}-polyhedron is:
+    If we allowed them to be arbitrary unions of (relative interiors of) simplices then 
+    any topological space is a polyhedron, as every point is a simplex.
+
+    There are many possible generalisations but
+    
+    for now we may restrict to the \textbf{compact} case.
+\end{frame}
+\begin{frame}
+    This gives rise to a much \textbf{tamer} topology:
+
+    For example every polyhedron of dimension $\leq n$ 
+    validates $Bd_n$ (the bounded depth formula of order $n$)
+    \vfill
+\end{frame}
+\begin{frame}
+    Or any convex polyhedron validates $\chi(\ \ \ \ \ \ )+\chi(\ \ \ \ \ \ )$
+    \vfill 
+\end{frame}
+\section{A Definability theorem}
+\begin{frame}{Definability}
+    From here the \textbf{definability} question is pretty natural:
+    Which \textbf{conditions} are necessary and sufficient for a class of polyhedra to be 
+    \textbf{modally definable}?
+    \begin{theorem}[GTKP]
+        Let $\Cc$ be a class of compact polyhedra. Then $\Cc$ is modally definable
+        if and only if it's closed under 
+        \begin{enumerate}[\textbf{(1)}]
+            \item \textbf{Finite disjoint unions},
+            \item \textbf{Face up-reductions}
+        \end{enumerate}
+    \end{theorem}
+\end{frame}
+\begin{frame}{Finite disjoint unions}
+    \begin{definition}
+        Let $X, Y$ be two sets, we define the 
+        \textbf{Disjoint union} of $X$ and $Y$ as the colimit diagram 
+        \[\begin{tikzcd}[ampersand replacement=\&]
+	\& U \& \\
+	X \& {X+Y} \& Y
+	\arrow[from=2-1, to=1-2]
+	\arrow[from=2-1, to=2-2]
+	\arrow["{\exists!}"{description}, dashed, from=2-2, to=1-2]
+	\arrow[from=2-3, to=1-2]
+	\arrow[from=2-3, to=2-2]
+\end{tikzcd}\]
+        In the category of sets
+    \end{definition}
+    Blah blah words to fill out the page 
+    because otherwise the visual impact doesn't reflect the
+    joke appropriately du dudududu du du
+    I hear the drums echoing tonight 
+\end{frame}
+\begin{frame}{ahah}
+    \begin{center}
+        Just kidding, I know you know
+    \end{center}
+\end{frame}
+\begin{frame}{Face up-reductions}
+    To understand what a face up-reduction is, we start from the concept 
+    of topological up-reduction:
+
+    \begin{definition}[Up-reduction]
+        Let $X,Y$ be topological spaces, an \textbf{up-reduction} $f:X\upred Y$
+        Is a \textbf{Surjective partial map} such that 
+        \begin{itemize}
+            \item The \textbf{domain} of $f$ is an open subset $U\subseteq^\circ X$,
+            \item $f_{|U}$ is an \textbf{open continuous map}.
+        \end{itemize}
+    \end{definition}
+\end{frame}
+\begin{frame}{Face posets}
+    The reason why polyhedra are so \textbf{well-behaved} is that we can 
+    \textbf{triangulate} them properly.
+
+    That is, for any polyhedron $P\subseteq \R^n$ there are (uncountably) \textbf{many} ways
+    of choosing a \textbf{triangulation}, i.e. a collection of simplices 
+    that cover the polyhedron.
+    \vfill
+\end{frame}
+\begin{frame}
+    And furthermore, chosen a finite set of subpolyhedra $P_1,...,P_k$ 
+    there always exists a finite triangulation of $P$ that triangulates all of them 
+
+    \vfill 
+\end{frame}
+\begin{frame}{Finiteness}
+    This means that despite the algebra of subpolyhedra $\Sub(P)$ being infinite,
+
+    given $\varphi_1,...,\varphi_n$, we can always find a \textbf{finite} subalgebra 
+    that contains $\set{\nu(\varphi_1),...,\nu(\varphi_n)}$ 
+\end{frame}
+\begin{frame}{Posets}
+    Triangulations have a natural poset structure, given by the \textbf{``face of''} relation:
+    \vfill 
+\end{frame}
+\begin{frame}
+    For example
+    \vfill 
+\end{frame}
+\begin{frame}{Poset topology}
+    Every poset comes equipped with a topology, where 
+    the \textbf{upward-closed} sets are open, and the 
+    \textbf{downward-closed} sets are closed.
+    \vfill 
+\end{frame}
+\begin{frame}
+    This is compatible with our topology on polyhedra: 
+    Given a triangulation $T$ of a polyhedron $P$, (euclidean) 
+    \textbf{open subpolyhedra} form upward-closed sets in $T$
+    \vfill
+\end{frame}
+\begin{frame}{Face up-reductions}
+    Given two polyhedra $P$ and $Q$ a \textbf{face up-reduction}
+    $P\fupred Q$
+    
+    Is a surjective partial map $P\twoheadrightarrow \Sigma$ to a triangulation of $Q$
+    such that the \textbf{preimage} of every open of $\Sigma$ is an 
+    open subpolyhedron of $P$.
+    \vfill 
+\end{frame}
+\begin{frame}{In particular}
+    Given any polyhedron $Q$ and any triangulation $\Sigma$, then 
+    \[Q\fupred \Sigma\]
+    \vfill 
+\end{frame}
+\section{Proof}
+\begin{frame}{The proof, essentially}
+    \textbf{Modally definable $\implies$ closed under (1) and (2):}
+    Disjoint unions are trivial, let's focus on face up-reductions;
+
+    Suppose $P\models F$ and $P\fupred Q$ through a triangulation $\Sigma$, then assume $Q\not{\models}F$
+    
+    Then there exists a formula $\varphi\in F$ such that $Q\not\models \varphi$
+
+    But then, we can find a point $q$ of $Q$ such that $Q,q\not\models\varphi$
+    \vfill 
+\end{frame}
+\begin{frame}
+    This means that there exists a triangulation $\Sigma'$ that triangulates $\nu(\varphi)$
+    and subdivides $\Sigma$:
+    We can extend $P\upred\Sigma$ to $P\upred\Sigma'$
+    \vfill
+    \vfill
+    Meaning $P$ refutes $\varphi$ as well\hfill $\to\gets$
+\end{frame}
+\begin{frame}
+    \textbf{Closed under (1) and (2) $\implies$ modally definable:}
+
+    Let $\Cc$ be a class closed under \textbf{(1)} and \textbf{(2)}.
+
+    Call $\Ll_{\Cc}$ the logic of $\Cc$ and call $\Cc'$ the polyhedra validating $\Ll_{\Cc}$.
+
+    \vfill 
+
+    We only need to show that $\Cc'\subseteq \Cc$, so let $Q\in \Cc'$.
+\end{frame}
+\begin{frame}
+    $Q\models \Ll$.  We want to construct $P\in \Cc$ such that $P\fupred Q$.
+
+    To do that, we can pick a triangulation $\Sigma$ of $Q$, and consider all of its rooted
+    open subposets $(\uparrow v_i)$.
+    \vfill
+    We can pick the Jankov-Fine formulas $\chi_i=\chi(\uparrow v_i)$for each of them, \textbf{excluding
+    the presence of an up-reduction to $(\uparrow v_i)$}.
+\end{frame}
+\begin{frame}
+    As $(\uparrow v_i)$ are generated subframes of $\Sigma$, $\Sigma\not\models\chi_i$
+    Thus none of the $\chi_i$ belong to $\Ll$
+
+    We can find polyhedra $P_i\in\Cc$ up-reducing to each $(\uparrow v_i)$
+    \vfill
+    Thus $\bigsqcup P_i\upred \bigsqcup(\uparrow v_i)\upred \Sigma$
+    \vfill
+    Thus $P:=\bigsqcup P_i\fupred Q$
+\end{frame}
+\section{Boring part over}
+\begin{frame}{What can we do with this?}
+    As expected, we can show that the class of polyhedra of bounded dimension is 
+    modally definable:
+    \[\dim(P)\leq n\iff P\models Bd_n\]
+\end{frame}
+\begin{frame}
+    Less expectedly, the class of convex polyhedra is \textbf{not} modally definable:
+    There must exist compact non-convex polyhedra that validate the same formulas as 
+    all convex ones.
+\end{frame}
+\begin{frame}
+    Even more unexpectedly, we can talk about some form of homology in one dimension:
+    
+    The class of 1d-polyhedra with less than $n$ holes for connected component is modally
+    definable
+\end{frame}
+\begin{frame}
+    Somewhat more expectedly, the class of (locally) contractible polyhedra is not modally
+    definable.
+\end{frame}
+\section{future work}
+\begin{frame}{up-reductions}
+    There is \textbf{some hope} that we may get a result closer to the topological one:
+
+    Every \textbf{up-reduction} implies \textbf{face up-reductions}
+    \vfill 
+    And the existence of a \textbf{face up-reduction} is independent on the choice of 
+    face poset for the same polyhedron.
+    \vfill
+    The converse implication is still unknown 
+\end{frame}
+\begin{frame}{classes}
+    It would be interesting to see if applying conditions that generalize the 
+    \textbf{``less than n holes''} in higher dimensions are possible.
+\end{frame}
+\section{Thank you for listening!}
+\end{document}

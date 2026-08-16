@@ -1,6 +1,19 @@
 \section{Polyhedra}
-As the title suggests, we are interested in compact polyhedra. Our approach is rooted in the interplay between the geometric and combinatorial facets of these objects, an interplay that is captured most naturally by simplicial complexes.
+As the title suggests, we are interested in compact polyhedra. Our approach is rooted in the interplay between the geometric and combinatorial facets of these objects,
+an interplay that is captured most naturally by simplicial complexes.
+
+Polyhedra are ``triangulable'' geometric objects, that is, subsets of some euclidean space that can be expressed 
+as a union of simplices, much in the same way that any polygon can be expressed as a union of triangles.
+
+It is fundamental to define what a (euclidean) simplex is and how to discard as much of the geometric information as possible 
+to end up with a much easier combinatorial object, that essentially describes the structure of the 
+polyhedron.
 \subsection{Polyhedra and maps}
+A simplex is the generalization of a triangle in arbitrary dimension. It is obtained by 
+taking points in general position and taking their convex combinations, i.e. 
+the minimal convex subset containing all of the points. 
+
+This admits an explicit description:
 \begin{definition}[Simplex]
     Fix a set of \textbf{vertices} $V\subseteq\R^n$ (for some $n\in \N$). For vertices $v_0,\dots,v_k\in V$ in general position (i.e., affinely independent), we say that
     \[\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}\]
@@ -12,6 +25,9 @@ As the title suggests, we are interested in compact polyhedra. Our approach is r
 
     We call $\RelInt(\sigma)$, the \textbf{relative interior} of a face $\sigma$, the interior of the set in the smallest affine subspace of $\R^n$ containing it.
 \end{definition}
+
+We now define an intermediate step: We need a concept that resembles a polyyhedron, but whose data 
+keeps track of the presence of all simplices.
 \begin{definition}[Simplicial complex]
     A \textbf{simplicial complex} is a pair $K=(V,\Sigma)$ where $V$ is a set of vertices and $\Sigma$ is a set of simplices such that
     \begin{itemize}
@@ -21,7 +37,8 @@ As the title suggests, we are interested in compact polyhedra. Our approach is r
     If $K=(V,\Sigma)$ is a simplicial complex, we say that $\dim(K)=\max_{\sigma\in \Sigma}(\dim(\sigma))$.
 \end{definition}
 
-This clearly defines a polyhedron in $\R^n$, but in a way that ``remembers the faces''. We can forget this extra structure and define a polyhedron directly, as follows:
+Since simplicial complexes are ``polyhedra with extra structure'', we can forget this extra structure to define 
+a polyhedron:
 
 \begin{definition}[Polyhedron]
     Let $K=(V,\Sigma)$ be a simplicial complex. We call
@@ -31,7 +48,9 @@ This clearly defines a polyhedron in $\R^n$, but in a way that ``remembers the f
     We say that $P\subseteq \R^n$ is a \textbf{polyhedron} if there exists a simplicial complex $K$ such that $P=|K|$.
 \end{definition}
 
-This leads to two notions of maps between polyhedra: one that preserves only the combinatorial structure of the simplicial complex, and one informed by the affine construction above.
+This leads to two notions of maps between polyhedra: one that preserves only the combinatorial structure of the simplicial complex, 
+and a stronger one informed by the affine construction above, thus requiring a linearity condition 
+on the simplices
 
 \begin{definition}[Simplicial map, PL map]
     Let $K=(V,\Sigma),K'=(V',\Sigma')$ be two geometric simplicial complexes.
@@ -45,7 +64,7 @@ This leads to two notions of maps between polyhedra: one that preserves only the
     We further call $f$ \textbf{PL} (\textbf{piecewise linear}) if it is affine when restricted to any face.
 \end{definition}
 
-Note that a simplicial complex determines a unique polyhedron, but the converse fails: a polyhedron may be realized by several different simplicial complexes, as in the picture below.
+Note that a simplicial complex determines a unique polyhedron, but the converse fails: a polyhedron may be realized by several different simplicial complexes:
 \[\begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
@@ -75,6 +94,8 @@ Note that a simplicial complex determines a unique polyhedron, but the converse 
 In the picture above, the two polyhedra are clearly the same (a triangle), but the complex on the left has a single face of dimension $2$, while the complex on the right has three.
 \begin{definition}[Triangulation]
     Let $P$ be a polyhedron in $\R^n$. A simplicial complex $K$ such that $|K|=P$ is called a \textbf{triangulation} of $P$.
+
+    The set of triangulations of a given polyhedron is denoted $\Tr(P)$
 \end{definition}
 
 In particular, starting from a single simplicial complex, we can generate arbitrarily rich simplicial complexes that all realize the same polyhedron.
@@ -123,7 +144,7 @@ Visually, the barycentric subdivision of a triangle looks as follows:
 \end{tikzpicture} \]
 
 \begin{theorem}[$|K|=|K^{(1)}|$]
-    The geometric realization of a simplicial complex is unchanged by barycentric subdivision.
+    The geometric realization of a simplicial complex is invariant by barycentric subdivision.
 \end{theorem}
 \begin{proof}
     We must show two inclusions: that $\sigma_j^{(1)}\subseteq \sigma$ for all $\sigma$ and all $j$, and that $\sigma\subseteq \bigcup_j\sigma^{(1)}_j$.
@@ -155,13 +176,14 @@ Visually, the barycentric subdivision of a triangle looks as follows:
 
     An induction on the subdivision then gives $K\subseteq K^{(1)}$.
 \end{proof}
+To recap we now know that subdividing is a combinatorial operation that has no effect on the underlying polyhedron.
 \subsection{Posets}
-Forgetting the support in $\R^n$ gives a purely combinatorial description of a simplicial complex: what remains is essentially a downward-closed poset.
+Forgetting the support in $\R^n$ gives a purely combinatorial description of a simplicial complex: what remains is essentially a downward-closed poset that describes how the simplices of the triangulation intersect and which simplices form the boundary of others.
 \begin{definition}[Face poset]
     Let $K=(V,\Sigma)$ be a simplicial complex. We call $[K]=(\Sigma,\subseteq)$ the \textbf{face poset} of $K$.
 \end{definition}
 
-The face poset $[K]$ already contains everything we need to recover the structure of $K$ up to PL-homeomorphism.
+The connection is tight: the face poset $[K]$ already contains everything we need to recover the structure of $K$ up to PL-homeomorphism.
 \begin{lemma}
     Let $K,K'$ be two simplicial complexes with $[K]\simeq [K']$. Then there exists a PL-homeomorphism $K\simeq K'$.
 \end{lemma}
@@ -169,14 +191,16 @@ The face poset $[K]$ already contains everything we need to recover the structur
     See \cite[Lemma 2.18]{PLTopology}.
 \end{proof}
 
-This allows us to define:
+This allows us to give an inclusive definition of the resulting combinatorial object:
 \begin{definition}[ASC]
     An \textbf{abstract simplicial complex}, or \textbf{ASC}, is a pair $K=(V,\Sigma)$ where $V$ is a set and $\Sigma\subseteq \Pp(V)$ is a collection of subsets of $V$ closed under taking subsets.
 
     Given a simplicial complex $K$, associating to each face the set of its vertices yields an ASC $\overline{K}$.
 \end{definition}
 
-Conversely, every ASC arises this way from an essentially unique simplicial complex.
+Abstract simplicial complexes are the combinatorial counterpart of simplicial complexes: If a polyhedron results from a simplicial complex by forgetting the combinatorial strucure, an ASC results from a simplicial complex by forgetting the geometric structure.
+
+In the same way that every simplicial complex arises from an essentially unique polyhedron, every ASC arises this way from an essentially unique simplicial complex.
 \begin{lemma}
     Let $K$ be an ASC. Then there exists a simplicial complex $K'$ such that $\overline{K'}=K$.
 \end{lemma}
@@ -193,7 +217,7 @@ We also want a way to define an (abstract) simplicial complex from any poset:
     Let $(P,\leq)$ be a poset. We call $\Nn(P)$, the \textbf{nerve} of $P$, the abstract simplicial complex whose vertices are the elements of $P$ and whose simplices are the flags $p_1<\cdots<p_k$ of ordered elements of $P$.
 \end{definition}
 
-We will freely use the following fact:
+We will freely use the fact that nerves and barycentric subdivision are essentially the same operation.
 \begin{theorem}
     If $K=(V,\Sigma)$ is a simplicial complex, then
     \[\Nn(\Sigma)=\overline{K^{(1)}}.\]
@@ -201,10 +225,60 @@ We will freely use the following fact:
 \begin{proof}
     See \cite{PLTopology}.
 \end{proof}
-\subsection{Subdivision theorems}
-We are interested in polyhedra as semantics for modal logic, and so our choice of morphisms differs slightly from the classical framework.
+Intuitively, every point of $\Nn(\Sigma)$ is a chain, that corresponds uniquely to a simplex (the maximal simplex of the chain).
 
-Recall first that, given (binary) Kripke frames $(W,R)$ and $(W',R')$, a function $f:W\to W'$ is called a p-morphism if and only if it satisfies
+Inserting a point for every simplex is -- up to PL-homeomorphism -- the same process as adding the barycenter of that simplex.
+Then the simplices connecting everything follow from the chain inclusion.
+
+\[\begin{tikzpicture}[scale=1]
+  % Coordinates
+  \coordinate (A) at (0.00, 0.00);
+  \coordinate (B) at (1.00, 2.00);
+  \coordinate (C) at (2.00, 0.00);
+  \coordinate (D) at (4.00, 0.00);
+  \coordinate (E) at (5.00, 2.00);
+  \coordinate (F) at (6.00, 0.00);
+  \coordinate (G) at (5.00, 0.67);
+  \coordinate (H) at (5.00, 0.00);
+  \coordinate (I) at (5.50, 1.00);
+  \coordinate (J) at (4.50, 1.00);
+
+  % Drawing
+  \draw (A) -- (B) -- (C) -- cycle;
+  \draw (D) -- (E) -- (F) -- cycle;
+  \draw[fill,opacity=0.3] (A) -- (B) -- (C) -- cycle;
+  \draw[fill,opacity=0.3] (D) -- (E) -- (F) -- cycle;
+  \draw (H) -- (E);
+  \draw (D) -- (I);
+  \draw (F) -- (J);
+  \fill[black] (A) circle (1pt);
+  \fill[black] (B) circle (1pt);
+  \fill[black] (C) circle (1pt);
+  \fill[black] (D) circle (1pt);
+  \fill[black] (E) circle (1pt);
+  \fill[black] (F) circle (1pt);
+  \fill[black] (G) circle (1pt);
+  \fill[black] (H) circle (1pt);
+  \fill[black] (I) circle (1pt);
+  \fill[black] (J) circle (1pt);
+  \draw (A) node[anchor=north east]{$a$};
+  \draw (B) node[anchor=south]{$b$};
+  \draw (C) node[anchor=north west]{$c$};
+  \draw (D) node[anchor=north east]{$(a)$};
+  \draw (E) node[anchor=south]{$(b)$};
+  \draw (F) node[anchor=north west]{$(c)$};
+  \draw (G) node[anchor=south]{$(abc)$};
+  \draw (H) node[anchor=north]{$(ac)$};
+  \draw (I) node[anchor=west]{$(bc)$};
+  \draw (J) node[anchor=east]{$(ab)$};
+\end{tikzpicture} \]
+
+\subsection{Subdivision theorems}
+We are interested in polyhedra as semantics for modal logic, and so our choice of morphisms differs slightly from the classical framework. 
+
+The purpose of this subsection is to provide a foundation of lemmas that we may use to refine our triangulations without losing information in our evaluations, thus in our semantics.
+
+Recall first that, given (binary) Kripke frames $(W,R)$ and $(W',R')$, a function $f:W\to W'$ is called a \textbf{p-morphism} if and only if it satisfies the conditions
 \begin{enumerate}
     \item $w R w'$ implies $f(w) R f(w')$;
     \item $f(v) R w'$ implies that there exists $w\in W$ such that $v R w$ and $f(w)=w'$.
@@ -212,12 +286,130 @@ Recall first that, given (binary) Kripke frames $(W,R)$ and $(W',R')$, a functio
 
 If $R=\leq$ is a partial order, these two conditions become equivalent to
 \[\forall w\in W.\ \uparrow f(w)=f(\uparrow w),\]
-where $\uparrow w=\set{v\in W: w<v}$. We refer to this property as \textbf{upward-closure}.
+where $\uparrow w=\set{v\in W: w\leq v}$. We refer to this property as \textbf{upward-closure}.
 
 The proofs of all the following lemmas can be found in \cite{Dekker}.
 \begin{lemma}[Subdivisions are p-morphic]
     The map $K^{(1)}\twoheadrightarrow K$ sending each face of $\Sigma^{(1)}$ to the (unique) face of $\Sigma$ containing it is a p-morphism.
 \end{lemma}
+
+\[\begin{tikzpicture}[scale=1]
+  % Coordinates
+  \coordinate (A) at (0.00, 0.00);
+  \coordinate (B) at (3.00, 0.00);
+  \coordinate (C) at (1.50, 3.00);
+  \coordinate (D) at (1.50, 1.00);
+  \coordinate (E) at (1.50, 0.00);
+  \coordinate (F) at (0.75, 1.50);
+  \coordinate (G) at (2.25, 1.50);
+  \coordinate (H) at (-2.00, 0.00);
+  \coordinate (I) at (-5.00, 0.00);
+  \coordinate (J) at (-3.50, 3.00);
+  \coordinate (K) at (-2.75, 1.50);
+  \coordinate (L) at (-4.25, 1.50);
+  \coordinate (M) at (-3.50, 0.00);
+  \coordinate (N) at (-3.50, 1.00);
+  \coordinate (O) at (-3.75, 1.75);
+  \coordinate (P) at (-3.25, 1.75);
+  \coordinate (Q) at (-4.21, 0.92);
+  \coordinate (R) at (-3.90, 0.35);
+  \coordinate (S) at (-3.15, 0.35);
+  \coordinate (T) at (-2.85, 0.90);
+  \coordinate (U) at (-4.00, 2.00);
+  \coordinate (V) at (-3.00, 2.00);
+  \coordinate (W) at (-4.50, 1.00);
+  \coordinate (X) at (-3.50, 0.50);
+  \coordinate (Y) at (-4.00, 0.00);
+  \coordinate (Z) at (-3.00, 0.00);
+  \coordinate (AA) at (-2.50, 1.00);
+  \coordinate (AB) at (-4.25, 0.50);
+  \coordinate (AC) at (-2.75, 0.50);
+  \coordinate (AD) at (-4.00, 1.35);
+  \coordinate (AE) at (-3.00, 1.35);
+  \coordinate (AF) at (-3.50, 2.00);
+
+  % Drawing
+  \draw (A) -- (C) -- (B) -- cycle;
+  \filldraw[fill=pastelred] (A) -- (D) -- (E) -- cycle;
+  \filldraw[fill=pastelgreen] (A) -- (D) -- (F) -- cycle;
+  \filldraw[fill=pastelblue] (F) -- (D) -- (C) -- cycle;
+  \filldraw[fill=pastelviolet] (D) -- (C) -- (G) -- cycle;
+  \filldraw[fill=orange] (D) -- (B) -- (G) -- cycle;
+  \filldraw[fill=lightgray] (E) -- (D) -- (B) -- cycle;
+  \draw (H) -- (I) -- (J) -- cycle;
+  \draw (I) -- (K);
+  \draw (H) -- (L);
+  \draw (J) -- (M);
+  \filldraw[fill=pastelblue] (L) -- (J) -- (N) -- cycle;
+  \filldraw[fill=pastelviolet] (N) -- (J) -- (K) -- cycle;
+  \filldraw[fill=pastelgreen] (L) -- (I) -- (N) -- cycle;
+  \filldraw[fill=pastelred] (I) -- (N) -- (M) -- cycle;
+  \filldraw[fill=orange] (H) -- (K) -- (N) -- cycle;
+  \draw (AD) -- (O);
+  \draw (O) -- (N);
+  \draw (O) -- (AF);
+  \draw (O) -- (J);
+  \draw (O) -- (U);
+  \draw (O) -- (L);
+  \filldraw[fill=lightgray] (M) -- (N) -- (H) -- cycle;
+  \draw (J) -- (P);
+  \draw (P) -- (AF);
+  \draw (P) -- (V);
+  \draw (P) -- (K);
+  \draw (P) -- (AE);
+  \draw (P) -- (N);
+  \draw (L) -- (Q);
+  \draw (Q) -- (W);
+  \draw (Q) -- (N);
+  \draw (Q) -- (AD);
+  \draw (Q) -- (AB);
+  \draw (Q) -- (I);
+  \draw (AB) -- (R);
+  \draw (R) -- (N);
+  \draw (R) -- (X);
+  \draw (R) -- (M);
+  \draw (R) -- (Y);
+  \draw (R) -- (I);
+  \draw (N) -- (S);
+  \draw (X) -- (S);
+  \draw (S) -- (AC);
+  \draw (S) -- (M);
+  \draw (S) -- (Z);
+  \draw (S) -- (H);
+  \draw (N) -- (T);
+  \draw (T) -- (AE);
+  \draw (T) -- (K);
+  \draw (T) -- (AA);
+  \draw (T) -- (AC);
+  \draw (T) -- (H);
+  \fill[black] (A) circle (1pt);
+  \fill[black] (B) circle (2pt);
+  \fill[black] (C) circle (1pt);
+  \fill[black] (D) circle (1pt);
+  \fill[black] (H) circle (1pt);
+  \fill[black] (I) circle (1pt);
+  \fill[black] (J) circle (1pt);
+  \fill[black] (N) circle (1pt);
+  \fill[black] (O) circle (1pt);
+  \fill[black] (P) circle (1pt);
+  \fill[black] (Q) circle (1pt);
+  \fill[black] (R) circle (1pt);
+  \fill[black] (S) circle (1pt);
+  \fill[black] (T) circle (1pt);
+  \fill[black] (U) circle (1pt);
+  \fill[black] (V) circle (1pt);
+  \fill[black] (W) circle (1pt);
+  \fill[black] (X) circle (1pt);
+  \fill[black] (Y) circle (1pt);
+  \fill[black] (Z) circle (1pt);
+  \fill[black] (AA) circle (1pt);
+  \fill[black] (AB) circle (1pt);
+  \fill[black] (AC) circle (1pt);
+  \fill[black] (AD) circle (1pt);
+  \fill[black] (AE) circle (1pt);
+  \fill[black] (AF) circle (1pt);
+\end{tikzpicture}\]
+(The example picture shows by coloring the canonical morphism $\Delta_2^{(2)}\twoheadrightarrow \Delta_2^{(1)}$: the simplices on the domain (left) are mapped to the simplex in the codomain (right) of the same colour.)
 \begin{lemma}[Common triangulation]
     Let $K$ be a simplicial complex and $K'\subseteq K$ another simplicial complex. Then there exists a subdivision $L$ of $K$, and a subset $L'$ of $L$ that is a subdivision of $K'$.
 \end{lemma}
@@ -271,12 +463,15 @@ This is easy to visualize:
   \fill[black] (N) circle (1pt);
 \end{tikzpicture}\]
 
+We will also need the fact that we can avoid talking about arbitrary subdivisions and only care about the nerves, i.e. barycentric subdivisions.
 \begin{lemma}[Nerves are dense]
     Let $K$ be a simplicial complex and $L$ a subdivision of $K$.
 
     Then there exists $n\in \N$ such that $K^{(n)}$ is (isomorphic to) a subdivision of $L$.
 \end{lemma}
+A barycentric subdivision is a refinement of the triangulation, and taking ``enough'' nerves corresponds to taking ``arbitrarily fine triangulations'', thus refining all possible (finite) triangulations of a given polyhedron. 
 
+Lastly we want to know what happens to p-morphisms under subdivision:
 \begin{lemma}[Subdividing p-morphisms]
     Let $K,K'$ be simplicial complexes and $f:K\upred K'$ an up-reduction, that is, a p-morphism defined on an upward-closed (open) subset of $K$.
 
@@ -291,3 +486,7 @@ This is easy to visualize:
 	\arrow[from=2-2, to=1-2]
 \end{tikzcd}\]
 \end{lemma}
+
+This means that the existence of a p-morphism between two simplicial complexes is preserved under taking subdivisions.
+
+This suggests -but doesn't quite prove- that our notion of p-morphism, despite depending on the choice of a triangulation is actually relative to the underlying polyhedron.
