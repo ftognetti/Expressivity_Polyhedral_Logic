@@ -17,7 +17,7 @@ This admits an explicit description:
 \begin{definition}[Simplex]
     Fix a set of \textbf{vertices} $V\subseteq\R^n$ (for some $n\in \N$). For vertices $v_0,\dots,v_k\in V$ in general position (i.e., affinely independent), we say that
     \[\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}\]
-    is a \textbf{face} or \textbf{simplex} with support $v_1,\dots,v_k$.
+    is a \textbf{face} or \textbf{simplex} on $v_1,\dots,v_k$.
 
     For a face $\sigma$ on $v_1,\dots,v_k$, a face whose support is a subset of these vertices is called a \textbf{subface} or \textbf{subsimplex}.
 
@@ -29,7 +29,7 @@ This admits an explicit description:
 We now define an intermediate step: We need a concept that resembles a polyyhedron, but whose data 
 keeps track of the presence of all simplices.
 \begin{definition}[Simplicial complex]
-    A \textbf{simplicial complex} is a pair $K=(V,\Sigma)$ where $V$ is a set of vertices and $\Sigma$ is a set of simplices such that
+    A \textbf{simplicial complex} is a pair $K=(V,\Sigma)$ where $V\subseteq \R^n$ is a set ``of vertices'' and $\Sigma$ is a set of simplices such that
     \begin{itemize}
         \item if $\sigma\in \Sigma$ and $\sigma'$ is a subsimplex of $\sigma$, then $\sigma'\in\Sigma$;
         \item the relative interior of any two simplices is disjoint.
@@ -40,12 +40,16 @@ keeps track of the presence of all simplices.
 Since simplicial complexes are ``polyhedra with extra structure'', we can forget this extra structure to define 
 a polyhedron:
 
-\begin{definition}[Polyhedron]
+\begin{definition}[Polyhedron]\label{Polyhedron}
     Let $K=(V,\Sigma)$ be a simplicial complex. We call
     \[|K|=\bigcup_{\sigma\in\Sigma}\sigma=\bigsqcup_{\sigma\in\Sigma}\RelInt(\sigma)\]
     the \textbf{realization} of $K$, or the \textbf{polyhedron} associated to $K$.
 
     We say that $P\subseteq \R^n$ is a \textbf{polyhedron} if there exists a simplicial complex $K$ such that $P=|K|$.
+
+    We say that $U\subseteq P$ is a \textbf{subpolyhedron} of $P$ if there exists a $K=(V,\Sigma)$ such that 
+    $P=|K|=\bigsqcup_{\sigma\in\Sigma}\RelInt(\sigma)$ and there exists a subset $\Sigma'\subseteq \Sigma$ such that 
+    $U=\bigsqcup_{\sigma\in\Sigma'}\RelInt(\sigma)$
 \end{definition}
 
 This leads to two notions of maps between polyhedra: one that preserves only the combinatorial structure of the simplicial complex, 
@@ -53,19 +57,22 @@ and a stronger one informed by the affine construction above, thus requiring a l
 on the simplices
 
 \begin{definition}[Simplicial map, PL map]
-    Let $K=(V,\Sigma),K'=(V',\Sigma')$ be two geometric simplicial complexes.
+    Let $K=(V,\Sigma),K'=(V',\Sigma')$ be two simplicial complexes.
 
     A map $f:|K|\to|K'|$ is called a \textbf{simplicial map} (or \textbf{polyhedral map}) if
     \begin{itemize}
         \item for any point $v\in V$, $f(v)$ is a point of $V'$, and
-        \item for any simplex $\sigma\in\Sigma$, $f_{\to}(\sigma)$ is a simplex of $\Sigma'$.
+        \item for any simplex $\sigma\in\Sigma$, $f_{\to}(\sigma)$\footnote{Notation: if $f:X\to Y$ is a map, we denote $f_\to:\Pp(X)\to\Pp(Y)$ its image and $f^\gets:\Pp(Y)\to\Pp(X)$ its preimage} is a simplex of $\Sigma'$.
     \end{itemize}
 
     We further call $f$ \textbf{PL} (\textbf{piecewise linear}) if it is affine when restricted to any face.
 \end{definition}
 
 Note that a simplicial complex determines a unique polyhedron, but the converse fails: a polyhedron may be realized by several different simplicial complexes:
-\[\begin{tikzpicture}[scale=1]
+\begin{figure}[H]
+    \centering
+
+    \begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
   \coordinate (B) at (1.00, 2.00);
@@ -90,7 +97,9 @@ Note that a simplicial complex determines a unique polyhedron, but the converse 
   \fill[black] (E) circle (1pt);
   \fill[black] (F) circle (1pt);
   \fill[black] (G) circle (1pt);
-\end{tikzpicture}\]
+\end{tikzpicture}
+\caption{Two possible simplicial complexes associated to a triangle.}
+\end{figure}
 In the picture above, the two polyhedra are clearly the same (a triangle), but the complex on the left has a single face of dimension $2$, while the complex on the right has three.
 \begin{definition}[Triangulation]
     Let $P$ be a polyhedron in $\R^n$. A simplicial complex $K$ such that $|K|=P$ is called a \textbf{triangulation} of $P$.
@@ -100,17 +109,23 @@ In the picture above, the two polyhedra are clearly the same (a triangle), but t
 
 In particular, starting from a single simplicial complex, we can generate arbitrarily rich simplicial complexes that all realize the same polyhedron.
 \begin{definition}[Barycentric subdivision]
-    Recall that if $\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}$, the point
+    Recall that if 
+    
+    $\sigma=\set{\sum_{i=0}^k \alpha_i v_i\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1, v_i\in V}$, the point
     \[b_\sigma=\frac{1}{k+1}\sum_{i=0}^k v_i\]
     is called the \textbf{barycenter} of $\sigma$.
 
     Let $K=(V,\Sigma)$ be a simplicial complex. We call the \textbf{barycentric subdivision} of $K$ the simplicial complex $K^{(1)}$ having as vertices the set of barycenters of faces in $\Sigma$,
     \[V^{(1)}=\set{b_\sigma:\sigma\in\Sigma}\]
-    and as simplices those obtained by inductively replacing vertices with barycenters, in decreasing order of dimension:
+    and every simplex $\sigma$ is replaced by a set of simplices $\set{\sigma_j^{(1)}}_j$ 
+    obtained by inductively replacing vertices with barycenters, in decreasing order of dimension:
     \[\sigma^{(1)}_{j}=\set{\alpha_1 v_1+\cdots+\widehat{\alpha_j v_i}+\alpha_j b_{\sigma}+\cdots+\alpha_k v_k\ |\ \alpha_i\in[0,1],\ \sum\alpha_i=1}\]
+
+    We may iterate barycentric subdivision, and we denote $K^{(0)}=K$ and $K^{(n+1)}=(K^{(n)})^{(1)}$
 \end{definition}
 Visually, the barycentric subdivision of a triangle looks as follows:
-\[\begin{tikzpicture}[scale=1]
+\begin{figure}[H]
+    \begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
   \coordinate (B) at (1.00, 2.00);
@@ -141,43 +156,52 @@ Visually, the barycentric subdivision of a triangle looks as follows:
   \fill[black] (H) circle (1pt);
   \fill[black] (I) circle (1pt);
   \fill[black] (J) circle (1pt);
-\end{tikzpicture} \]
+\end{tikzpicture}
+\caption{The first barycentric subdivision of $\Delta_2$}
+\end{figure}
 
 \begin{theorem}[$|K|=|K^{(1)}|$]
     The geometric realization of a simplicial complex is invariant by barycentric subdivision.
 \end{theorem}
 \begin{proof}
-    We must show two inclusions: that $\sigma_j^{(1)}\subseteq \sigma$ for all $\sigma$ and all $j$, and that $\sigma\subseteq \bigcup_j\sigma^{(1)}_j$.
-
-    For the first claim, suppose $p\in\sigma_j^{(1)}$; without loss of generality, $p\in \sigma_1^{(1)}$. Then
-    \begin{align*}
-        p&=a_1 b_\sigma + a_2 v_2+\cdots + a_kv_k\\
-        &=\frac{a_1}{k+1}(v_1+\cdots+v_k)+a_2v_2+\cdots+a_kv_k\\
-        &=\frac{a_1}{k+1} v_1+ (a_2+\frac{a_1}{k+1})v_2+\cdots+(a_k+\frac{a_1}{k+1})v_k.
-    \end{align*}
-    Now
-    \begin{align*}
-        &\frac{a_1}{k+1}+(a_2+\frac{a_1}{k+1})+\cdots+(a_k+\frac{a_1}{k+1})\\
-        &=(k+1)\frac{a_1}{k+1}+a_2+\cdots+a_k\\
-        &=a_1+a_2+\cdots+a_k=1,
-    \end{align*}
-    and all of these coefficients are positive. This means that any subdivision obtained by replacing a vertex with the barycenter of a face containing it, and taking the convex hull, is contained in the original face. Since the barycentric subdivision is an iteration of this process, $K^{(1)}\subseteq K$.
-
-    For the converse, suppose $p\in \sigma$, so that
-    \[p=a_1v_1+\cdots+a_kv_k.\]
-    We want to find $b_1,\dots,b_k$ such that $p=b_1 v_1 + \cdots + b_j b_\sigma +\cdots + b_k v_k$. Substituting backwards,
-    \begin{align*}
-        &b_j v_j + b_1 v_1 + \cdots + b_k v_k\\
-        &=\frac{a_j}{k+1} v_j + (a_1+\frac{a_j}{k+1}) v_1 + \cdots + (a_k+\frac{a_j}{k+1}) v_k,
-    \end{align*}
-    which yields the system of equations
-    \[a_j=(k+1)b_j,\quad a_1= b_1-b_j, \quad \cdots, \quad a_k=b_k-b_j.\]
-    To ensure that all the $b_i$ are positive, we choose $j$ to realize the minimum of the $b_j$.
-
-    An induction on the subdivision then gives $K\subseteq K^{(1)}$.
+    The proof is well known and can be shown by a simple affine geometry argument.
 \end{proof}
+% \begin{proof}
+%     We must show two inclusions: that $\sigma_j^{(1)}\subseteq \sigma$ for all $\sigma$ and all $j$, and that $\sigma\subseteq \bigcup_j\sigma^{(1)}_j$.
+
+%     For the first claim, suppose $p\in\sigma_j^{(1)}$; without loss of generality, $p\in \sigma_1^{(1)}$. Then
+%     \begin{align*}
+%         p&=a_1 b_\sigma + a_2 v_2+\cdots + a_kv_k\\
+%         &=\frac{a_1}{k+1}(v_1+\cdots+v_k)+a_2v_2+\cdots+a_kv_k\\
+%         &=\frac{a_1}{k+1} v_1+ (a_2+\frac{a_1}{k+1})v_2+\cdots+(a_k+\frac{a_1}{k+1})v_k.
+%     \end{align*}
+%     Now
+%     \begin{align*}
+%         &\frac{a_1}{k+1}+(a_2+\frac{a_1}{k+1})+\cdots+(a_k+\frac{a_1}{k+1})\\
+%         &=(k+1)\frac{a_1}{k+1}+a_2+\cdots+a_k\\
+%         &=a_1+a_2+\cdots+a_k=1,
+%     \end{align*}
+%     and all of these coefficients are positive. This means that any subdivision obtained by replacing a vertex with the barycenter of a face containing it, and taking the convex hull, is contained in the original face. Since the barycentric subdivision is an iteration of this process, $K^{(1)}\subseteq K$.
+
+%     For the converse, suppose $p\in \sigma$, so that
+%     \[p=a_1v_1+\cdots+a_kv_k.\]
+%     We want to find $b_1,\dots,b_k$ such that $p=b_1 v_1 + \cdots + b_j b_\sigma +\cdots + b_k v_k$. Substituting backwards,
+%     \begin{align*}
+%         &b_j v_j + b_1 v_1 + \cdots + b_k v_k\\
+%         &=\frac{a_j}{k+1} v_j + (a_1+\frac{a_j}{k+1}) v_1 + \cdots + (a_k+\frac{a_j}{k+1}) v_k,
+%     \end{align*}
+%     which yields the system of equations
+%     \[a_j=(k+1)b_j,\quad a_1= b_1-b_j, \quad \cdots, \quad a_k=b_k-b_j.\]
+%     To ensure that all the $b_i$ are positive, we choose $j$ to realize the minimum of the $b_j$.
+
+%     An induction on the subdivision then gives $K\subseteq K^{(1)}$.
+% \end{proof}
 To recap we now know that subdividing is a combinatorial operation that has no effect on the underlying polyhedron.
+
+
+
 \subsection{Posets}
+
 Forgetting the support in $\R^n$ gives a purely combinatorial description of a simplicial complex: what remains is essentially a downward-closed poset that describes how the simplices of the triangulation intersect and which simplices form the boundary of others.
 \begin{definition}[Face poset]
     Let $K=(V,\Sigma)$ be a simplicial complex. We call $[K]=(\Sigma,\subseteq)$ the \textbf{face poset} of $K$.
@@ -191,7 +215,7 @@ The connection is tight: the face poset $[K]$ already contains everything we nee
     See \cite[Lemma 2.18]{PLTopology}.
 \end{proof}
 
-This allows us to give an inclusive definition of the resulting combinatorial object:
+This allows us to give adefinition of the resulting combinatorial object:
 \begin{definition}[ASC]
     An \textbf{abstract simplicial complex}, or \textbf{ASC}, is a pair $K=(V,\Sigma)$ where $V$ is a set and $\Sigma\subseteq \Pp(V)$ is a collection of subsets of $V$ closed under taking subsets.
 
@@ -209,7 +233,7 @@ In the same way that every simplicial complex arises from an essentially unique 
 \end{proof}
 Together, these two lemmas give a correspondence
 \[\dfrac{\set{\textbf{Simplicial Complexes}}}{\text{PL-homeomorphism}}\leftrightarrow\set{\textbf{ASCs}}\]
-since to each ASC we may associate a simplicial complex, and any two simplicial complexes associated to the same ASC are PL-homeomorphic.
+since to each ASC we may associate a simplicial complex, and we will show that any two simplicial complexes associated to the same ASC are PL-homeomorphic.
 
 We also want a way to define an (abstract) simplicial complex from any poset:
 
@@ -230,7 +254,8 @@ Intuitively, every point of $\Nn(\Sigma)$ is a chain, that corresponds uniquely 
 Inserting a point for every simplex is -- up to PL-homeomorphism -- the same process as adding the barycenter of that simplex.
 Then the simplices connecting everything follow from the chain inclusion.
 
-\[\begin{tikzpicture}[scale=1]
+\begin{figure}[H]
+    \begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
   \coordinate (B) at (1.00, 2.00);
@@ -271,7 +296,11 @@ Then the simplices connecting everything follow from the chain inclusion.
   \draw (H) node[anchor=north]{$(ac)$};
   \draw (I) node[anchor=west]{$(bc)$};
   \draw (J) node[anchor=east]{$(ab)$};
-\end{tikzpicture} \]
+\end{tikzpicture}
+\caption{The realization of the nerve as a barycentric subdivision, shown on the triangle $\Delta_2$}
+\end{figure}
+
+
 
 \subsection{Subdivision theorems}
 We are interested in polyhedra as semantics for modal logic, and so our choice of morphisms differs slightly from the classical framework. 
@@ -289,11 +318,12 @@ If $R=\leq$ is a partial order, these two conditions become equivalent to
 where $\uparrow w=\set{v\in W: w\leq v}$. We refer to this property as \textbf{upward-closure}.
 
 The proofs of all the following lemmas can be found in \cite{Dekker}.
-\begin{lemma}[Subdivisions are p-morphic]
+\begin{lemma}[\cite{Dekker}\textbf{2.78} : Subdivisions are p-morphic] \label{subpm}
     The map $K^{(1)}\twoheadrightarrow K$ sending each face of $\Sigma^{(1)}$ to the (unique) face of $\Sigma$ containing it is a p-morphism.
 \end{lemma}
 
-\[\begin{tikzpicture}[scale=1]
+\begin{figure}[H]
+    \begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
   \coordinate (B) at (3.00, 0.00);
@@ -408,9 +438,11 @@ The proofs of all the following lemmas can be found in \cite{Dekker}.
   \fill[black] (AD) circle (1pt);
   \fill[black] (AE) circle (1pt);
   \fill[black] (AF) circle (1pt);
-\end{tikzpicture}\]
-(The example picture shows by coloring the canonical morphism $\Delta_2^{(2)}\twoheadrightarrow \Delta_2^{(1)}$: the simplices on the domain (left) are mapped to the simplex in the codomain (right) of the same colour.)
-\begin{lemma}[Common triangulation]
+\end{tikzpicture}
+\caption{The picture shows by coloring the canonical morphism $\Delta_2^{(2)}\twoheadrightarrow \Delta_2^{(1)}$: the maximal simplices on the domain (left) are mapped to the unique maximal simplex in the codomain (right) of the same colour.}
+\end{figure}
+
+\begin{lemma}[\cite{Dekker}\textbf{2.29}: Common triangulation] \label{commontr}
     Let $K$ be a simplicial complex and $K'\subseteq K$ another simplicial complex. Then there exists a subdivision $L$ of $K$, and a subset $L'$ of $L$ that is a subdivision of $K'$.
 \end{lemma}
 This is easy to visualize:
@@ -464,22 +496,28 @@ This is easy to visualize:
 \end{tikzpicture}\]
 
 We will also need the fact that we can avoid talking about arbitrary subdivisions and only care about the nerves, i.e. barycentric subdivisions.
-\begin{lemma}[Nerves are dense]
+\begin{lemma}[\cite{Dekker}\textbf{2.56}: Nerves are dense] \label{nervesdense}
     Let $K$ be a simplicial complex and $L$ a subdivision of $K$.
 
     Then there exists $n\in \N$ such that $K^{(n)}$ is (isomorphic to) a subdivision of $L$.
 \end{lemma}
 A barycentric subdivision is a refinement of the triangulation, and taking ``enough'' nerves corresponds to taking ``arbitrarily fine triangulations'', thus refining all possible (finite) triangulations of a given polyhedron. 
 
-Lastly we want to know what happens to p-morphisms under subdivision:
-\begin{lemma}[Subdividing p-morphisms]
-    Let $K,K'$ be simplicial complexes and $f:K\upred K'$ an up-reduction, that is, a p-morphism defined on an upward-closed (open) subset of $K$.
+To state it we need to define (posetal) up-reductions:
+\begin{definition}[posetal up-reduction]
+    Let $P,Q$ be posets, we call a \textbf{posetal up-reduction} $f:P\upred Q$ a surjective partial map 
+    defined on an upward-closed subset $U$ of $P$ such that $f_{|U}$ is a p-morphism.
+\end{definition}
 
-    Let $L'$ be a subdivision of $K'$. Then there exists a subdivision $L$ of $K$ and an up-reduction $L\upred L'$ such that
+Lastly we want to know what happens to p-morphisms under subdivision:
+\begin{lemma}[\cite{Dekker}\textbf{4.1}: Subdividing p-morphisms] \label{extension}
+    Let $K,K'$ be simplicial complexes and $f:[K]\upred [K']$ a posetal up-reduction.
+
+    Let $L'$ be a subdivision of $K'$. Then there exists a subdivision $L$ of $K$ and a posetal up-reduction $[L]\upred [L']$ such that
 
     \[\begin{tikzcd}[ampersand replacement=\&]
-	K \& {K'} \\
-	L \& {L'}
+	{[K]} \& {[K']} \\
+	{[L]} \& {[L']}
 	\arrow["\circ"{description, pos=0.17}, from=1-1, to=1-2, two heads]
 	\arrow[from=2-1, to=1-1]
 	\arrow["\circ"{description, pos=0.17}, from=2-1, to=2-2, two heads]
@@ -489,4 +527,38 @@ Lastly we want to know what happens to p-morphisms under subdivision:
 
 This means that the existence of a p-morphism between two simplicial complexes is preserved under taking subdivisions.
 
-This suggests -but doesn't quite prove- that our notion of p-morphism, despite depending on the choice of a triangulation is actually relative to the underlying polyhedron.
+This suggests -but doesn't quite prove- that our notion of p-morphism,
+despite depending on the choice of a triangulation is 
+actually relative to the underlying polyhedron.
+
+\begin{proposition}
+    The realization $|-|$ enjoys the following properties:
+    If $U,V\subseteq \Sigma$ are subpolyhedra, then 
+    \begin{enumerate}[(i)]
+        \item $|U\cup V|=|U|\cup|V|$,
+        \item $|U\cap V|=|U|\cap |V|$,
+        \item $|\Sigma\setminus U|=|\Sigma|\setminus |U|$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    They follow immediately from the fact that $|U|$ is a disjoint union.
+\end{proof}
+Moreover we have that the realization of an up-set is open and taking the downward-closure corresponds in the realization to taking the topological closure.
+\begin{lemma}[Up-sets are open]
+    Let $K=(V,\Sigma)$ be a simplicial complex, $U\subseteq \Sigma$, and consider $|U|=\bigsqcup_{\sigma\in U}\RelInt(\sigma)$.
+
+    Then $|U|$ is open if and only if $U$ is upward-closed. Dually, $|U|$ is closed if and only if $U$ is downward-closed.
+\end{lemma}
+\begin{proof}
+    We may use the characterization that $|U|$ is closed if and only if $|U|\cup\partial |U|=|U|$.
+
+    Note that $\partial |U|$ is given by $|U|\setminus \RelInt(|U|)=|U\setminus U^*|$, where $U^*$ is the set of maximal faces of $U$. This means that $|U|$ is closed if and only if $U$ contains everything below its maximal faces.
+
+    Then $|U|$ is open if and only if $|\Sigma|\setminus|U|=|\Sigma\setminus U|$ is closed, i.e., if and only if $\Sigma\setminus U$ is downward-closed, i.e., if and only if $U$ is upward-closed.
+\end{proof}
+
+The topological Goldblatt-Thomason theorem states that a class of topological spaces is modally definable if and only 
+if it's closed under disjoint unions, open subsets, image of open continuous maps and Alexandrov extensions.
+
+We expect our result to be similar (save the extensions, parallelly to the finite frame case) to the topological one, thus a closure under 
+(finite) disjoint unions, some form of open subsets, and some form of open continuous images.

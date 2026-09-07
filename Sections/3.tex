@@ -8,29 +8,67 @@ generalizes a map of posets while not explicitly asking for the simpliciality co
 To any poset we can assign a topology compatible with the topological and polyhedral semantics.
 
 \begin{definition}[Alexandrov topology]
-    Let $(P,\leq)$ be a poset. We call the \textbf{Alexandrov} topology on $P$ the collection $\tau\subseteq \Pp P$ where $U\in\tau$ if and only if $U$ is upward-closed.
+    Let $(P,\leq)$ be a poset. We call the \textbf{Alexandrov} topology on $P$ the collection of upward-closed subsets, i.e. 
+    \[U\in\tau \text{ if and only if }U \text{ is upward-closed}.\]
 \end{definition}
 
-Indeed we showed that every Alexandrov open of the face poset of a polyhedron corresponds to an open in the euclidean topology.
+Given this we may define up-reduction in the topological sense, in a way that agrees with the posetal ones.
 
-We use it to define a weaker version of the up-reduction between polyhedra, not asking an open polyhedral map to a polyhedron but only to its face poset with the Alexandrov topology.
+\begin{definition}[Topological up-reduction]
+    Let $X,Y$ be topological spaces. we call a \textbf{topological up-reduction} any surjective partial map 
+    $f:X\upred Y$ such that
+    \begin{itemize}
+        \item The domain of $f$ is an open subset $U$ of $X$
+        \item $f_{|U}$ is open and continuous.
+    \end{itemize}
+\end{definition}
+
+Similarly we may ask that it respect simpliciality.
+\begin{definition}[Simplicial up-reduction]
+    Let $P,Q$ be Polyhedra. we call a \textbf{simplicial up-reduction} any surjective partial map 
+    $f:P\upred Q$ such that
+    \begin{itemize}
+        \item The domain of $f$ is an open subpolyhedron $U$ of $X$,
+        \item the preimage of every open subpolyhedron of $Q$ is an open subpolyhedron of $P$,
+        \item the image of every open subpolyhedron of $P$ is an open subpolyhedron of $Q$.
+    \end{itemize}
+\end{definition}
+
+Note that in particular, every simplicial up-reduction is a topological up-reduction, as every 
+open subpolyhedron is -in particular- open for the euclidean topology induced by the immersion 
+of the polyhedron in some $\R^n$.
+
+We showed, moreover that every Alexandrov open of the face poset of a polyhedron corresponds 
+to an open subpolyhedron.
+
+\[\begin{tikzcd}[ampersand replacement=\&]
+	{\text{Open Subset}} \&\& {\text{Open Subpolyhedron}} \&\& {\text{Alexandrov open}}
+	\arrow["{/}"{marking, allow upside down}, shift right=2, Rightarrow, from=1-1, to=1-3]
+	\arrow[shift right=2, Rightarrow, from=1-3, to=1-1]
+	\arrow["{\exists \text{ subdivision}}"', shift right=2, Rightarrow, dashed, from=1-3, to=1-5]
+	\arrow["{\text{realizes to}}"', shift right=2, Rightarrow, from=1-5, to=1-3]
+\end{tikzcd}\]
+
+We use it to define a weaker version of the up-reduction between polyhedra, 
+not asking an open polyhedral map to a polyhedron but only to its face poset with the Alexandrov topology.
 
 \begin{definition}[Face up-reduction]
-    Let $P,Q$ be (compact) polyhedra and $K$ a triangulation of $Q$.
+    Let $P,Q$ be (compact) polyhedra.
 
-    A \textbf{face up-reduction} $P\fupred Q$ is a partial map $f:P\upred [K]$ such that
+    A \textbf{face up-reduction} $P\fupred Q$ is a partial map $f:P\upred [K]$, where $K$ is 
+    some triangulation of $Q$ such that
     \begin{enumerate}[(i)]
         \item the preimage of every open of $[K]$ (in the Alexandrov topology) is an open subpolyhedron of $P$;
         \item it is \textbf{open};
         \item it is \textbf{surjective}.
     \end{enumerate}
+    If $f:P\fupred Q$ is a face up-reduction with underlying map $P\upred[K]$ we say that $K$ \textbf{realizes} the face up-reduction.
 \end{definition}
 
 We note the following:
 \begin{proposition}
-    $Q\upred[K]$ for any triangulation $K\in \Tr(Q)$.
-
-    In particular, $Q\fupred Q$.
+    Any polyhedron admits a face up-reduction to itself $Q\fupred Q$.
+    More importantly, any triangulation $K\in\Tr(Q)$ realizes the face up-reduction
 \end{proposition}
 \begin{proof}
     Let $K$ be a triangulation of $Q$, and let $f$ be the map $q\mapsto \sigma_q$, where $\sigma_q$ is the unique face of $K$ such that $q\in\sigma_q$. Since every point of $Q$ lies in a unique such face, $f$ is trivially surjective.
@@ -41,7 +79,9 @@ We note the following:
 
     This same argument shows that the map is open: if $P\subseteq Q$ is an open subpolyhedron, then $Q\setminus P$ is a compact polyhedron, so $[K]\setminus f(P)$ is downward-closed, so $f(P)$ is upward-closed, i.e., open.
 \end{proof}
-\[\begin{tikzpicture}[scale=1]
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}[scale=1]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
   \coordinate (B) at (3.00, 0.00);
@@ -66,55 +106,57 @@ We note the following:
   \draw (H) -- (F);
   \draw (F) -- (I);
   \fill[pastelgreen] (A) circle (1pt);
-  \node[below left, pastelgreen] at (A) {$A$};
+  \node[below left, pastelgreen] at (A) {$a$};
   \fill[pastelgreen] (B) circle (1pt);
-  \node[below right, pastelgreen] at (B) {$B$};
+  \node[below right, pastelgreen] at (B) {$b$};
   \fill[pastelgreen] (C) circle (1pt);
-  \node[above, pastelgreen] at (C) {$C$};
+  \node[above, pastelgreen] at (C) {$c$};
   \fill[pastelgreen] (D) circle (2pt);
-  \node[below left, pastelgreen] at (D) {$A$};
+  \node[below left, pastelgreen] at (D) {$a$};
   \fill[pastelgreen] (E) circle (2pt);
-  \node[below, pastelgreen] at (E) {$B$};
+  \node[below, pastelgreen] at (E) {$b$};
   \fill[pastelgreen] (F) circle (2pt);
-  \node[below right, pastelgreen] at (F) {$C$};
+  \node[below right, pastelgreen] at (F) {$c$};
   \fill[pastelblue] (G) circle (2pt);
-  \node[left, pastelblue] at (G) {$AB$};
+  \node[left, pastelblue] at (G) {$ab$};
   \fill[pastelblue] (H) circle (2pt);
-  \node[below, pastelblue] at (H) {$AC$};
+  \node[below, pastelblue] at (H) {$ac$};
   \fill[pastelblue] (I) circle (2pt);
-  \node[below right, pastelblue] at (I) {$BC$};
+  \node[below right, pastelblue] at (I) {$bc$};
   \fill[pastelred] (J) circle (2pt);
-  \node[above, pastelred] at (J) {$ABC$};
+  \node[above, pastelred] at (J) {$abc$};
   \fill[pastelgreen] (A) circle (1pt);
-  \node[below left, pastelgreen] at (A) {$A$};
+  \node[below left, pastelgreen] at (A) {$a$};
   \fill[pastelgreen] (B) circle (1pt);
-  \node[below right, pastelgreen] at (B) {$B$};
+  \node[below right, pastelgreen] at (B) {$b$};
   \fill[pastelgreen] (C) circle (1pt);
-  \node[above, pastelgreen] at (C) {$C$};
+  \node[above, pastelgreen] at (C) {$c$};
   \fill[pastelgreen] (D) circle (2pt);
-  \node[below left, pastelgreen] at (D) {$A$};
+  \node[below left, pastelgreen] at (D) {$a$};
   \fill[pastelgreen] (E) circle (2pt);
-  \node[below, pastelgreen] at (E) {$B$};
+  \node[below, pastelgreen] at (E) {$b$};
   \fill[pastelgreen] (F) circle (2pt);
-  \node[below right, pastelgreen] at (F) {$C$};
+  \node[below right, pastelgreen] at (F) {$c$};
   \fill[pastelblue] (G) circle (2pt);
-  \node[left, pastelblue] at (G) {$AB$};
+  \node[left, pastelblue] at (G) {$ab$};
   \fill[pastelblue] (H) circle (2pt);
-  \node[below, pastelblue] at (H) {$AC$};
+  \node[below, pastelblue] at (H) {$ac$};
   \fill[pastelblue] (I) circle (2pt);
-  \node[below right, pastelblue] at (I) {$BC$};
+  \node[below right, pastelblue] at (I) {$bc$};
   \fill[pastelred] (J) circle (2pt);
-  \node[above, pastelred] at (J) {$ABC$};
-\end{tikzpicture}\]
-\begin{corollary}
-    If there exists an up-reduction, i.e., an open partial simplicial map $P\upred Q$ whose domain is an open subpolyhedron of $P$, then $P\fupred Q$.
+  \node[above, pastelred] at (J) {$abc$};
+\end{tikzpicture}
+\caption{a face up-reduction of $\Delta_2$ to itself, every point on the left is mapped to the appropriate element of the poset of the same colour and label}
+\end{figure}
+\begin{corollary}\label{fupred}
+    If there exists a simplicial up-reduction $P\upred Q$, then $P\fupred Q$.
 \end{corollary}
 
 
 We may also make explicit that face up-reduction factor through morphisms of posets:
 
-\begin{lemma}
-    Let $f:P\fupred Q$ be a face up-reduction, let $U\subseteq^o P$ be its domain, and let $L$ be the triangulation of $Q$ such that $f:U\upred [L]$.
+\begin{lemma}\label{triangupred}
+    Let $f:P\fupred Q$ be a face up-reduction, let the open subpolyhedron $U\subseteq P$ be its domain, and let $L$ be the triangulation of $Q$ such that $f:U\upred [L]$.
 
     Then there exists a triangulation $K$ of $P$ such that
     \begin{itemize}
@@ -130,12 +172,12 @@ We may also make explicit that face up-reduction factor through morphisms of pos
 
 and recall the pretty standard fact that up-reduction preserve validity, in contrapositive form:
 \begin{lemma}[Up-reductions refute formulas]
-    Let $P$ be a polyhedron, $S$ a poset, and $P\upred S$ an up-reduction.
+    Let $P$ be a polyhedron, $S$ a poset, and $P\upred S$ a topological up-reduction.
 
     If $S\not\models \varphi$, then $P\not\models\varphi$ as well.
 \end{lemma}
 \begin{proof}
-    The proof proceeds essentially as in the topological case in \cite{Gabelaia2001ModalDI}.
+    The proof can be found in \cite{Gabelaia2001ModalDI}.
 \end{proof}
 
 \subsection{Goldblatt-Thomason for compact polyhedra}
@@ -152,15 +194,15 @@ and recall the pretty standard fact that up-reduction preserve validity, in cont
     Closure under disjoint union is trivial: if $P,Q\in \C$, then $P\sqcup Q\models F$.
 
     Now suppose that $P$ is a polyhedron in $\C$ and there exists a face up-reduction $P\fupred X$ 
-    Let us set up a contradiction by supposing $X\notin \C$. By definition, this means that there exists a formula $\varphi\in F$ such that $X\not\models\varphi$.
+    Let us set up a contradiction by supposing $X\notin \C$; by definition, this means that there exists a formula $\varphi\in F$ such that $X\not\models\varphi$.
 
-    Spelling out the validity condition, there exists an evaluation $\nu:\Ll\to \Pp(X)$ and a point $x\in X$ such that $X,x\not\models\varphi$, then by the common triangulation lemma, 
+    Spelling out the validity condition, there exists an evaluation $\nu:\Ll\to \Pp(X)$ and a point $x\in X$ such that $X,x\not\models\varphi$, then by the common triangulation lemma (\ref{commontr}), 
     we may select a triangulation $S$ of $X$ such that $\nu(\varphi)$ is triangulated by $S$.
 
-    If we call $K=(V,\Sigma)$ the triangulation of $X$ realizing the face up-reduction $P\fupred X$, by the ``nerves are dense'' lemma, 
+    If we call $K=(V,\Sigma)$ the triangulation of $X$ realizing the face up-reduction $P\fupred X$, by the ``nerves are dense'' lemma (\ref{nervesdense}), 
     there exists a barycentric subdivision $K^{(n)}$ of $K$ subdividing $S$.
 
-    Since we also know that we can extend any up-p-morphism $P\upred \Sigma$ to an up-p-morphism $P\upred \Sigma^{(k)}$, for any $k\in \N$, 
+    Since we also know that we can extend any up-p-morphism $P\upred \Sigma$ to an up-p-morphism $P\upred \Sigma^{(k)}$, for any $k\in \N$ (\ref{extension}), 
 
     We can produce an up-p-morphism $P\upred \Sigma^{(k)}\upred S$, thus finding a refutation of $\varphi$  in $P$ --- a contradiction since $P\models F$.
 \end{proof}
@@ -186,10 +228,10 @@ and recall the pretty standard fact that up-reduction preserve validity, in cont
 
 Since all up-reductions yield face up-reductions, we can produce the following corollary:
 \begin{corollary}
-    A class of polyhedra closed under finite disjoint unions and simplicial up-reductions is modally definable, where a simplicial up-reduction is an open simplicial partial map $f:P\upred Q$ whose domain is an open subpolyhedron of $P$.
+    A class of polyhedra closed under finite disjoint unions and simplicial up-reductions is modally definable.
 \end{corollary}
 \begin{proof}
-    This follows from Corollary 3.1.4: if $f:P\upred Q$ is a simplicial up-reduction, then there exists a face up-reduction $P\fupred Q$ by composing with the face p-morphism onto any face poset.
+    This follows from Corollary \ref{fupred}: if $f:P\upred Q$ is a simplicial up-reduction, then there exists a face up-reduction $P\fupred Q$ by composing with the face p-morphism onto any face poset.
 \end{proof}
 
 The previous section gives us a strengthening of the theorem: We know that our construction do not depend on the triangulation but can be computed on it. 
@@ -197,16 +239,16 @@ This means that any triangulation works to run the method.
 
 
 \begin{lemma}[Any triangulation]
-    Suppose $P\upred \Sigma$ is an up-reduction, for a triangulation $L=(V,\Sigma)$ of $Q$, and let $L'=(V',\Sigma')$ be a different triangulation of $Q$. Then there also exists an up-reduction $P\upred \Sigma'$.
+    Suppose $L\in\Tr(Q)$ realizes a face up-reduction $f:P\fupred Q$, and let $L'=(V',\Sigma')$ be a different triangulation of $Q$. Then $L'$ realizes $f$ as well.
 \end{lemma}
 \begin{proof}
-    Let $f:P\upred\Sigma$ be an up-reduction with domain $U\subseteq P$. We extend $f$ to $f^{(1)}:P\upred\Sigma^{(1)}$ as follows.
+    Let $\overline{f}:P\upred\Sigma$ be the realization of the face up-reduction with domain $U\subseteq P$. We extend $\overline f$ to $\overline f^{(1)}:P\upred\Sigma^{(1)}$ as follows:
 
-    Take the triangulation $K$ of $P$ realizing $f$ as a simplicial map $\tilde{f}$ (Lemma 3.1.5), and use the subdivision lemma (Lemma 1.3.4) to extract an up-reduction $K'\upred L^{(1)}$.
+    Take the triangulation $K$ of $P$ realizing $\overline f$ as a simplicial map $\tilde{f}$ (Lemma \ref{triangupred}), and use the subdivision lemma (Lemma \ref{subpm}) to extract an up-reduction $K'\upred L^{(1)}$.
 
-    Now, repeatedly applying Lemma 1.3.3, we may iterate this $n$ times so that $L^{(n)}$ is a subdivision of $L'$. This gives a map $h: K^{\prime \cdots\prime }\upred L^{(n)}\twoheadrightarrow L'$.
+    Now, repeatedly applying Lemma \ref{nervesdense}, we may iterate this $n$ times so that $L^{(n)}$ is a subdivision of $L'$. This gives a map $h: K^{\prime \cdots\prime }\upred L^{(n)}\twoheadrightarrow L'$.
 
-    Since $K^{\prime \cdots\prime }$ is a triangulation of $P$, we can extract an up-reduction $g:P\upred L'$ by setting it to be locally constant on the relative interior of each face of $P$.
+    Since $K^{\prime \cdots\prime }$ is a triangulation of $P$, we can extract a map $g:P\upred L'$ by setting it to be locally constant on the relative interior of each face of $P$, thus realizing $P\fupred Q$.
 \end{proof}
 
 In other words, if a face up-reduction exists to one triangulation, then one exists to any triangulation without changing domain.

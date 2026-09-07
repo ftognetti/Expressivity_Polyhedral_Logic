@@ -1,166 +1,161 @@
-\section{Open questions}
-\subsection{A refinement of GTKP}
-The result we have spent the most time trying to obtain is the following refinement:
-\begin{conjecture}
-    A class of compact polyhedra is modally definable if and only if
-    it is closed under finite disjoint unions and simplicial up-reductions.
-\end{conjecture}
+\section{Applications}
+\subsection{Some modally definable classes}
+We start by giving some fairly obvious examples of modally definable classes.
 
-The procedure we have in mind to prove the equivalence between the current result
-and the one above is the following:
-\begin{itemize}
-    \item Consider the face up-reduction $f:P\fupred Q$ realized as $f:P\upred [L]$;
-    \item Realize $f$ as a map $\tilde{f}:[K]\upred [L]$;
-    \item Construct an up-reduction $\tilde{g}:K\upred L$ ``informed by $\tilde{f}$''
-    that is an up-reduction and a map of simplicial complexes;
-    \item Realize $\tilde{g}$ as a simplicial up-reduction $g:P\upred Q$.
-\end{itemize}
-If $\tilde{f}$ were (or were densely contained in) a map of (abstract) simplicial complexes, rather than merely one of posets, our work would be done: it is possible to realize any map of ASCs as a simplicial map of their polyhedra.
+Recall that 
+\[\Pol(F)\coloneqq \set{P\in\Pol:P\models F}\]
 
-In general, though, this is not the case. Consider $P$ to be three segments and $Q$ the triangle (the boundary of the $2$-simplex):
+And some standard formulas: 
+\begin{definition}$ $\\
+    \begin{itemize}
+        \item Grz (the Grzegorczyk formula): \[\b(\b(\varphi\to\b\varphi)\to\varphi)\to \varphi\]
+        \item Bd$_n$ is the Jankov-Fine formula of the linear order of length $n+1$ 
+        \[\text{Bd}_n=\chi(\bullet - \bullet -\cdots -\bullet)\]
+        \item $F_n$ (the $n-$fork) is the poset with a single root and $n$ leaves only connected to the root.
+    \end{itemize}
+\end{definition}
+\begin{figure}[H]
+    \centering 
+    \begin{tikzcd}[ampersand replacement=\&,scale=0.5]
+	\bullet \& \bullet \& \bullet \&\& \bullet \& \bullet \& \bullet \& \bullet \& \bullet \\
+	\& \bullet \& {F_3} \&\&\&\& \bullet \&\& {F_5}
+	\arrow[no head, from=1-1, to=2-2]
+	\arrow[no head, from=1-2, to=2-2]
+	\arrow[no head, from=1-3, to=2-2]
+	\arrow[no head, from=1-5, to=2-7]
+	\arrow[no head, from=1-6, to=2-7]
+	\arrow[no head, from=1-7, to=2-7]
+	\arrow[no head, from=1-8, to=2-7]
+	\arrow[no head, from=1-9, to=2-7]
+\end{tikzcd}
+\caption{A visual representation of the $3-$fork and the $5-$fork}
+\end{figure}
+\begin{proposition}[Bounded dimension]
+    For any given $n\in\N$, the class of polyhedra of dimension
+    $\leq n$ is modally definable.
+\end{proposition}
+\begin{proof}
+    Indeed, it is $\Pol(S4.\text{Grz}.\text{Bd}_n)$.
+    It was shown in previous works (\cite{DBLP,Dekker}) that a polyhedron has dimension 
+    less or equal to $n$ if and only if it validates the bounded depth formula.
+\end{proof}
 
-\[\begin{tikzpicture}[scale=1]
+% An interesting (and somewhat surprising) example of a modally definable class is the following:
+% \begin{proposition}[Locally $\leq \binom{n}{2}$-holed $1d$]
+%     The class of $1d$ polyhedra such that for each point there exist an open neighbourhood
+%     has ``fewer than $\binom{n}{2}$ holes''
+% \end{proposition}
+% \begin{proof}
+%     Indeed, $\C=\Pol(S4.\text{Grz}.\text{Bd}_1.\chi(F_{n+1}))$:
+
+%     We know that every $1$ dimensional polyhedron models $S4.\text{Grz}.\text{Bd}_1$; 
+%     Let $P\in \C$.
+%     Now this means that its face poset contains at most a fork of rank $n$.
+%     Let $p$ be the vertex being the root of the fork of highest degree $k\leq n$.
+%     Then this means that there are exactly $k$ lines sharing $p$ as a vertex.
+
+%     A hole is obtained by joining at least 2 lines. 
+%     Joining $k$ lines to a single point produces $k-1$ holes, which is less than the $\binom{k}{2}$ we would obtain by joining them pairwise.
+
+
+%     This means that the maximum number of holes that contain $p$ as a point is $\binom{k}{2}$ 
+%     (where every pair forms a new hole), meaning the maximum achievable is $\binom{n}{2}$
+
+%     Conversely, if the polyhedron has an open neighbourhood with fewer than $\binom{n}{2}$ holes, 
+%     then by reversing the previous argument, its poset contains at most an $n-$fork branching from a vertex.
+
+%     This means that we can take the neighbourhood as the domain for our face up-reduction, and map it to the face poset of 
+%     the minial $1-$dimensional polyhedron containing an $n-$fork, by mapping the vertex to the root and each prong to a prong.
+% \end{proof}
+
+% \begin{conjecture}
+%     Given the proposition above, we have reason to believe that some form of bounded homology on connected components might also be modally definable. Specifically, within the class of polyhedra of bounded dimension $n$, bounding the rank of the $n^{\text{th}}$ homology group might be achievable using Jankov-Fine formulas.
+% \end{conjecture}
+
+\subsection{Some classes that are not modally definable}
+More interesting are the classes that fail to be modally definable.
+
+Obviously, we have the following.
+\begin{proposition}[Connected spaces]
+    The class of connected polyhedra is not modally definable.
+\end{proposition}
+\begin{proof}
+    It immediately fails to be closed under disjoint unions.
+\end{proof}
+
+\begin{proposition}[Contractible spaces]
+    We call a space \textbf{Locally contractible} if every connected component is contractible.
+
+    The class of all (locally) contractible polyhedra is \textbf{not modally
+    definable}. 
+\end{proposition}
+\begin{proof}
+    The map illustrated by the drawing below describes a face up-reduction.
+  \begin{figure}[H]
+    \centering
+\begin{tikzpicture}[scale=0.7]
   % Coordinates
   \coordinate (A) at (0.00, 0.00);
-  \coordinate (B) at (2.00, 0.00);
-  \coordinate (D) at (0.00, 1.00);
-  \coordinate (E) at (2.00, 1.00);
-  \coordinate (F) at (0.00, 2.00);
+  \coordinate (B) at (1.50, 3.00);
+  \coordinate (C) at (3.00, 0.00);
+  \coordinate (D) at (1.00, 0.50);
+  \coordinate (E) at (2.00, 0.50);
+  \coordinate (F) at (1.50, 1.75);
   \coordinate (J) at (4.00, 0.00);
-  \coordinate (K) at (4.00, 2.00);
-  \coordinate (L) at (5.50, 2.00);
-  \coordinate (M) at (7.00, 0.00);
-  \coordinate (N) at (7.00, 2.00);
-  \coordinate (O) at (5.50, 0.00);
-  \coordinate (P) at (4.00, 4.00);
-  \coordinate (Q) at (7.00, 4.00);
-  \coordinate (R) at (5.50, 6.50);
-  \coordinate (G) at (2.00, 2.00);
-  \coordinate (H) at (1.00, 2.00);
-  \coordinate (I) at (1.00, 1.00);
-  \coordinate (C) at (1.00, 0.00);
+  \coordinate (K) at (5.50, 3.00);
+  \coordinate (L) at (7.00, 0.00);
+  \coordinate (M) at (5.00, 0.50);
+  \coordinate (N) at (5.50, 1.75);
+  \coordinate (O) at (6.00, 0.50);
+  \coordinate (G) at (9.00, 0.50);
+  \coordinate (H) at (10.00, 0.50);
+  \coordinate (I) at (9.50, 1.75);
+  \coordinate (P) at (9.50, 3.00);
+  \coordinate (Q) at (8.00, 0.00);
+  \coordinate (R) at (11.00, 0.00);
+  \coordinate (S) at (12.00, 0.00);
+  \coordinate (T) at (15.00, 0.00);
+  \coordinate (U) at (13.50, 3.00);
 
   % Drawing
-  \draw (A) -- (B);
-  \draw (D) -- (E);
-  \draw (F) -- (G);
-  \draw (J) -- (K);
-  \draw (J) -- (L);
-  \draw (L) -- (M);
-  \draw (M) -- (N);
-  \draw (K) -- (O);
-  \draw (O) -- (N);
-  \draw[gray] (P) -- (Q) -- (R) -- cycle;
-  \draw[pastelred, thick] (F) -- node[above, text=pastelred, midway] {$AC$} (H);
-  \draw (H) -- (G);
-  \draw[pastelgreen, thick] (H) -- node[above, text=pastelgreen, midway] {$BC$} (G);
-  \draw[pastelviolet, thick] (I) -- node[above, text=pastelviolet, midway] {$AB$} (E);
-  \draw[pastelred, thick] (C) -- node[above, text=pastelred, midway] {$AC$} (B);
-  \draw[pastelviolet, thick] (A) -- node[above, text=pastelviolet, midway] {$AB$} (C);
-  \draw[pastelgreen, thick] (D) -- node[above, text=pastelgreen, midway] {$BC$} (I);
-  \draw[pastelviolet,thick] (P) -- (Q);
-  \draw[pastelred, thick] (P) -- (R);
-  \fill[pastelred] (B) circle (1pt);
-  \draw[pastelgreen, thick] (R) -- (Q);
-  \fill[pastelviolet] (A) circle (1pt);
-  \fill[pastelgreen] (D) circle (1pt);
-  \fill[pastelviolet] (E) circle (1pt);
-  \fill[pastelred] (F) circle (1pt);
-  \fill[pastelblue] (J) circle (1pt);
-  \node[above left, pastelblue] at (J) {$A$};
-  \fill[pastelviolet] (K) circle (1pt);
-  \node[above left, pastelviolet] at (K) {$AB$};
-  \fill[pastelred] (L) circle (1pt);
-  \node[above, pastelred] at (L) {$AC$};
-  \fill[pastelblue] (M) circle (1pt);
-  \node[above right, pastelblue] at (M) {$C$};
-  \fill[pastelgreen] (N) circle (1pt);
-  \node[above right, pastelgreen] at (N) {$BC$};
-  \fill[pastelblue] (O) circle (1pt);
-  \node[above, pastelblue] at (O) {$B$};
-  \fill[pastelblue] (P) circle (1pt);
-  \node[below left, pastelblue] at (P) {$A$};
-  \fill[pastelblue] (Q) circle (1pt);
-  \node[below right, pastelblue] at (Q) {$B$};
-  \fill[pastelblue] (R) circle (1pt);
-  \node[left, pastelblue] at (R) {$C$};
-  \fill[pastelgreen] (G) circle (1pt);
-  \fill[pastelblue] (H) circle (1pt);
-  \node[above, pastelblue] at (H) {$C$};
-  \fill[pastelblue] (I) circle (1pt);
-  \node[above, pastelblue] at (I) {$B$};
-  \fill[pastelblue] (C) circle (1pt);
-  \node[above, pastelblue] at (C) {$A$};
-  \fill[pastelblue] (J) circle (1pt);
-  \node[above left, pastelblue] at (J) {$A$};
-  \fill[pastelviolet] (K) circle (1pt);
-  \node[above left, pastelviolet] at (K) {$AB$};
-  \fill[pastelred] (L) circle (1pt);
-  \node[above, pastelred] at (L) {$AC$};
-  \fill[pastelblue] (M) circle (1pt);
-  \node[above right, pastelblue] at (M) {$C$};
-  \fill[pastelgreen] (N) circle (1pt);
-  \node[above right, pastelgreen] at (N) {$BC$};
-  \fill[pastelblue] (O) circle (1pt);
-  \node[above, pastelblue] at (O) {$B$};
-  \fill[pastelblue] (P) circle (1pt);
-  \node[below left, pastelblue] at (P) {$A$};
-  \fill[pastelblue] (Q) circle (1pt);
-  \node[below right, pastelblue] at (Q) {$B$};
-  \fill[pastelblue] (R) circle (1pt);
-  \node[left, pastelblue] at (R) {$C$};
-  \fill[pastelblue] (H) circle (1pt);
-  \node[above, pastelblue] at (H) {$C$};
-  \fill[pastelblue] (I) circle (1pt);
-  \node[above, pastelblue] at (I) {$B$};
-  \fill[pastelblue] (C) circle (1pt);
-  \node[above, pastelblue] at (C) {$A$};
-\end{tikzpicture}\]
+  \filldraw[pastelred, fill=black, fill opacity=0.3] (A) -- (B) -- (C) -- cycle;
+  \draw (D) -- (E) -- (F) -- cycle;
+  \draw (F) -- (B);
+  \draw (A) -- (D);
+  \draw (E) -- (C);
+  \filldraw[fill=pastelred, fill opacity=0.3] (A) -- (D) -- (F) -- (B);
+  \filldraw[fill=pastelred, fill opacity=0.3] (B) -- (F) -- (E) -- (C);
+  \filldraw[fill=pastelred, fill opacity=0.3] (C) -- (E) -- (D) -- (A);
+  \draw[pastelred] (J) -- (K) -- (L) -- cycle;
+  \draw[pastelred, dashed] (M) -- (N) -- (O) -- cycle;
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (M) -- (J) -- (K) -- (N);
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (O) -- (L) -- (K) -- (N);
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (G) -- (Q) -- (P) -- (I) -- cycle;
+  \filldraw[pastelred, fill=pastelred, fill opacity=0.3] (M) -- (J) -- (L) -- (O);
+  \filldraw[pastelgreen, fill=pastelgreen, fill opacity=0.3] (R) -- (H) -- (I) -- (P) -- cycle;
+  \filldraw[pastelviolet, fill=pastelviolet, fill opacity=0.3] (Q) -- (R) -- (H) -- (G) -- cycle;
+  \draw[pastelblue] (I) -- (P);
+  \draw[pastelblue] (H) -- (R);
+  \draw[pastelblue] (G) -- (Q);
+  \draw[pastelred] (S) -- (U);
+  \draw[pastelgreen] (T) -- (U);
+  \draw[pastelviolet] (S) -- (T);
+  \fill[pastelblue] (S) circle (2pt);
+  \fill[pastelblue] (T) circle (2pt);
+  \fill[pastelblue] (U) circle (2pt);
+  \draw[white,dashed] (G) -- (G) -- (H) -- (I) -- cycle;
+\end{tikzpicture}
+\caption{A simplicial up-reduction $\Delta_2\upred\partial\Delta_2$. In order, $\Delta_2$, the domain of the map, a coloring of the domain and the codomain showing what maps to what.}
+\end{figure}
+\end{proof}
 
-The Hasse diagram (bottom right) is $L$; the three segments are $P$, and the triangle is $Q$. The map is indicated by the coloring.
+\begin{proposition}
+    The class of convex polyhedra and the class of PL-manifolds are not modally definable.
+\end{proposition}
+\begin{proof}
+    Given a convex polyhedron, we may find a non-convex polyhedron with face poset isomorphic to one of its subdivision, just by moving a vertex 
+    to the interior of a maximal face.
+    This means that we found a non-convex polyhedron that validates and refutes all the formulas that the original did.
 
-One can check that it is a p-morphism, but clearly not a map of simplicial complexes, since the images of the vertices are not themselves vertices.
-
-\subsection{The precompact case}
-
-How do things change if we allow open polyhedra? We gain access to generated subframes, but the relationship between polyhedra and simplicial complexes becomes looser:
-
-Consider the poset consisting of a single point: it is the poset of the maximal face of any simplex.
-
-Moreover, even if we try to circumvent this problem by considering the closure of a face --- which is indeed a simplicial complex --- we can find cases where the combinatorial description fails to be PL-invariant.
-
-For example, consider the disjoint union of two triangles:
-\[\begin{tikzpicture}[scale=1]
-  % Coordinates
-  \coordinate (A) at (0.00, 0.00);
-  \coordinate (B) at (0.00, 2.00);
-  \coordinate (C) at (2.00, 0.00);
-  \coordinate (D) at (0.00, 3.00);
-  \coordinate (E) at (2.00, 1.00);
-  \coordinate (F) at (2.00, 3.00);
-  \coordinate (G) at (3.00, 1.01);
-  \coordinate (H) at (4.00, 2.00);
-  \coordinate (I) at (4.00, 0.00);
-  \coordinate (J) at (6.00, 0.00);
-  \coordinate (K) at (6.00, 2.00);
-
-  % Drawing
-  \filldraw[dashed, fill=black, fill opacity=0.3] (A) -- (B) -- (C) -- cycle;
-  \filldraw[dashed, fill=black, fill opacity=0.3] (D) -- (E) -- (F) -- cycle;
-  \filldraw[dashed, fill=black, fill opacity=0.3] (H) -- (I) -- (J) -- cycle;
-  \filldraw[dashed, fill=black, fill opacity=0.3] (H) -- (K) -- (J) -- cycle;
-  \node[above, black] at (G) {$\simeq$};
-\end{tikzpicture}\]
-
-The two objects are PL-homeomorphic, but their simplicial complexes are not.
-\subsection{The infinite case}
-
-An interesting question is what happens when we allow arbitrarily large simplicial complexes, both in dimension and in number of simplices: the relevant class is then no longer that of finite transitive frames, but of arbitrary ones.
-\begin{itemize}
-    \item What is the geometric realization of an arbitrarily large abstract simplicial complex?
-    \item What is the ultrafilter extension of an arbitrarily large simplicial complex?
-    \item How do we describe such an ultrafilter extension geometrically?
-    \item (Abstract) simplicial complexes admit a coalgebraic description: they form a class of $\Pp\circ \Pp$-coalgebras over sets
-    (the map $V\to \Pp\Pp V$ associates to every point the up-set of simplices containing it).
-    Do completeness and definability results in that setting coincide with the usual ones?
-\end{itemize}
+    PL-manifolds (in the sense of \cite{Dekker}\textbf{3}) are even simpler, as they're not closed under disjoint unions.
+\end{proof}

@@ -1,16 +1,103 @@
 \section*{Introduction}
-\addcontentsline{toc}{section}{Introduction}
 
-Modal logic is most commonly interpreted over Kripke frames, but it also admits a variety of spatial semantics, in which formulas are read as denoting regions of a topological or geometric space. One of the earliest results of this kind is the McKinsey--Tarski interpretation of $S4$ over arbitrary topological spaces, with the diamond modality read as topological closure. A recurring theme in this line of work is to ask how much of the classical model theory of modal logic --- soundness and completeness, but also correspondence-theoretic results --- survives the move from frames to spaces.
+Modal logic is most commonly interpreted over Kripke frames, 
+but it also admits a variety of spatial semantics, 
+in which formulas are read as denoting 
+regions of a topological or geometric space.
+One of the earliest results of this kind is the McKinsey--Tarski 
+interpretation of $S4$ over arbitrary topological spaces, 
+with the diamond modality read as topological closure. 
+A recurring theme in this line of work is to ask how much 
+of the classical model theory of modal logic 
+(soundness and completeness, but also correspondence-theoretic results)
+survives the move from frames to spaces.
 
-One of the cornerstones of correspondence theory for Kripke frames is the Goldblatt-Thomason theorem: a class of finite transitive frames is modally definable if and only if it is closed under finite disjoint unions, generated subframes, and p-morphic images \cite{Blackburn_Rijke_Venema_2001}. This result gives a purely semantic, structural characterization of the classes of frames that can be picked out by a set of modal formulas, and analogues of it have since been sought in other semantics for modal logic. In the topological setting, ten Cate, Gabelaia and Sustretov obtained such an analogue for modal languages interpreted over topological spaces \cite{TENCATE}, building on earlier work on modal definability in topology \cite{Gabelaia2001ModalDI}.
+One of the cornerstones of correspondence theory for Kripke frames
+is the Goldblatt-Thomason theorem: 
+a class of frames is modally definable 
+if and only if it is closed under finite disjoint unions, 
+generated subframes, p-morphic images, and it's closed under 
+and reflects ultrafilter extensions
+\cite{Blackburn_Rijke_Venema_2001}. 
+This result gives a purely semantic, 
+structural characterization of the classes of frames 
+that can be picked out by a set of modal formulas, 
+and analogues of it have since been sought 
+in other semantics for modal logic. 
+In the topological setting, ten Cate, Gabelaia and Sustretov 
+obtained such an analogue for modal languages 
+interpreted over topological spaces \cite{TENCATE}, 
+building on earlier work on modal definability in topology 
+\cite{Gabelaia2001ModalDI}.
 
-More recently, attention has turned to a semantics that sits between the relational and the topological: polyhedral semantics, in which formulas are evaluated on compact polyhedra, with the diamond of a formula interpreted as the closure of a union of relative interiors of subpolyhedra. This semantics was developed systematically by Dekker \cite{Dekker}, and is closely tied to applications in spatial and geometric model checking \cite{DBLP}. Its distinguishing feature is that it is compatible with the classical relational semantics for the logic $S4.\text{Grz}$: any triangulation of a polyhedron $P$ gives rise to a finite poset, its face poset, and evaluating a formula on $P$ agrees with evaluating it on this poset, regarded as a Kripke frame. Every compact polyhedron is thus tied to an entire family of finite transitive frames, one for each of its triangulations.
+More recently, attention has turned to a semantics 
+that sits between the relational and the topological: 
+polyhedral semantics, in which formulas are evaluated on 
+compact polyhedra, with the diamond of a formula 
+interpreted as the closure of the subpolyhedron to which the formula evaluates. 
+This semantics was developed systematically by Dekker \cite{Dekker}, 
+and is closely tied to applications in spatial 
+and geometric model checking \cite{DBLP}. 
 
-This correspondence raises a natural question, which is the starting point of the present paper: does a Goldblatt-Thomason-type theorem hold for compact polyhedra? Answering it is not simply a matter of transporting the classical statement across the correspondence. Compact polyhedra do not admit generated subpolyhedra in the naive sense: the polyhedral realization of a generated subframe is an open subpolyhedron, and an open subpolyhedron of a compact polyhedron is never itself compact. The class of compact polyhedra is therefore automatically closed under an operation it cannot exhibit, and the classical closure conditions must be reformulated to make sense in this setting.
+This new semantics raises a natural question, 
+which is the starting point of the present paper: 
+does a Goldblatt-Thomason-type theorem hold for compact polyhedra? 
+Answering it is not simply a matter of transporting the classical 
+statement across the correspondence. 
+Compact polyhedra do not admit generated subpolyhedra 
+in the naive sense: the polyhedral realization of a 
+generated subframe is an open subpolyhedron, which in general fails to be 
+compact, and formulating the equivalent notion of a p-morphism in this setting
+is a non-trivial task.
 
-Our main contribution is such a reformulation, together with a proof that it is exactly the right one. We introduce the notion of a \textbf{face up-reduction} between compact polyhedra: a partial map into the face poset of a triangulation of the target, required to be open and surjective, and to pull back opens of the Alexandrov topology to open subpolyhedra. Face up-reductions play the role that p-morphic images of generated subframes play classically, without requiring the source or target to admit an open (non-compact) substructure. Our central result, Theorem 3.2.1 (GTKP), states that a class of compact polyhedra is modally definable if and only if it is closed under finite disjoint unions and face up-reductions.
+Our main contribution is such a reformulation, 
+together with a proof that it is exactly the right one. 
+We introduce the notion of a \textbf{face up-reduction} 
+between compact polyhedra: 
+a partial map into the face poset of a triangulation of the target polyhedron, 
+required to be open and surjective, 
+and to pull back opens of the Alexandrov topology to open subpolyhedra. 
+Face up-reductions play the role that p-morphic images 
+of generated subframes play classically. Our central result, Theorem 3.2.1 (GTKP), 
+states that a class of compact polyhedra is modally definable 
+if and only if it is closed under finite disjoint unions and 
+face up-reductions.
 
-To prove this we develop, largely following \cite{Dekker}, the combinatorics of triangulations needed to move between a polyhedron and any one of its face posets: barycentric subdivision, common triangulations of a polyhedron and a subpolyhedron, and the fact that repeated subdivision of a triangulation eventually refines any other triangulation of the same polyhedron. These facts, standard in piecewise-linear topology \cite{PLTopology}, let us transport p-morphisms and Jankov-Fine formulas between a polyhedron and its triangulations without changing the logic being described.
+To prove this we develop, largely following \cite{Dekker}, 
+the combinatorics of triangulations needed to move between 
+a polyhedron and any one of its face posets: 
+barycentric subdivision, common triangulations of 
+a polyhedron and a subpolyhedron, 
+and the fact that repeated subdivision of a triangulation 
+eventually refines any other triangulation of the same polyhedron. 
+These facts, standard in piecewise-linear topology \cite{PLTopology}, 
+let us transport p-morphisms and Jankov-Fine formulas 
+between a polyhedron and its triangulations without changing 
+the logic being described.
 
-The paper is organized as follows. Section 1 recalls simplicial complexes, polyhedra, and the correspondence between simplicial complexes, abstract simplicial complexes, and posets via the nerve construction, together with the subdivision lemmas used throughout the paper. Section 2 sets up polyhedral semantics, its connection to the relational semantics of $S4.\text{Grz}$, and recalls the classical Goldblatt-Thomason theorem and the Jankov-Fine axiomatization in the form we will need. Section 3 introduces face up-reductions and proves our main theorem, along with a corollary for simplicial up-reductions and a lemma showing the result does not depend on the choice of triangulation. Section 4 discusses open questions, chiefly a conjectured strengthening of our theorem to simplicial up-reductions, and examines what changes if we allow open or infinite polyhedra. Section 5 closes the paper with concrete examples of modally definable and non-modally-definable classes of compact polyhedra.
+The paper is organized as follows:
+\begin{itemize}
+    \item Section 1 recalls simplicial complexes, polyhedra, 
+and the correspondence between simplicial complexes, 
+abstract simplicial complexes, and posets via the nerve construction, 
+together with the subdivision lemmas used throughout the paper. 
+    \item Section 2 sets up polyhedral semantics, 
+its connection to the relational semantics of $S4.\text{Grz}$,
+and recalls the classical Goldblatt-Thomason theorem and 
+the Jankov-Fine axiomatization in the form we will need.
+    \item Section 3 introduces face up-reductions and proves our main theorem, 
+along with a corollary for simplicial up-reductions and 
+a lemma showing the result does not depend on the choice of triangulation. 
+    \item Section 4 provides concrete examples of modally definable 
+and non-modally-definable classes of compact polyhedra.
+    \item Section 5 closes the paper discussing open questions, 
+chiefly a conjectured strengthening of our theorem 
+to simplicial up-reductions, 
+and examines what changes if we allow open or infinite polyhedra. 
+\end{itemize}
+
+ 
+
+
+
+
